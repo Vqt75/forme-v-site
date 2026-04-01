@@ -1205,49 +1205,45 @@ au moment où le récit n’est pas encore structuré, et où sa forme reste à 
         </div>
 
         <!-- FORMULAIRE -->
-        <div>
-          <p class="t-label mb-lg">Nous écrire</p>
-          <form action="https://formspree.io/f/mwvwqzjp" method="POST">
-            <div class="form-field">
-              <label class="form-label">Nom et prénom</label>
-              <input type="text" class="form-input" placeholder="Votre nom">
-            </div>
-            <div class="form-field">
-              <label class="form-label">Organisation</label>
-              <input type="text" class="form-input" placeholder="Votre organisation">
-            </div>
-            <div class="form-field">
-              <label class="form-label">Adresse email</label>
-              <input type="email" class="form-input" placeholder="votre@email.fr">
-            </div>
-            <div class="form-field">
-              <label class="form-label">Type de situation</label>
-              <select class="form-select">
-                <option value="">Choisir une situation</option>
-                <option>Récit invisible</option>
-                <option>Récit technique</option>
-                <option>Récit défensif</option>
-                <option>Récit fragmenté</option>
-                <option>Récit épuisé</option>
-                <option>Récit capturé</option>
-                <option>Je ne sais pas encore</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Décrivez votre situation en quelques lignes</label>
-              <textarea class="form-input form-textarea" placeholder="Qu'est-ce qui ne prend pas ? Qu'est-ce qui reste flou, inaudible ou inefficace ? Dans quel contexte intervenez-vous ?"></textarea>
-            </div>
-            <div style="margin-top: 2.5rem;">
-              <button type="submit" class="btn">Envoyer le message</button>
-            </div>
-          </form>
-          <div id="form-success" style="display:none; margin-top: 2rem; padding: 1.5rem; border-left: 2px solid var(--blue-ink);">
-            <p style="font-size: 0.9375rem; color: var(--ink);">Message transmis. Nous reviendrons vers vous rapidement.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<div>
+<p class="t-label mb-lg">Nous écrire</p>
+<form action="https://formspree.io/f/mwvwqzjp" method="POST">
+<div class="form-field">
+<label class="form-label">Nom et prénom</label>
+<input type="text" name="name" class="form-input" placeholder="Votre nom">
+</div>
+<div class="form-field">
+<label class="form-label">Organisation</label>
+<input type="text" name="organisation" class="form-input" placeholder="Votre organisation">
+</div>
+<div class="form-field">
+<label class="form-label">Adresse email</label>
+<input type="email" name="email" class="form-input" placeholder="votre@email.fr" required>
+</div>
+<div class="form-field">
+<label class="form-label">Type de situation</label>
+<select name="situation" class="form-select">
+<option value="">Choisir une situation</option>
+<option>Récit invisible</option>
+<option>Récit technique</option>
+<option>Récit défensif</option>
+<option>Récit fragmenté</option>
+<option>Récit épuisé</option>
+<option>Récit capturé</option>
+<option>Je ne sais pas encore</option>
+</select>
+</div>
+<div class="form-field">
+<label class="form-label">Décrivez votre situation en quelques lignes</label>
+<textarea name="message" class="form-input form-textarea" placeholder="Qu'est-ce qui ne prend pas ? Qu'est-ce qui reste flou, inaudible ou inefficace ? Dans quel contexte intervenez-vous ?" required></textarea>
+</div>
+<!-- optionnel mais recommandé -->
+<input type="hidden" name="_subject" value="Nouveau message – Forme V">
+<div style="margin-top: 2.5rem;">
+<button type="submit" class="btn">Envoyer le message</button>
+</div>
+</form>
+</div>
 
 </div><!-- /page-contact -->
 
