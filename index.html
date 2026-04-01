@@ -1,1 +1,1247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forme V — Architecture de récits et dispositifs d'attention</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500&family=Neue+Haas+Grotesk+Display+Pro:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ── RESET & BASE ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  :root {
+    --black: #0A0A08;
+    --white: #FAFAF7;
+    --ink: #1A1A18;
+    --gray-mid: #6B6B68;
+    --gray-light: #E8E8E2;
+    --gray-rule: #D0D0C8;
+    --blue-ink: #1E3A5F;
+    --anthracite: #2C2C2A;
+    --ocre: #8B6914;
+    --ocre-light: #F5EDD6;
+    --ff-sans: 'Helvetica Neue', 'Arial', sans-serif;
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+    --space-xl: 8rem;
+    --space-2xl: 12rem;
+    --max-w: 1200px;
+    --col-narrow: 600px;
+    --grid-gap: 3rem;
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--ink);
+    font-family: var(--ff-sans);
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── TYPOGRAPHY ── */
+  h1, h2, h3, h4, h5 { font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; }
+
+  .t-display {
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 300;
+    letter-spacing: -0.04em;
+    line-height: 1.0;
+  }
+  .t-headline { font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 300; letter-spacing: -0.03em; }
+  .t-title { font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 400; letter-spacing: -0.02em; }
+  .t-body { font-size: 1rem; line-height: 1.7; }
+  .t-small { font-size: 0.8125rem; line-height: 1.5; letter-spacing: 0.02em; }
+  .t-label { font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 400; color: var(--gray-mid); }
+  .t-number { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 300; letter-spacing: -0.04em; }
+
+  .fw-medium { font-weight: 500; }
+  .c-gray { color: var(--gray-mid); }
+  .c-blue { color: var(--blue-ink); }
+  .c-ocre { color: var(--ocre); }
+
+  /* ── LAYOUT ── */
+  .container { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--space-md); }
+  .container--narrow { max-width: var(--col-narrow); margin: 0 auto; padding: 0 var(--space-md); }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--grid-gap); }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--grid-gap); }
+  .grid-asymmetric { display: grid; grid-template-columns: 1fr 2fr; gap: var(--grid-gap); }
+
+  /* ── RULES & BORDERS ── */
+  .rule { border: none; border-top: 1px solid var(--gray-rule); }
+  .rule--heavy { border-color: var(--ink); }
+  .rule--blue { border-color: var(--blue-ink); }
+
+  /* ── NAV ── */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-rule);
+    height: 56px;
+    display: flex;
+    align-items: center;
+  }
+  .nav__inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .nav__logo {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .nav__links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav__links a {
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    color: var(--gray-mid);
+    transition: color 0.2s;
+  }
+  .nav__links a:hover { color: var(--ink); }
+  .nav__cta {
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    padding: 0.375rem 1rem;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: var(--space-xl) 0; }
+  .section--hero { padding: calc(var(--space-2xl) + 56px) 0 var(--space-xl); }
+  .section--tight { padding: var(--space-lg) 0; }
+  .section--dark { background: var(--ink); color: var(--white); }
+  .section--anthracite { background: var(--anthracite); color: var(--white); }
+  .section--ocre-light { background: var(--ocre-light); }
+
+  /* ── PAGE SECTIONS (navigation) ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── HERO ── */
+  .hero__eyebrow {
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    margin-bottom: var(--space-md);
+  }
+  .hero__title {
+    margin-bottom: var(--space-lg);
+    max-width: 900px;
+  }
+  .hero__rule {
+    width: 48px;
+    height: 1px;
+    background: var(--ink);
+    margin-bottom: var(--space-md);
+  }
+  .hero__intro {
+    font-size: 1.1875rem;
+    line-height: 1.65;
+    max-width: 560px;
+    color: var(--anthracite);
+  }
+
+  /* ── STATEMENT BLOCK ── */
+  .statement {
+    max-width: 820px;
+    margin: 0 auto;
+    text-align: left;
+    padding: var(--space-xl) 0;
+    border-top: 1px solid var(--gray-rule);
+  }
+  .statement__text {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 300;
+    line-height: 1.45;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-md);
+  }
+
+  /* ── CARDS / BLOCKS ── */
+  .card {
+    border: 1px solid var(--gray-rule);
+    padding: 2rem;
+  }
+  .card--dark {
+    background: var(--ink);
+    color: var(--white);
+    border-color: var(--ink);
+  }
+  .card--blue {
+    border-left: 3px solid var(--blue-ink);
+    padding-left: 1.5rem;
+  }
+  .card__num {
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    color: var(--gray-mid);
+    margin-bottom: 1.5rem;
+  }
+  .card__title {
+    font-size: 1.125rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+  .card__body { font-size: 0.9375rem; line-height: 1.65; color: var(--gray-mid); }
+
+  /* Irregular hand-drawn border effect */
+  .frame {
+    position: relative;
+    padding: 2.5rem;
+    border: 1px solid var(--ink);
+    clip-path: polygon(
+      0% 1.5%, 1% 0%, 98.5% 0.5%, 100% 1%,
+      99.5% 98.5%, 100% 100%, 1.5% 99%, 0% 100%
+    );
+  }
+  .frame--blue {
+    border-color: var(--blue-ink);
+    clip-path: polygon(
+      0.5% 0%, 100% 0.8%, 99% 99.5%, 0% 100%
+    );
+  }
+
+  /* ── DIAGNOSTIC TABLE ── */
+  .diag-table { width: 100%; border-collapse: collapse; }
+  .diag-table td, .diag-table th {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--gray-rule);
+    font-size: 0.9375rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  .diag-table th { font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-mid); font-weight: 400; }
+  .diag-table td:first-child { color: var(--ink); font-weight: 500; width: 35%; }
+  .diag-table td:last-child { color: var(--gray-mid); }
+
+  /* ── THREE ACTS ── */
+  .acts { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .act {
+    padding: 3rem 2.5rem;
+    border-right: 1px solid var(--gray-rule);
+  }
+  .act:last-child { border-right: none; }
+  .act__acte { font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 1.5rem; }
+  .act__title { font-size: 1.5rem; font-weight: 300; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+  .act__list { list-style: none; }
+  .act__list li { font-size: 0.9rem; padding: 0.5rem 0; border-bottom: 1px solid var(--gray-rule); color: var(--gray-mid); }
+  .act__list li:last-child { border-bottom: none; }
+
+  /* ── SITUATIONS GRID ── */
+  .sit-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
+  .sit-item {
+    padding: 2.5rem;
+    border-right: 1px solid var(--gray-rule);
+    border-bottom: 1px solid var(--gray-rule);
+  }
+  .sit-item:nth-child(2n) { border-right: none; }
+  .sit-item__tag {
+    display: inline-block;
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue-ink);
+    border: 1px solid var(--blue-ink);
+    padding: 0.25rem 0.625rem;
+    margin-bottom: 1.25rem;
+  }
+  .sit-item__title { font-size: 1.25rem; font-weight: 400; margin-bottom: 1rem; }
+  .sit-item__body { font-size: 0.9rem; line-height: 1.65; color: var(--gray-mid); }
+
+  /* ── QUOTE / CITATION ── */
+  .pull-quote {
+    font-size: clamp(1.3rem, 2.5vw, 1.875rem);
+    font-weight: 300;
+    line-height: 1.45;
+    letter-spacing: -0.02em;
+    border-left: 2px solid var(--ink);
+    padding-left: 2rem;
+    margin: var(--space-lg) 0;
+  }
+  .pull-quote--white { border-color: var(--white); color: var(--white); }
+
+  /* ── ABSTRACT SCHEMA ── */
+  .schema { margin: var(--space-lg) 0; }
+  .schema svg { width: 100%; height: auto; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--gray-rule);
+    padding: 3rem 0;
+  }
+  .footer__inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .footer__brand { font-size: 0.9375rem; font-weight: 500; }
+  .footer__tagline { font-size: 0.8125rem; color: var(--gray-mid); margin-top: 0.25rem; }
+  .footer__links { display: flex; gap: 2rem; list-style: none; }
+  .footer__links a { font-size: 0.8125rem; color: var(--gray-mid); text-decoration: none; }
+  .footer__links a:hover { color: var(--ink); }
+
+  /* ── CONTACT FORM ── */
+  .form-field { margin-bottom: 2rem; }
+  .form-label { display: block; font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 0.75rem; }
+  .form-input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--gray-rule);
+    background: transparent;
+    font-family: var(--ff-sans);
+    font-size: 1rem;
+    color: var(--ink);
+    padding: 0.5rem 0;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus { border-color: var(--ink); }
+  .form-textarea { resize: none; min-height: 120px; }
+  .form-select {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--gray-rule);
+    background: transparent;
+    font-family: var(--ff-sans);
+    font-size: 1rem;
+    color: var(--ink);
+    padding: 0.5rem 0;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+  }
+  .btn {
+    background: var(--ink);
+    color: var(--white);
+    border: none;
+    font-family: var(--ff-sans);
+    font-size: 0.875rem;
+    letter-spacing: 0.06em;
+    padding: 1rem 2.5rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .btn:hover { opacity: 0.8; }
+
+  /* ── SPACERS ── */
+  .mt-sm { margin-top: var(--space-sm); }
+  .mt-md { margin-top: var(--space-md); }
+  .mt-lg { margin-top: var(--space-lg); }
+  .mt-xl { margin-top: var(--space-xl); }
+  .mb-sm { margin-bottom: var(--space-sm); }
+  .mb-md { margin-bottom: var(--space-md); }
+  .mb-lg { margin-bottom: var(--space-lg); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .grid-2, .grid-3, .grid-asymmetric { grid-template-columns: 1fr; }
+    .acts { grid-template-columns: 1fr; }
+    .act { border-right: none; border-bottom: 1px solid var(--gray-rule); }
+    .sit-grid { grid-template-columns: 1fr; }
+    .sit-item { border-right: none; }
+    .footer__inner { flex-direction: column; gap: 2rem; align-items: flex-start; }
+    .nav__links { display: none; }
+  }
+
+  /* ── ABOUT BIO ── */
+  .bio-wrap {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .bio-initial {
+    width: 80px;
+    height: 80px;
+    border: 1px solid var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════
+     NAVIGATION
+══════════════════════════════════════════════════════════════ -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="#" class="nav__logo" onclick="showPage('accueil')">Forme V</a>
+    <ul class="nav__links">
+      <li><a href="#" onclick="showPage('methode')">Méthode</a></li>
+      <li><a href="#" onclick="showPage('situations')">Situations</a></li>
+      <li><a href="#" onclick="showPage('apropos')">À propos</a></li>
+    </ul>
+    <a href="#" class="nav__cta" onclick="showPage('contact')">Nous contacter</a>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     PAGE 1 — ACCUEIL
+══════════════════════════════════════════════════════════════ -->
+<div id="page-accueil" class="page active">
+
+  <!-- HERO -->
+  <section class="section--hero">
+    <div class="container">
+      <p class="hero__eyebrow">Studio stratégique et narratif — Paris</p>
+      <h1 class="t-display hero__title">
+        Donner une forme<br>audible à ce que vous<br>avez réellement à dire.
+      </h1>
+      <div class="hero__rule"></div>
+      <p class="hero__intro">
+        Forme V aide les organisations à comprendre pourquoi leur parole n'émerge pas,
+        puis à concevoir les récits, les formats et les dispositifs qui lui permettent
+        de circuler.
+      </p>
+    </div>
+  </section>
+
+  <!-- RÈGLE HAUTE -->
+  <div class="container">
+    <hr class="rule">
+  </div>
+
+  <!-- THÈSE -->
+  <section class="section--tight">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start;">
+        <div>
+          <p class="t-label">Thèse centrale</p>
+        </div>
+        <div class="statement">
+          <p class="statement__text">
+            Dans un espace public saturé, l'enjeu n'est plus seulement de prendre la parole.<br>
+            Il s'agit de lui donner une forme lisible, crédible et mémorable.
+          </p>
+          <p style="font-size: 0.9375rem; color: var(--gray-mid); line-height: 1.7;">
+            Une institution agit mais n'est pas entendue. Une organisation transforme réellement
+            mais ne parvient pas à le rendre perceptible. Une parole utile reste technique,
+            défensive, fragmentée ou capturée. Le problème n'est pas toujours le fond.
+            Très souvent, c'est l'architecture du récit qui manque.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TROIS ACTES — APERÇU -->
+  <section style="padding: 0 0 var(--space-xl);">
+    <div class="container">
+      <hr class="rule mb-lg">
+      <p class="t-label mb-md">Méthode en trois actes</p>
+      <div class="acts" style="border: 1px solid var(--gray-rule);">
+        <div class="act">
+          <p class="act__acte">Acte 01</p>
+          <h3 class="act__title">Comprendre</h3>
+          <ul class="act__list">
+            <li>Diagnostic narratif</li>
+            <li>Analyse du contexte</li>
+            <li>Cartographie des tensions</li>
+            <li>Compréhension des publics</li>
+          </ul>
+        </div>
+        <div class="act">
+          <p class="act__acte">Acte 02</p>
+          <h3 class="act__title">Reformuler</h3>
+          <ul class="act__list">
+            <li>Plateforme de récit</li>
+            <li>Clarification du positionnement</li>
+            <li>Territoire d'expression</li>
+            <li>Messages structurants</li>
+          </ul>
+        </div>
+        <div class="act">
+          <p class="act__acte">Acte 03</p>
+          <h3 class="act__title">Activer</h3>
+          <ul class="act__list">
+            <li>Stratégie de déploiement</li>
+            <li>Dispositifs d'attention</li>
+            <li>Activations par publics</li>
+            <li>Circulations éditoriales, médiatiques ou événementielles</li>
+          </ul>
+        </div>
+      </div>
+      <div style="text-align: right; margin-top: 1.5rem;">
+        <a href="#" onclick="showPage('methode')" style="font-size: 0.8125rem; color: var(--gray-mid); letter-spacing: 0.04em; text-decoration: none;">Voir la méthode complète →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHÉMA ABSTRAIT -->
+  <section style="padding: 0 0 var(--space-xl);">
+    <div class="container">
+      <hr class="rule mb-lg">
+      <div class="grid-asymmetric">
+        <div>
+          <p class="t-label mb-md">Ce que nous faisons</p>
+          <p class="t-title" style="font-weight: 300; line-height: 1.5; margin-bottom: 1.5rem;">
+            Nous intervenons là où la communication classique arrive trop tard :
+            au moment où il faut encore clarifier ce qui peut être dit, depuis où, et sous quelle forme.
+          </p>
+          <p style="font-size: 0.9375rem; line-height: 1.7; color: var(--gray-mid);">
+            Notre travail se situe entre le conseil stratégique, l'architecture de récit
+            et la conception de dispositifs publics. Nous travaillons avant les campagnes,
+            avant les prises de parole, avant les formats — au moment où se décide la structure
+            même du récit.
+          </p>
+        </div>
+        <div>
+          <svg viewBox="0 0 520 280" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
+            <style>
+              .s-label { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; fill: #6B6B68; letter-spacing: 0.08em; text-transform: uppercase; }
+              .s-val { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; fill: #1A1A18; letter-spacing: -0.01em; }
+              .s-line { stroke: #D0D0C8; stroke-width: 1; fill: none; }
+              .s-line--dark { stroke: #0A0A08; stroke-width: 1; fill: none; }
+              .s-line--blue { stroke: #1E3A5F; stroke-width: 1; fill: none; }
+              .s-dot { fill: #0A0A08; }
+              .s-dot--blue { fill: #1E3A5F; }
+            </style>
+
+            <rect x="20" y="80" width="140" height="120" fill="none" stroke="#D0D0C8" stroke-width="1"/>
+            <text x="36" y="104" class="s-label">Organisation</text>
+            <text x="36" y="126" class="s-val">Récit invisible</text>
+            <text x="36" y="146" class="s-val">Récit fragmenté</text>
+            <text x="36" y="166" class="s-val">Récit défensif</text>
+            <text x="36" y="186" class="s-val">Récit épuisé</text>
+
+            <line x1="160" y1="140" x2="230" y2="140" class="s-line--dark"/>
+            <polygon points="228,136 236,140 228,144" fill="#0A0A08"/>
+
+            <rect x="236" y="100" width="50" height="80" fill="#0A0A08"/>
+            <text x="261" y="143" class="s-label" fill="#FAFAF7" text-anchor="middle" style="letter-spacing:0.06em">V</text>
+
+            <line x1="286" y1="140" x2="360" y2="140" class="s-line--dark"/>
+            <polygon points="358,136 366,140 358,144" fill="#0A0A08"/>
+
+            <rect x="366" y="70" width="134" height="140" fill="none" stroke="#1E3A5F" stroke-width="1"/>
+            <text x="382" y="96" class="s-label" fill="#1E3A5F">Formes publiques</text>
+            <text x="382" y="118" class="s-val">Récit structuré</text>
+            <text x="382" y="140" class="s-val">Formats activables</text>
+            <text x="382" y="162" class="s-val">Dispositifs d'attention</text>
+            <text x="382" y="184" class="s-val">Publics atteints</text>
+
+            <text x="90" y="230" class="s-label" text-anchor="middle">Situation initiale</text>
+            <text x="261" y="230" class="s-label" text-anchor="middle">Transformation</text>
+            <text x="433" y="230" class="s-label" text-anchor="middle">Résultats</text>
+
+            <line x1="90" y1="216" x2="90" y2="204" class="s-line"/>
+            <line x1="261" y1="216" x2="261" y2="184" class="s-line"/>
+            <line x1="433" y1="216" x2="433" y2="214" class="s-line"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POUR QUI -->
+  <section class="section--dark">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start;">
+        <div>
+          <p class="t-label" style="color: #888;">Nous travaillons avec</p>
+        </div>
+        <div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2px;">
+            <div style="padding: 1.5rem; border: 1px solid #333;">
+              <p style="font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 0.5rem;">01</p>
+              <p style="font-size: 1rem; color: var(--white);">Institutions publiques et opérateurs d'intérêt général</p>
+            </div>
+            <div style="padding: 1.5rem; border: 1px solid #333;">
+              <p style="font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 0.5rem;">02</p>
+              <p style="font-size: 1rem; color: var(--white);">Fondations, fédérations et organisations d'utilité publique</p>
+            </div>
+            <div style="padding: 1.5rem; border: 1px solid #333;">
+              <p style="font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 0.5rem;">03</p>
+              <p style="font-size: 1rem; color: var(--white);">Entreprises confrontées à une transformation sensible</p>
+            </div>
+            <div style="padding: 1.5rem; border: 1px solid #333;">
+              <p style="font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 0.5rem;">04</p>
+              <p style="font-size: 1rem; color: var(--white);">Acteurs territoriaux, parapublics ou en situation de controverse</p>
+            </div>
+          </div>
+          <p style="font-size: 0.875rem; color: #666; margin-top: 2rem; line-height: 1.65;">
+            Nous intervenons auprès d'organisations dont la parole est légitime
+            mais insuffisamment perceptible. Notre travail est particulièrement adapté
+            aux moments de transformation, de tension, de repositionnement ou de perte d'initiative.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA CONTACT -->
+  <section style="padding: var(--space-xl) 0;">
+    <div class="container" style="text-align: center;">
+      <p class="t-label mb-md">Première conversation</p>
+      <h2 class="t-headline" style="max-width: 720px; margin: 0 auto var(--space-md);">
+        Si quelque chose ne prend pas dans votre parole publique,<br>il y a une raison. Commençons par l'identifier.
+      </h2>
+      <a href="#" onclick="showPage('contact')" class="btn" style="display: inline-block; text-decoration: none; margin-top: 1rem;">
+        Nous contacter
+      </a>
+    </div>
+  </section>
+
+</div><!-- /page-accueil -->
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     PAGE 2 — MÉTHODE
+══════════════════════════════════════════════════════════════ -->
+<div id="page-methode" class="page">
+
+  <!-- HERO -->
+  <section class="section--hero">
+    <div class="container">
+      <p class="hero__eyebrow">Méthode</p>
+      <h1 class="t-display hero__title" style="max-width: 700px;">
+        Trois actes.<br>Une architecture.
+      </h1>
+      <div class="hero__rule"></div>
+      <p class="hero__intro">
+        Notre méthode repose sur un principe simple : avant de concevoir des formes,
+        il faut comprendre pourquoi les récits existants ne produisent pas d'effet.
+        Chaque intervention est structurée en trois actes distincts, menés dans un ordre
+        qui a sa logique.
+      </p>
+    </div>
+  </section>
+
+  <div class="container"><hr class="rule"></div>
+
+  <!-- ACTE 1 -->
+  <section>
+    <div class="container">
+      <div class="grid-asymmetric" style="gap: 6rem; align-items: start;">
+        <div>
+          <p class="t-label">Acte 01 / 03</p>
+          <div style="width: 2px; height: 60px; background: var(--ink); margin: 1.5rem 0;"></div>
+          <h2 class="t-headline" style="font-weight: 300;">Comprendre</h2>
+        </div>
+        <div>
+          <p class="pull-quote">
+            "Un récit ne se répare pas en rajoutant de la communication.<br>
+            Il se répare en comprenant ce qui l'a rendu inaudible."
+          </p>
+          <p style="font-size: 0.9375rem; line-height: 1.75; color: var(--gray-mid); margin-bottom: 2rem;">
+            La première étape de notre travail est toujours un diagnostic.
+            Nous refusons d'intervenir sur la forme avant d'avoir identifié les causes
+            profondes de l'inefficacité du récit existant : excès de technicité,
+            perte d'initiative, fragmentation interne, épuisement des messages,
+            inadéquation aux publics ou au contexte.
+          </p>
+          <table class="diag-table">
+            <thead>
+              <tr>
+                <th>Outil</th>
+                <th>Finalité</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Diagnostic narratif</td><td>Évaluer la structure, la cohérence et la portée du récit existant</td></tr>
+              <tr><td>Analyse du contexte</td><td>Comprendre l'environnement discursif, médiatique et politique dans lequel il s'inscrit</td></tr>
+              <tr><td>Cartographie des tensions</td><td>Identifier les lignes de fracture, les cadrages adverses et les points de vulnérabilité</td></tr>
+              <tr><td>Compréhension des publics</td><td>Qualifier les attentes, perceptions et seuils d'attention des publics concernés</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><hr class="rule"></div>
+
+  <!-- ACTE 2 -->
+  <section>
+    <div class="container">
+      <div class="grid-asymmetric" style="gap: 6rem; align-items: start;">
+        <div>
+          <p class="t-label">Acte 02 / 03</p>
+          <div style="width: 2px; height: 60px; background: var(--blue-ink); margin: 1.5rem 0;"></div>
+          <h2 class="t-headline" style="font-weight: 300; color: var(--blue-ink);">Reformuler</h2>
+        </div>
+        <div>
+          <p class="pull-quote" style="border-left-color: var(--blue-ink);">
+            "Reformuler n'est pas simplifier. C'est rendre perceptible ce qui, jusque-là, ne l'était pas."
+          </p>
+          <p style="font-size: 0.9375rem; line-height: 1.75; color: var(--gray-mid); margin-bottom: 2rem;">
+            Le deuxième acte consiste à construire une plateforme de récit claire,
+            solide et opératoire. Nous reformulons sans appauvrir. Nous clarifions
+            sans lisser. L'objectif n'est pas de produire un discours de plus,
+            mais une structure narrative capable de tenir dans le temps et de résister
+            aux contextes réels de circulation.
+          </p>
+          <table class="diag-table">
+            <thead>
+              <tr>
+                <th>Livrable</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Plateforme de récit</td><td>Document structurant l'ensemble du récit : thèse, arguments, preuves, tonalité et lignes de force</td></tr>
+              <tr><td>Clarification du positionnement</td><td>Définition précise de la place que l'organisation peut légitimement occuper dans l'espace public</td></tr>
+              <tr><td>Territoire d'expression</td><td>Délimitation des sujets, angles et registres à partir desquels sa parole peut circuler avec cohérence</td></tr>
+              <tr><td>Messages structurants</td><td>Formulations clés, calibrées par public, utilisables et résistantes aux cadrages concurrents</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><hr class="rule"></div>
+
+  <!-- ACTE 3 -->
+  <section>
+    <div class="container">
+      <div class="grid-asymmetric" style="gap: 6rem; align-items: start;">
+        <div>
+          <p class="t-label">Acte 03 / 03</p>
+          <div style="width: 2px; height: 60px; background: var(--ocre); margin: 1.5rem 0;"></div>
+          <h2 class="t-headline" style="font-weight: 300; color: var(--ocre);">Activer</h2>
+        </div>
+        <div>
+          <p class="pull-quote" style="border-left-color: var(--ocre);">
+            "Une idée juste mal incarnée reste une idée perdue. La forme n'est pas un supplément. C'est une condition."
+          </p>
+          <p style="font-size: 0.9375rem; line-height: 1.75; color: var(--gray-mid); margin-bottom: 2rem;">
+            Le troisième acte transforme la plateforme narrative en formes concrètes.
+            Nous concevons les modalités par lesquelles le récit devient public :
+            formats éditoriaux, temps forts, circulations médiatiques, expériences,
+            séquences numériques ou dispositifs de rencontre. Chaque forme est pensée
+            pour un public, un contexte et une fonction précise.
+          </p>
+          <table class="diag-table">
+            <thead>
+              <tr>
+                <th>Domaine</th>
+                <th>Types de formes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Éditorial</td><td>Rapports, publications, formats longs, textes de référence, lignes éditoriales</td></tr>
+              <tr><td>Événementiel</td><td>Conférences, formats de rencontre, moments publics, prises de parole incarnées</td></tr>
+              <tr><td>Médiatique</td><td>Tribunes, interviews, stratégie de visibilité, angles de prise de parole</td></tr>
+              <tr><td>Expérientiel</td><td>Dispositifs immersifs, scénographies, installations narratives, parcours</td></tr>
+              <tr><td>Numérique</td><td>Formats plateformes, séquences de diffusion, circulations adaptées aux usages</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOC DISTINCTIF -->
+  <section class="section--dark">
+    <div class="container">
+      <div style="max-width: 760px; margin: 0 auto; text-align: center;">
+        <p class="t-label" style="color: #666; margin-bottom: 2rem;">Positionnement</p>
+        <p style="font-size: 1.1875rem; line-height: 1.7; color: var(--white); margin-bottom: 3rem;">
+          Forme V n'est pas une agence d'exécution. Nous intervenons en amont,
+          au moment où il faut encore clarifier le récit, son architecture et ses formes de circulation.
+          Nous travaillons souvent avant — et parfois aux côtés — des agences chargées de produire,
+          diffuser ou déployer.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #333;">
+          <div style="background: var(--ink); padding: 2rem 1.5rem; text-align: left;">
+            <p style="font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #666; margin-bottom: 0.75rem;">Nous faisons</p>
+            <p style="font-size: 0.9375rem; color: var(--white); line-height: 1.6;">Diagnostic · Stratégie narrative · Architecture de récit · Conception de formes</p>
+          </div>
+          <div style="background: var(--ink); padding: 2rem 1.5rem; text-align: left;">
+            <p style="font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #666; margin-bottom: 0.75rem;">Nous orientons</p>
+            <p style="font-size: 0.9375rem; color: var(--white); line-height: 1.6;">Studios de création · Agences d'exécution · Équipes éditoriales · Prestataires spécialisés</p>
+          </div>
+          <div style="background: var(--ink); padding: 2rem 1.5rem; text-align: left;">
+            <p style="font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #666; margin-bottom: 0.75rem;">Nous n'assurons pas</p>
+            <p style="font-size: 0.9375rem; color: #666; line-height: 1.6;">Community management · Achat média · Production de contenu à la chaîne · Déploiement publicitaire</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-methode -->
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     PAGE 3 — SITUATIONS / MISSIONS
+══════════════════════════════════════════════════════════════ -->
+<div id="page-situations" class="page">
+
+  <!-- HERO -->
+  <section class="section--hero">
+    <div class="container">
+      <p class="hero__eyebrow">Situations et missions</p>
+      <h1 class="t-display hero__title" style="max-width: 700px;">
+        Six situations.<br>Un même enjeu.
+      </h1>
+      <div class="hero__rule"></div>
+      <p class="hero__intro">
+        Chaque organisation vit une situation narrative particulière.
+        Forme V a identifié six configurations récurrentes, chacune appelant
+        une réponse stratégique distincte. Reconnaître la vôtre est souvent
+        le premier pas vers une parole plus juste et plus audible.
+      </p>
+    </div>
+  </section>
+
+  <div class="container"><hr class="rule"></div>
+
+  <!-- SIX SITUATIONS -->
+  <section>
+    <div class="container">
+      <div class="sit-grid" style="border: 1px solid var(--gray-rule);">
+
+        <div class="sit-item">
+          <span class="sit-item__tag">01</span>
+          <h2 class="sit-item__title">Le récit invisible</h2>
+          <p class="sit-item__body">
+            L'organisation agit. Ce qu'elle fait a du sens, de la portée, parfois même de la valeur publique.
+            Pourtant, rien ne parvient réellement jusqu'aux publics qui comptent.
+            Le problème n'est pas l'absence de réalité, mais l'absence de forme qui permettrait à cette réalité d'être reconnue.
+          </p>
+          <p style="font-size: 0.8125rem; color: var(--blue-ink); margin-top: 1.5rem; letter-spacing: 0.04em;">
+            → Construction d'une plateforme narrative et d'une stratégie de déploiement
+          </p>
+        </div>
+
+        <div class="sit-item">
+          <span class="sit-item__tag">02</span>
+          <h2 class="sit-item__title">Le récit technique</h2>
+          <p class="sit-item__body">
+            La parole de l'organisation est juste, précise, documentée. Mais elle reste opaque.
+            Elle parle à ceux qui savent déjà, pas à ceux qui doivent comprendre.
+            La technicité est devenue un filtre au lieu d'être un levier de crédibilité.
+          </p>
+          <p style="font-size: 0.8125rem; color: var(--blue-ink); margin-top: 1.5rem; letter-spacing: 0.04em;">
+            → Reformulation accessible et traduction narrative sans appauvrissement
+          </p>
+        </div>
+
+        <div class="sit-item">
+          <span class="sit-item__tag">03</span>
+          <h2 class="sit-item__title">Le récit défensif</h2>
+          <p class="sit-item__body">
+            Sous pression médiatique, politique ou sociétale, l'organisation s'est installée dans la réponse.
+            Elle justifie, explique, rectifie, démonte. Elle a perdu l'initiative.
+            Sa parole est désormais en réaction, alors qu'elle devrait redevenir proposition.
+          </p>
+          <p style="font-size: 0.8125rem; color: var(--blue-ink); margin-top: 1.5rem; letter-spacing: 0.04em;">
+            → Reconquête de l'initiative narrative et repositionnement stratégique
+          </p>
+        </div>
+
+        <div class="sit-item">
+          <span class="sit-item__tag">04</span>
+          <h2 class="sit-item__title">Le récit fragmenté</h2>
+          <p class="sit-item__body">
+            Les directions parlent. Les équipes parlent. Les projets ont leur propre langage.
+            Mais l'ensemble ne fait pas récit. Il n'existe ni ligne de force, ni voix identifiable,
+            ni cohérence d'ensemble. L'organisation parle de partout, et n'est véritablement entendue nulle part.
+          </p>
+          <p style="font-size: 0.8125rem; color: var(--blue-ink); margin-top: 1.5rem; letter-spacing: 0.04em;">
+            → Architecture narrative unifiée et gouvernance éditoriale
+          </p>
+        </div>
+
+        <div class="sit-item">
+          <span class="sit-item__tag">05</span>
+          <h2 class="sit-item__title">Le récit épuisé</h2>
+          <p class="sit-item__body">
+            L'organisation a beaucoup parlé. Les mots ont servi, les promesses ont circulé,
+            les formules ont tourné. Mais le récit ne produit plus d'effet :
+            ni attention, ni adhésion, ni désir. Il faut le régénérer sans rompre la continuité.
+          </p>
+          <p style="font-size: 0.8125rem; color: var(--blue-ink); margin-top: 1.5rem; letter-spacing: 0.04em;">
+            → Régénération narrative et renouvellement des formes d'expression
+          </p>
+        </div>
+
+        <div class="sit-item">
+          <span class="sit-item__tag">06</span>
+          <h2 class="sit-item__title">Le récit capturé</h2>
+          <p class="sit-item__body">
+            D'autres ont pris la main sur la définition de l'organisation :
+            concurrents, détracteurs, médias, acteurs politiques ou commentaires périphériques.
+            Le cadrage ne lui appartient plus. Elle subit une lecture qu'elle n'a pas choisie
+            et contre laquelle elle ne peut plus seulement opposer des éléments de langage.
+          </p>
+          <p style="font-size: 0.8125rem; color: var(--blue-ink); margin-top: 1.5rem; letter-spacing: 0.04em;">
+            → Stratégie de recadrage et reconquête narrative
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPES DE MISSIONS -->
+  <section>
+    <div class="container">
+      <hr class="rule mb-lg">
+      <div class="grid-asymmetric" style="align-items: start;">
+        <div>
+          <p class="t-label mb-md">Types de missions</p>
+        </div>
+        <div>
+          <p style="font-size: 1.1875rem; font-weight: 300; line-height: 1.55; letter-spacing: -0.01em; margin-bottom: 2.5rem;">
+            Nous intervenons selon plusieurs modalités, à calibrer selon l'urgence,
+            l'ampleur du problème et le degré de transformation recherché.
+          </p>
+          <div style="display: grid; grid-template-columns: 1fr; gap: 0;">
+            <div style="padding: 1.75rem 0; border-bottom: 1px solid var(--gray-rule); display: grid; grid-template-columns: 200px 1fr; gap: 2rem;">
+              <p style="font-size: 1rem; font-weight: 500;">Mission complète</p>
+              <p style="font-size: 0.9375rem; color: var(--gray-mid); line-height: 1.65;">Nous conduisons les trois actes — diagnostic, reformulation, activation — en accompagnement intégral. Durée indicative : 2 à 6 mois.</p>
+            </div>
+            <div style="padding: 1.75rem 0; border-bottom: 1px solid var(--gray-rule); display: grid; grid-template-columns: 200px 1fr; gap: 2rem;">
+              <p style="font-size: 1rem; font-weight: 500;">Diagnostic stratégique</p>
+              <p style="font-size: 0.9375rem; color: var(--gray-mid); line-height: 1.65;">Nous réalisons un audit narratif complet et remettons une analyse avec hypothèses, tensions et recommandations. Durée indicative : 3 à 6 semaines.</p>
+            </div>
+            <div style="padding: 1.75rem 0; border-bottom: 1px solid var(--gray-rule); display: grid; grid-template-columns: 200px 1fr; gap: 2rem;">
+              <p style="font-size: 1rem; font-weight: 500;">Intervention ciblée</p>
+              <p style="font-size: 0.9375rem; color: var(--gray-mid); line-height: 1.65;">Nous intervenons sur un point précis — crise, repositionnement, lancement, séquence sensible — avec une logique de réponse rapide et structurée.</p>
+            </div>
+            <div style="padding: 1.75rem 0; display: grid; grid-template-columns: 200px 1fr; gap: 2rem;">
+              <p style="font-size: 1rem; font-weight: 500;">Partenariat continu</p>
+              <p style="font-size: 0.9375rem; color: var(--gray-mid); line-height: 1.65;">Nous devenons un appui stratégique récurrent, capable de suivre l'évolution du contexte, de nourrir la parole de l'organisation et d'ajuster ses formes de circulation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-situations -->
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     PAGE 4 — À PROPOS
+══════════════════════════════════════════════════════════════ -->
+<div id="page-apropos" class="page">
+
+  <!-- HERO -->
+  <section class="section--hero">
+    <div class="container">
+      <p class="hero__eyebrow">À propos</p>
+      <h1 class="t-display hero__title" style="max-width: 700px;">
+        Un studio.<br>Une ligne claire.
+      </h1>
+      <div class="hero__rule"></div>
+      <p class="hero__intro">
+        Forme V est un studio de conseil narratif. Nous travaillons là où la communication
+        ne suffit plus : quand le problème n'est pas le volume de parole, mais sa structure,
+        sa lisibilité et sa capacité à produire un effet réel.
+      </p>
+    </div>
+  </section>
+
+  <div class="container"><hr class="rule"></div>
+
+  <!-- ORIGINE -->
+  <section>
+    <div class="container">
+      <div class="grid-asymmetric" style="align-items: start;">
+        <div>
+          <p class="t-label">Origine</p>
+        </div>
+        <div>
+          <p style="font-size: 1.1875rem; font-weight: 300; line-height: 1.6; letter-spacing: -0.01em; margin-bottom: 2rem; max-width: 620px;">
+            Forme V est né d'un constat simple : beaucoup d'organisations sérieuses,
+            utiles et légitimes ne manquent pas d'arguments. Elles manquent d'architecture narrative.
+          </p>
+          <p style="font-size: 0.9375rem; line-height: 1.75; color: var(--gray-mid); margin-bottom: 1.5rem;">
+            Certaines parlent trop techniquement. D'autres ont perdu l'initiative.
+            D'autres encore ont laissé leurs prises de parole se fragmenter au fil des directions,
+            des projets et des séquences. Dans tous les cas, le problème est moins celui
+            de la communication au sens courant que celui de la forme : ce qui tient le récit,
+            ce qui le rend lisible, ce qui lui permet de circuler.
+          </p>
+          <p style="font-size: 0.9375rem; line-height: 1.75; color: var(--gray-mid);">
+            C'est à cet endroit précis que nous intervenons : à l'interface du conseil stratégique,
+            de l'architecture éditoriale et de la conception de dispositifs publics.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><hr class="rule"></div>
+
+  <!-- CE QUE NOUS FAISONS -->
+  <section>
+    <div class="container">
+      <div class="grid-asymmetric" style="align-items: start;">
+        <div>
+          <p class="t-label">Notre singularité</p>
+        </div>
+        <div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
+            <div>
+              <p style="font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 1rem;">Lecture stratégique</p>
+              <p style="font-size: 0.9375rem; line-height: 1.65; color: var(--gray-mid);">
+                Nous lisons les contextes, identifions les tensions,
+                qualifions les espaces de parole et les conditions réelles d'audibilité.
+              </p>
+            </div>
+            <div>
+              <p style="font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 1rem;">Architecture narrative</p>
+              <p style="font-size: 0.9375rem; line-height: 1.65; color: var(--gray-mid);">
+                Nous construisons des récits structurés, cohérents et durables,
+                capables de tenir dans le temps et dans des contextes adverses.
+              </p>
+            </div>
+            <div>
+              <p style="font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 1rem;">Conception de formes</p>
+              <p style="font-size: 0.9375rem; line-height: 1.65; color: var(--gray-mid);">
+                Nous pensons les formats, les séquences et les dispositifs
+                par lesquels un récit devient public et atteint ses destinataires.
+              </p>
+            </div>
+            <div>
+              <p style="font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 1rem;">L'ensemble</p>
+              <p style="font-size: 0.9375rem; line-height: 1.65; color: var(--gray-mid);">
+                Nous faisons tenir ensemble ces trois registres, sans les séparer,
+                parce qu'un bon récit mal activé se perd, et qu'un dispositif sans récit sonne creux.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><hr class="rule"></div>
+
+  <!-- ENGAGEMENT -->
+  <section>
+    <div class="container">
+      <div style="max-width: 700px; margin: 0 auto;">
+        <p class="t-label mb-md">Notre engagement</p>
+        <div class="frame" style="margin-top: 1rem;">
+          <p style="font-size: 1.1875rem; font-weight: 300; line-height: 1.6; letter-spacing: -0.01em; margin-bottom: 1.5rem;">
+            Nous n'acceptons que les missions pour lesquelles nous pensons pouvoir produire
+            une transformation réelle du récit et de ses conditions de circulation.
+          </p>
+          <p style="font-size: 0.9375rem; line-height: 1.7; color: var(--gray-mid);">
+            Cela signifie que nous refusons les commandes qui ne correspondent pas à notre méthode,
+            les situations où l'intervention resterait cosmétique, ou les cas où un autre type
+            d'accompagnement serait plus juste. Travailler peu et avec exigence nous paraît
+            plus honnête que multiplier les interventions sans effet.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><hr class="rule"></div>
+
+  <!-- CHIFFRES -->
+  <section>
+    <div class="container">
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--gray-rule);">
+        <div style="padding: 2.5rem 2rem; border-right: 1px solid var(--gray-rule);">
+          <p class="t-number">3</p>
+          <p style="font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-mid); margin-top: 0.5rem;">Actes d'intervention</p>
+        </div>
+        <div style="padding: 2.5rem 2rem; border-right: 1px solid var(--gray-rule);">
+          <p class="t-number" style="color: var(--blue-ink);">6</p>
+          <p style="font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-mid); margin-top: 0.5rem;">Situations narratives identifiées</p>
+        </div>
+        <div style="padding: 2.5rem 2rem; border-right: 1px solid var(--gray-rule);">
+          <p class="t-number">1</p>
+          <p style="font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-mid); margin-top: 0.5rem;">Méthode cohérente de bout en bout</p>
+        </div>
+        <div style="padding: 2.5rem 2rem;">
+          <p class="t-number" style="color: var(--ocre);">1</p>
+          <p style="font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-mid); margin-top: 0.5rem;">Studio, pas une agence généraliste</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-apropos -->
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     PAGE 5 — CONTACT
+══════════════════════════════════════════════════════════════ -->
+<div id="page-contact" class="page">
+
+  <section class="section--hero">
+    <div class="container">
+      <p class="hero__eyebrow">Contact</p>
+      <h1 class="t-display hero__title" style="max-width: 680px;">
+        Commençons<br>par une conversation.
+      </h1>
+      <div class="hero__rule"></div>
+      <p class="hero__intro">
+        Toute mission commence par un échange sans engagement.
+        Vous arrivez avec une situation, un doute, une tension ou une séquence à clarifier.
+        Nous vous aidons à voir plus nettement ce qui se joue.
+      </p>
+    </div>
+  </section>
+
+  <div class="container"><hr class="rule"></div>
+
+  <section>
+    <div class="container">
+      <div class="grid-2" style="gap: 6rem; align-items: start;">
+
+        <!-- INFORMATIONS -->
+        <div>
+          <p class="t-label mb-md">Forme V</p>
+          <p style="font-size: 0.9375rem; line-height: 1.75; color: var(--gray-mid); margin-bottom: 2.5rem;">
+            Basé à Paris, le studio intervient principalement en France
+            et dans l'espace francophone. Des missions internationales peuvent être envisagées
+            selon la nature des enjeux et des contextes.
+          </p>
+
+          <div style="margin-bottom: 2rem;">
+            <p class="t-label mb-sm">Contact direct</p>
+            <p style="font-size: 1rem; color: var(--ink);">contact@formev.fr</p>
+          </div>
+
+          <div style="margin-bottom: 2.5rem;">
+            <p class="t-label mb-sm">Premier échange</p>
+            <p style="font-size: 0.9375rem; color: var(--gray-mid);">
+              Si votre situation relève de notre méthode, nous vous proposons un premier cadrage.
+              Si ce n'est pas le cas, nous vous le dirons clairement.
+            </p>
+          </div>
+
+          <div class="frame--blue" style="padding: 1.5rem; border: 1px solid var(--blue-ink);">
+            <p style="font-size: 0.8125rem; line-height: 1.65; color: var(--gray-mid);">
+              <span style="color: var(--blue-ink); font-weight: 500;">Point de départ :</span>
+              inutile d'arriver avec un brief parfaitement formulé.
+              Un récit qui ne prend pas, une parole qui ne porte plus,
+              une séquence confuse ou une transformation mal perçue suffisent à ouvrir la conversation.
+            </p>
+          </div>
+        </div>
+
+        <!-- FORMULAIRE -->
+        <div>
+          <p class="t-label mb-lg">Nous écrire</p>
+          <form onsubmit="handleSubmit(event)">
+            <div class="form-field">
+              <label class="form-label">Nom et prénom</label>
+              <input type="text" class="form-input" placeholder="Votre nom">
+            </div>
+            <div class="form-field">
+              <label class="form-label">Organisation</label>
+              <input type="text" class="form-input" placeholder="Votre organisation">
+            </div>
+            <div class="form-field">
+              <label class="form-label">Adresse email</label>
+              <input type="email" class="form-input" placeholder="votre@email.fr">
+            </div>
+            <div class="form-field">
+              <label class="form-label">Type de situation</label>
+              <select class="form-select">
+                <option value="">Choisir une situation</option>
+                <option>Récit invisible</option>
+                <option>Récit technique</option>
+                <option>Récit défensif</option>
+                <option>Récit fragmenté</option>
+                <option>Récit épuisé</option>
+                <option>Récit capturé</option>
+                <option>Je ne sais pas encore</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Décrivez votre situation en quelques lignes</label>
+              <textarea class="form-input form-textarea" placeholder="Qu'est-ce qui ne prend pas ? Qu'est-ce qui reste flou, inaudible ou inefficace ? Dans quel contexte intervenez-vous ?"></textarea>
+            </div>
+            <div style="margin-top: 2.5rem;">
+              <button type="submit" class="btn">Envoyer le message</button>
+            </div>
+          </form>
+          <div id="form-success" style="display:none; margin-top: 2rem; padding: 1.5rem; border-left: 2px solid var(--blue-ink);">
+            <p style="font-size: 0.9375rem; color: var(--ink);">Message transmis. Nous reviendrons vers vous rapidement.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-contact -->
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     FOOTER (commun)
+══════════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer__inner">
+    <div>
+      <p class="footer__brand">Forme V</p>
+      <p class="footer__tagline">Architecture de récits et dispositifs d'attention</p>
+    </div>
+    <ul class="footer__links">
+      <li><a href="#" onclick="showPage('methode')">Méthode</a></li>
+      <li><a href="#" onclick="showPage('situations')">Situations</a></li>
+      <li><a href="#" onclick="showPage('apropos')">À propos</a></li>
+      <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+      <li><a href="#">Mentions légales</a></li>
+    </ul>
+  </div>
+</footer>
+
+
+<script>
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + pageId);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+  document.getElementById('form-success').style.display = 'block';
+  e.target.style.opacity = '0.4';
+  e.target.style.pointerEvents = 'none';
+}
+
+document.querySelectorAll('.nav__links a, .footer__links a').forEach(a => {
+  a.addEventListener('click', e => e.preventDefault());
+});
+</script>
+
+</body>
+</html>
