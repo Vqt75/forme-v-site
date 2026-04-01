@@ -357,7 +357,34 @@
   .mb-sm { margin-bottom: var(--space-sm); }
   .mb-md { margin-bottom: var(--space-md); }
   .mb-lg { margin-bottom: var(--space-lg); }
+.who {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+}
 
+.who-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.who-card {
+  border: 1px solid #333;
+  padding: 1.5rem;
+}
+
+.who-num {
+  font-size: 0.7rem;
+  color: #888;
+  margin-bottom: 0.5rem;
+}
+
+.who-text {
+  margin-top: 2rem;
+  font-size: 0.875rem;
+  color: #666;
+}
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     .grid-2, .grid-3, .grid-asymmetric { grid-template-columns: 1fr; }
@@ -367,6 +394,23 @@
     .sit-item { border-right: none; }
     .footer__inner { flex-direction: column; gap: 2rem; align-items: flex-start; }
     .nav__links { display: none; }
+
+    .who {
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.who-grid {
+  grid-template-columns: 1fr;
+}
+
+.who-card {
+  padding: 1.25rem;
+}
+
+.who-text {
+  margin-top: 1.5rem;
+}
   }
 
   /* ── ABOUT BIO ── */
@@ -565,39 +609,48 @@ au moment où le récit n’est pas encore structuré, et où sa forme reste à 
 
   <!-- POUR QUI -->
   <section class="section--dark">
-    <div class="container">
-      <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start;">
-        <div>
-          <p class="t-label" style="color: #888;">Nous travaillons avec</p>
-        </div>
-        <div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2px;">
-            <div style="padding: 1.5rem; border: 1px solid #333;">
-              <p style="font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 0.5rem;">01</p>
-              <p style="font-size: 1rem; color: var(--white);">Institutions publiques et opérateurs d'intérêt général</p>
-            </div>
-            <div style="padding: 1.5rem; border: 1px solid #333;">
-              <p style="font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 0.5rem;">02</p>
-              <p style="font-size: 1rem; color: var(--white);">Fondations, fédérations et organisations d'utilité publique</p>
-            </div>
-            <div style="padding: 1.5rem; border: 1px solid #333;">
-              <p style="font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 0.5rem;">03</p>
-              <p style="font-size: 1rem; color: var(--white);">Entreprises confrontées à une transformation sensible</p>
-            </div>
-            <div style="padding: 1.5rem; border: 1px solid #333;">
-              <p style="font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 0.5rem;">04</p>
-              <p style="font-size: 1rem; color: var(--white);">Acteurs territoriaux, parapublics ou en situation de controverse</p>
-            </div>
-          </div>
-          <p style="font-size: 0.875rem; color: #666; margin-top: 2rem; line-height: 1.65;">
-            Nous intervenons auprès d'organisations dont la parole est légitime
-            mais insuffisamment perceptible. Notre travail est particulièrement adapté
-            aux moments de transformation, de tension, de repositionnement ou de perte d'initiative.
-          </p>
-        </div>
+  <div class="container">
+    <div class="who">
+      
+      <div>
+        <p class="t-label">Nous travaillons avec</p>
       </div>
+
+      <div>
+        <div class="who-grid">
+
+          <div class="who-card">
+            <p class="who-num">01</p>
+            <p>Institutions publiques et opérateurs d'intérêt général</p>
+          </div>
+
+          <div class="who-card">
+            <p class="who-num">02</p>
+            <p>Fondations, fédérations et organisations d'utilité publique</p>
+          </div>
+
+          <div class="who-card">
+            <p class="who-num">03</p>
+            <p>Entreprises confrontées à une transformation sensible</p>
+          </div>
+
+          <div class="who-card">
+            <p class="who-num">04</p>
+            <p>Acteurs territoriaux, parapublics ou en situation de controverse</p>
+          </div>
+
+        </div>
+
+        <p class="who-text">
+          Nous intervenons auprès d'organisations dont la parole est légitime mais insuffisamment perceptible.
+          Notre travail est particulièrement adapté aux moments de transformation, de tension, de repositionnement ou de perte d'initiative.
+        </p>
+
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- CTA CONTACT -->
   <section style="padding: var(--space-xl) 0;">
