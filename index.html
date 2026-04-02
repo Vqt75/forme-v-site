@@ -481,7 +481,6 @@
     .mb-md { margin-bottom: var(--space-md); }
     .mb-lg { margin-bottom: var(--space-lg); }
 
-    /* CE QUE NOUS FAISONS */
     .what-we-do-block {
       align-items: start;
       gap: 4rem;
@@ -514,7 +513,6 @@
       max-width: 620px;
     }
 
-    /* NOUS TRAVAILLONS AVEC */
     .who {
       display: grid;
       grid-template-columns: 1fr 2fr;
@@ -554,24 +552,40 @@
       line-height: 1.65;
     }
 
-    /* RESPONSIVE */
+    /* ── HERO TITLE ANIMATION ── */
+    .hero-title-animated {
+      display: flex;
+      flex-direction: column;
+      gap: 0.06em;
+    }
+
+    .hero-line {
+      display: block;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+      will-change: opacity, transform;
+    }
+
+    .hero-title-animated.is-visible .hero-line {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-title-animated.is-visible .hero-line:nth-child(1) { transition-delay: 0.05s; }
+    .hero-title-animated.is-visible .hero-line:nth-child(2) { transition-delay: 0.28s; }
+    .hero-title-animated.is-visible .hero-line:nth-child(3) { transition-delay: 0.46s; }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      html {
-        font-size: 15px;
-      }
+      html { font-size: 15px; }
 
-      section {
-        padding: 4rem 0;
-      }
+      section { padding: 4rem 0; }
 
-      .section--hero {
-        padding: calc(7rem + 56px) 0 4rem;
-      }
+      .section--hero { padding: calc(7rem + 56px) 0 4rem; }
 
       .container,
-      .container--narrow {
-        padding: 0 1.25rem;
-      }
+      .container--narrow { padding: 0 1.25rem; }
 
       .grid-2,
       .grid-3,
@@ -589,22 +603,16 @@
         padding: 2rem 1.5rem;
       }
 
-      .act:last-child {
-        border-bottom: none;
-      }
+      .act:last-child { border-bottom: none; }
 
       .sit-item {
         border-right: none;
         padding: 1.75rem 1.5rem;
       }
 
-      .statement {
-        padding: 3rem 0 0;
-      }
+      .statement { padding: 3rem 0 0; }
 
-      .hero__title {
-        margin-bottom: 2.5rem;
-      }
+      .hero__title { margin-bottom: 2.5rem; }
 
       .hero__intro {
         font-size: 1.0625rem;
@@ -616,9 +624,7 @@
         line-height: 1.02;
       }
 
-      .t-headline {
-        font-size: clamp(1.6rem, 7vw, 2.3rem);
-      }
+      .t-headline { font-size: clamp(1.6rem, 7vw, 2.3rem); }
 
       .t-title {
         font-size: 1.125rem;
@@ -631,9 +637,7 @@
         font-size: 1.2rem;
       }
 
-      .nav__links {
-        display: none;
-      }
+      .nav__links { display: none; }
 
       .nav__cta {
         padding: 0.45rem 0.85rem;
@@ -646,23 +650,16 @@
         align-items: flex-start;
       }
 
-      .footer__links {
-        gap: 1rem 1.25rem;
-      }
+      .footer__links { gap: 1rem 1.25rem; }
 
       .diag-table,
       .diag-table thead,
       .diag-table tbody,
       .diag-table tr,
       .diag-table th,
-      .diag-table td {
-        display: block;
-        width: 100%;
-      }
+      .diag-table td { display: block; width: 100%; }
 
-      .diag-table thead {
-        display: none;
-      }
+      .diag-table thead { display: none; }
 
       .diag-table tr {
         padding: 1rem 0;
@@ -679,47 +676,31 @@
         margin-bottom: 0.35rem;
       }
 
-      .frame {
-        padding: 1.5rem;
-      }
+      .frame { padding: 1.5rem; }
 
-      .form-field {
-        margin-bottom: 1.5rem;
-      }
+      .form-field { margin-bottom: 1.5rem; }
 
       .btn {
         width: 100%;
         padding: 1rem 1.25rem;
       }
 
-      .what-we-do-block {
-        gap: 2rem;
-      }
+      .what-we-do-block { gap: 2rem; }
 
-      .what-we-do-step {
-        padding: 1.25rem 0;
-      }
+      .what-we-do-step { padding: 1.25rem 0; }
 
       .what-we-do-step__title {
         font-size: 1.1rem;
         line-height: 1.45;
       }
 
-      .what-we-do-step__body {
-        font-size: 0.95rem;
-      }
+      .what-we-do-step__body { font-size: 0.95rem; }
 
-      .who-grid {
-        grid-template-columns: 1fr;
-      }
+      .who-grid { grid-template-columns: 1fr; }
 
-      .who-card {
-        padding: 1.25rem;
-      }
+      .who-card { padding: 1.25rem; }
 
-      .who-text {
-        margin-top: 1.5rem;
-      }
+      .who-text { margin-top: 1.5rem; }
     }
   </style>
 </head>
@@ -743,8 +724,10 @@
     <section class="section--hero">
       <div class="container">
         <p class="hero__eyebrow">Studio stratégique et narratif — Paris</p>
-        <h1 class="t-display hero__title">
-          Donner une forme<br>audible à ce que vous<br>avez réellement à dire.
+        <h1 class="t-display hero__title hero-title-animated">
+          <span class="hero-line">Donner une forme</span>
+          <span class="hero-line">audible à ce que vous</span>
+          <span class="hero-line">avez réellement à dire.</span>
         </h1>
         <div class="hero__rule"></div>
         <p class="hero__intro">
@@ -837,10 +820,10 @@
             <p class="t-label mb-md">Ce que nous faisons</p>
             <p class="t-title" style="font-weight: 300; line-height: 1.5; margin-bottom: 1.5rem;">
               Nous intervenons en amont de la communication :
-              au moment où le récit n’est pas encore structuré, et où sa forme reste à construire.
+              au moment où le récit n'est pas encore structuré, et où sa forme reste à construire.
             </p>
             <p style="font-size: 0.9375rem; line-height: 1.7; color: var(--gray-mid);">
-              Notre travail se situe entre le planning stratégique, l’architecture de récit
+              Notre travail se situe entre le planning stratégique, l'architecture de récit
               et la conception de dispositifs publics. Nous travaillons avant les campagnes,
               avant les prises de parole, avant les formats. Nous intervenons au moment où se décide
               la structure même du récit.
@@ -854,9 +837,9 @@
                 Une parole légitime, mais dispersée, trop technique ou insuffisamment perceptible.
               </p>
               <p class="what-we-do-step__body">
-                Beaucoup d’organisations ne manquent ni de fond, ni d’action, ni de raisons de parler.
-                Ce qui manque, plus souvent, c’est une structure lisible, une ligne de force,
-                une forme capable de faire tenir l’ensemble.
+                Beaucoup d'organisations ne manquent ni de fond, ni d'action, ni de raisons de parler.
+                Ce qui manque, plus souvent, c'est une structure lisible, une ligne de force,
+                une forme capable de faire tenir l'ensemble.
               </p>
             </div>
 
@@ -867,8 +850,8 @@
               </p>
               <p class="what-we-do-step__body">
                 Nous ne partons pas des formats. Nous partons du récit, de ses tensions,
-                de ses conditions d’audibilité et des publics auxquels il doit parvenir.
-                C’est à partir de là seulement que nous pensons les formes justes.
+                de ses conditions d'audibilité et des publics auxquels il doit parvenir.
+                C'est à partir de là seulement que nous pensons les formes justes.
               </p>
             </div>
 
@@ -878,7 +861,7 @@
                 Une présence publique plus nette, plus cohérente, plus crédible.
               </p>
               <p class="what-we-do-step__body">
-                L’enjeu n’est pas de produire plus de communication, mais de rendre une parole
+                L'enjeu n'est pas de produire plus de communication, mais de rendre une parole
                 plus juste dans sa structure, plus lisible dans ses formes et plus forte dans sa circulation.
               </p>
             </div>
@@ -899,12 +882,12 @@
             <div class="who-grid">
               <div class="who-card">
                 <p class="who-num">01</p>
-                <p>Institutions publiques et opérateurs d’intérêt général</p>
+                <p>Institutions publiques et opérateurs d'intérêt général</p>
               </div>
 
               <div class="who-card">
                 <p class="who-num">02</p>
-                <p>Fondations, fédérations et organisations d’utilité publique</p>
+                <p>Fondations, fédérations et organisations d'utilité publique</p>
               </div>
 
               <div class="who-card">
@@ -947,8 +930,9 @@
     <section class="section--hero">
       <div class="container">
         <p class="hero__eyebrow">Méthode</p>
-        <h1 class="t-display hero__title" style="max-width: 700px;">
-          Trois actes.<br>Une architecture.
+        <h1 class="t-display hero__title hero-title-animated" style="max-width: 700px;">
+          <span class="hero-line">Trois actes.</span>
+          <span class="hero-line">Une architecture.</span>
         </h1>
         <div class="hero__rule"></div>
         <p class="hero__intro">
@@ -1118,8 +1102,9 @@
     <section class="section--hero">
       <div class="container">
         <p class="hero__eyebrow">Situations et missions</p>
-        <h1 class="t-display hero__title" style="max-width: 700px;">
-          Six situations.<br>Un même enjeu.
+        <h1 class="t-display hero__title hero-title-animated" style="max-width: 700px;">
+          <span class="hero-line">Six situations.</span>
+          <span class="hero-line">Un même enjeu.</span>
         </h1>
         <div class="hero__rule"></div>
         <p class="hero__intro">
@@ -1264,8 +1249,9 @@
     <section class="section--hero">
       <div class="container">
         <p class="hero__eyebrow">À propos</p>
-        <h1 class="t-display hero__title" style="max-width: 700px;">
-          Un studio.<br>Une ligne claire.
+        <h1 class="t-display hero__title hero-title-animated" style="max-width: 700px;">
+          <span class="hero-line">Un studio.</span>
+          <span class="hero-line">Une ligne claire.</span>
         </h1>
         <div class="hero__rule"></div>
         <p class="hero__intro">
@@ -1403,8 +1389,9 @@
     <section class="section--hero">
       <div class="container">
         <p class="hero__eyebrow">Contact</p>
-        <h1 class="t-display hero__title" style="max-width: 680px;">
-          Commençons<br>par une conversation.
+        <h1 class="t-display hero__title hero-title-animated" style="max-width: 680px;">
+          <span class="hero-line">Commençons</span>
+          <span class="hero-line">par une conversation.</span>
         </h1>
         <div class="hero__rule"></div>
         <p class="hero__intro">
@@ -1521,18 +1508,36 @@
   </footer>
 
   <script>
+    function triggerHeroAnimation(pageEl) {
+      pageEl.querySelectorAll('.hero-title-animated').forEach(function(title) {
+        title.classList.remove('is-visible');
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            title.classList.add('is-visible');
+          });
+        });
+      });
+    }
+
     function showPage(pageId) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      const target = document.getElementById('page-' + pageId);
+      document.querySelectorAll('.page').forEach(function(p) {
+        p.classList.remove('active');
+      });
+      var target = document.getElementById('page-' + pageId);
       if (target) {
         target.classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        triggerHeroAnimation(target);
       }
     }
 
-    document.querySelectorAll('.nav__links a, .footer__links a').forEach(a => {
-      a.addEventListener('click', e => e.preventDefault());
+    document.querySelectorAll('.nav__links a, .footer__links a').forEach(function(a) {
+      a.addEventListener('click', function(e) { e.preventDefault(); });
     });
+
+    // Déclenchement au chargement initial
+    triggerHeroAnimation(document.getElementById('page-accueil'));
   </script>
+
 </body>
 </html>
