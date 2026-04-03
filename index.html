@@ -1626,11 +1626,7 @@
     }
 
     mobileToggle.addEventListener('click', toggleMobileMenu);
-document.addEventListener('click', function(e) {
-  if (!mobileMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
-    closeMobileMenu();
-  }
-});
+
     function triggerHeroAnimation(pageEl) {
       pageEl.querySelectorAll('.hero-title-animated').forEach(function(title) {
         title.classList.remove('is-visible');
