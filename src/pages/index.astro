@@ -669,129 +669,45 @@
 
     @media (max-width: 900px) {
       html { font-size: 15px; }
-
       section { padding: 4rem 0; }
-
       .section--hero { padding: calc(7rem + 56px) 0 4rem; }
-
-      .container,
-      .container--narrow { padding: 0 1.25rem; }
-
-      .grid-2,
-      .grid-3,
-      .grid-asymmetric,
-      .acts,
-      .sit-grid,
-      .who {
+      .container, .container--narrow { padding: 0 1.25rem; }
+      .grid-2, .grid-3, .grid-asymmetric, .acts, .sit-grid, .who {
         grid-template-columns: 1fr;
         gap: 1.5rem;
       }
-
       .act {
         border-right: none;
         border-bottom: 1px solid var(--gray-rule);
         padding: 2rem 1.5rem;
       }
-
       .act:last-child { border-bottom: none; }
-
-      .sit-item {
-        border-right: none;
-        padding: 1.75rem 1.5rem;
-      }
-
+      .sit-item { border-right: none; padding: 1.75rem 1.5rem; }
       .statement { padding: 3rem 0 0; }
-
       .hero__title { margin-bottom: 2.5rem; }
-
-      .hero__intro {
-        font-size: 1.0625rem;
-        max-width: 100%;
-      }
-
-      .t-display {
-        font-size: clamp(2.4rem, 11vw, 4rem);
-        line-height: 1.02;
-      }
-
+      .hero__intro { font-size: 1.0625rem; max-width: 100%; }
+      .t-display { font-size: clamp(2.4rem, 11vw, 4rem); line-height: 1.02; }
       .t-headline { font-size: clamp(1.6rem, 7vw, 2.3rem); }
-
-      .t-title {
-        font-size: 1.125rem;
-        line-height: 1.5;
-      }
-
-      .pull-quote {
-        padding-left: 1rem;
-        margin: 2.5rem 0;
-        font-size: 1.2rem;
-      }
-
-      .nav__links,
-      .nav__cta {
-        display: none;
-      }
-
-      .nav__mobile-toggle {
-        display: inline-flex;
-      }
-
-      .footer__inner {
-        flex-direction: column;
-        gap: 1.5rem;
-        align-items: flex-start;
-      }
-
+      .t-title { font-size: 1.125rem; line-height: 1.5; }
+      .pull-quote { padding-left: 1rem; margin: 2.5rem 0; font-size: 1.2rem; }
+      .nav__links, .nav__cta { display: none; }
+      .nav__mobile-toggle { display: inline-flex; }
+      .footer__inner { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
       .footer__links { gap: 1rem 1.25rem; }
-
-      .diag-table,
-      .diag-table thead,
-      .diag-table tbody,
-      .diag-table tr,
-      .diag-table th,
-      .diag-table td { display: block; width: 100%; }
-
+      .diag-table, .diag-table thead, .diag-table tbody, .diag-table tr, .diag-table th, .diag-table td { display: block; width: 100%; }
       .diag-table thead { display: none; }
-
-      .diag-table tr {
-        padding: 1rem 0;
-        border-bottom: 1px solid var(--gray-rule);
-      }
-
-      .diag-table td {
-        border-bottom: none;
-        padding: 0.25rem 0;
-      }
-
-      .diag-table td:first-child {
-        width: 100%;
-        margin-bottom: 0.35rem;
-      }
-
+      .diag-table tr { padding: 1rem 0; border-bottom: 1px solid var(--gray-rule); }
+      .diag-table td { border-bottom: none; padding: 0.25rem 0; }
+      .diag-table td:first-child { width: 100%; margin-bottom: 0.35rem; }
       .frame { padding: 1.5rem; }
-
       .form-field { margin-bottom: 1.5rem; }
-
-      .btn {
-        width: 100%;
-        padding: 1rem 1.25rem;
-      }
-
+      .btn { width: 100%; padding: 1rem 1.25rem; }
       .what-we-do-block { gap: 2rem; }
-
       .what-we-do-step { padding: 1.25rem 0; }
-
-      .what-we-do-step__title {
-        font-size: 1.1rem;
-        line-height: 1.45;
-      }
-
+      .what-we-do-step__title { font-size: 1.1rem; line-height: 1.45; }
       .what-we-do-step__body { font-size: 0.95rem; }
-
       .who-grid { grid-template-columns: 1fr; }
-
       .who-card { padding: 1.25rem; }
-
       .who-text { margin-top: 1.5rem; }
     }
   </style>
@@ -801,15 +717,13 @@
   <nav class="nav">
     <div class="nav__inner">
       <a href="#" class="nav__logo" onclick="showPage('accueil')">Forme V</a>
-
       <ul class="nav__links">
         <li><a href="#" onclick="showPage('methode')">Méthode</a></li>
         <li><a href="#" onclick="showPage('situations')">Situations</a></li>
+        <li><a href="/signaux">Signaux</a></li>
         <li><a href="#" onclick="showPage('apropos')">À propos</a></li>
       </ul>
-
       <a href="#" class="nav__cta" onclick="showPage('contact')">Nous contacter</a>
-
       <button class="nav__mobile-toggle" id="mobileMenuToggle" aria-label="Ouvrir le menu">
         <span></span>
         <span></span>
@@ -824,6 +738,7 @@
         <li><a href="#" onclick="showPage('accueil')">Accueil</a></li>
         <li><a href="#" onclick="showPage('methode')">Méthode</a></li>
         <li><a href="#" onclick="showPage('situations')">Situations</a></li>
+        <li><a href="/signaux">Signaux</a></li>
         <li><a href="#" onclick="showPage('apropos')">À propos</a></li>
       </ul>
       <a href="#" class="mobile-menu__cta" onclick="showPage('contact')">Nous contacter</a>
@@ -850,9 +765,7 @@
       </div>
     </section>
 
-    <div class="container">
-      <hr class="rule">
-    </div>
+    <div class="container"><hr class="rule"></div>
 
     <section class="section--tight">
       <div class="container">
@@ -879,7 +792,6 @@
       <div class="container">
         <hr class="rule mb-lg">
         <p class="t-label mb-md">Méthode en trois actes</p>
-
         <div class="acts" style="border: 1px solid var(--gray-rule);">
           <div class="act">
             <p class="act__acte">Acte 01</p>
@@ -891,7 +803,6 @@
               <li>Compréhension des publics</li>
             </ul>
           </div>
-
           <div class="act">
             <p class="act__acte">Acte 02</p>
             <h3 class="act__title">Reformuler</h3>
@@ -902,7 +813,6 @@
               <li>Messages structurants</li>
             </ul>
           </div>
-
           <div class="act">
             <p class="act__acte">Acte 03</p>
             <h3 class="act__title">Activer</h3>
@@ -914,7 +824,6 @@
             </ul>
           </div>
         </div>
-
         <div style="text-align: right; margin-top: 1.5rem;">
           <a href="#" onclick="showPage('methode')" style="font-size: 0.8125rem; color: var(--gray-mid); letter-spacing: 0.04em; text-decoration: none;">Voir la méthode complète →</a>
         </div>
@@ -924,7 +833,6 @@
     <section style="padding: 0 0 var(--space-xl);">
       <div class="container">
         <hr class="rule mb-lg">
-
         <div class="grid-asymmetric what-we-do-block">
           <div>
             <p class="t-label mb-md">Ce que nous faisons</p>
@@ -937,41 +845,21 @@
               Nous n'ajoutons pas du bruit. Nous cherchons une ligne de force.
             </p>
           </div>
-
           <div class="what-we-do-rail">
             <div class="what-we-do-step">
               <p class="t-label mb-sm">Point de départ</p>
-              <p class="what-we-do-step__title">
-                Une parole légitime, mais dispersée, trop technique ou insuffisamment perceptible.
-              </p>
-              <p class="what-we-do-step__body">
-                Beaucoup d'organisations ne manquent ni de fond, ni d'action, ni de raisons de parler.
-                Ce qui manque, plus souvent, c'est une structure lisible, une ligne de force,
-                une forme capable de faire tenir l'ensemble.
-              </p>
+              <p class="what-we-do-step__title">Une parole légitime, mais dispersée, trop technique ou insuffisamment perceptible.</p>
+              <p class="what-we-do-step__body">Beaucoup d'organisations ne manquent ni de fond, ni d'action, ni de raisons de parler. Ce qui manque, plus souvent, c'est une structure lisible, une ligne de force, une forme capable de faire tenir l'ensemble.</p>
             </div>
-
             <div class="what-we-do-step">
               <p class="t-label mb-sm">Notre intervention</p>
-              <p class="what-we-do-step__title">
-                Clarifier, structurer, puis concevoir les formes par lesquelles le récit peut circuler.
-              </p>
-              <p class="what-we-do-step__body">
-                Nous ne partons pas des formats. Nous partons du récit, de ses tensions,
-                de ses conditions d'audibilité et des publics auxquels il doit parvenir.
-                C'est à partir de là seulement que nous pensons les formes justes.
-              </p>
+              <p class="what-we-do-step__title">Clarifier, structurer, puis concevoir les formes par lesquelles le récit peut circuler.</p>
+              <p class="what-we-do-step__body">Nous ne partons pas des formats. Nous partons du récit, de ses tensions, de ses conditions d'audibilité et des publics auxquels il doit parvenir. C'est à partir de là seulement que nous pensons les formes justes.</p>
             </div>
-
             <div class="what-we-do-step">
               <p class="t-label mb-sm">Effet recherché</p>
-              <p class="what-we-do-step__title">
-                Une présence publique plus nette, plus cohérente, plus crédible.
-              </p>
-              <p class="what-we-do-step__body">
-                L'enjeu n'est pas de produire plus de communication, mais de rendre une parole
-                plus juste dans sa structure, plus lisible dans ses formes et plus forte dans sa circulation.
-              </p>
+              <p class="what-we-do-step__title">Une présence publique plus nette, plus cohérente, plus crédible.</p>
+              <p class="what-we-do-step__body">L'enjeu n'est pas de produire plus de communication, mais de rendre une parole plus juste dans sa structure, plus lisible dans ses formes et plus forte dans sa circulation.</p>
             </div>
           </div>
         </div>
@@ -984,30 +872,25 @@
           <div>
             <p class="t-label" style="color:#888;">Nous intervenons dans des contextes tels que</p>
           </div>
-
           <div>
             <div class="who-grid">
               <div class="who-card">
                 <p class="who-num">01</p>
                 <p>Une parole légitime qui ne parvient pas à émerger</p>
               </div>
-
               <div class="who-card">
                 <p class="who-num">02</p>
                 <p>Une transformation réelle, mal perçue ou mal comprise</p>
               </div>
-
               <div class="who-card">
                 <p class="who-num">03</p>
                 <p>Une organisation exposée, fragilisée ou définie par d'autres</p>
               </div>
-
               <div class="who-card">
                 <p class="who-num">04</p>
                 <p>Des messages qui circulent sans former un récit cohérent</p>
               </div>
             </div>
-
             <p class="who-text">
               Ces situations traversent aussi bien les institutions publiques que les acteurs d'intérêt général,
               les entreprises privées, les organisations territoriales ou les structures parapubliques.
@@ -1033,7 +916,6 @@
 
   <!-- PAGE METHODE -->
   <div id="page-methode" class="page">
-
     <section class="section--hero">
       <div class="container">
         <p class="hero__eyebrow">Méthode</p>
@@ -1045,8 +927,7 @@
         <p class="hero__intro">
           Notre méthode repose sur un principe simple : avant de concevoir des formes,
           il faut comprendre pourquoi les récits existants ne produisent pas d'effet.
-          Chaque intervention est structurée en trois actes distincts, menés dans un ordre
-          qui a sa logique.
+          Chaque intervention est structurée en trois actes distincts, menés dans un ordre qui a sa logique.
         </p>
       </div>
     </section>
@@ -1062,10 +943,7 @@
             <h2 class="t-headline" style="font-weight: 300;">Comprendre</h2>
           </div>
           <div>
-            <p class="pull-quote">
-              "Un récit ne se répare pas en rajoutant de la communication.<br>
-              Il se répare en comprenant ce qui l'a rendu inaudible."
-            </p>
+            <p class="pull-quote">"Un récit ne se répare pas en rajoutant de la communication.<br>Il se répare en comprenant ce qui l'a rendu inaudible."</p>
             <p style="font-size: 0.9375rem; line-height: 1.75; color: var(--gray-mid); margin-bottom: 2rem;">
               La première étape de notre travail est toujours un diagnostic.
               Nous refusons d'intervenir sur la forme avant d'avoir identifié les causes
@@ -1074,12 +952,7 @@
               inadéquation aux publics ou au contexte.
             </p>
             <table class="diag-table">
-              <thead>
-                <tr>
-                  <th>Outil</th>
-                  <th>Finalité</th>
-                </tr>
-              </thead>
+              <thead><tr><th>Outil</th><th>Finalité</th></tr></thead>
               <tbody>
                 <tr><td>Diagnostic narratif</td><td>Évaluer la structure, la cohérence et la portée du récit existant</td></tr>
                 <tr><td>Analyse du contexte</td><td>Comprendre l'environnement discursif, médiatique et politique dans lequel il s'inscrit</td></tr>
@@ -1103,23 +976,15 @@
             <h2 class="t-headline" style="font-weight: 300; color: var(--blue-ink);">Reformuler</h2>
           </div>
           <div>
-            <p class="pull-quote" style="border-left-color: var(--blue-ink);">
-              "Reformuler n'est pas simplifier. C'est rendre perceptible ce qui, jusque-là, ne l'était pas."
-            </p>
+            <p class="pull-quote" style="border-left-color: var(--blue-ink);">"Reformuler n'est pas simplifier. C'est rendre perceptible ce qui, jusque-là, ne l'était pas."</p>
             <p style="font-size: 0.9375rem; line-height: 1.75; color: var(--gray-mid); margin-bottom: 2rem;">
-              Le deuxième acte consiste à construire une plateforme de récit claire,
-              solide et opératoire. Nous reformulons sans appauvrir. Nous clarifions
-              sans lisser. L'objectif n'est pas de produire un discours de plus,
-              mais une structure narrative capable de tenir dans le temps et de résister
-              aux contextes réels de circulation.
+              Le deuxième acte consiste à construire une plateforme de récit claire, solide et opératoire.
+              Nous reformulons sans appauvrir. Nous clarifions sans lisser.
+              L'objectif n'est pas de produire un discours de plus, mais une structure narrative
+              capable de tenir dans le temps et de résister aux contextes réels de circulation.
             </p>
             <table class="diag-table">
-              <thead>
-                <tr>
-                  <th>Livrable</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
+              <thead><tr><th>Livrable</th><th>Description</th></tr></thead>
               <tbody>
                 <tr><td>Plateforme de récit</td><td>Document structurant l'ensemble du récit : thèse, arguments, preuves, tonalité et lignes de force</td></tr>
                 <tr><td>Clarification du positionnement</td><td>Définition précise de la place que l'organisation peut légitimement occuper dans l'espace public</td></tr>
@@ -1143,23 +1008,16 @@
             <h2 class="t-headline" style="font-weight: 300; color: var(--ocre);">Activer</h2>
           </div>
           <div>
-            <p class="pull-quote" style="border-left-color: var(--ocre);">
-              "Une idée juste mal incarnée reste une idée perdue. La forme n'est pas un supplément. C'est une condition."
-            </p>
+            <p class="pull-quote" style="border-left-color: var(--ocre);">"Une idée juste mal incarnée reste une idée perdue. La forme n'est pas un supplément. C'est une condition."</p>
             <p style="font-size: 0.9375rem; line-height: 1.75; color: var(--gray-mid); margin-bottom: 2rem;">
               Le troisième acte transforme la plateforme narrative en formes concrètes.
               Nous concevons les modalités par lesquelles le récit devient public :
               formats éditoriaux, temps forts, circulations médiatiques, expériences,
-              séquences numériques ou dispositifs de rencontre. Chaque forme est pensée
-              pour un public, un contexte et une fonction précise.
+              séquences numériques ou dispositifs de rencontre.
+              Chaque forme est pensée pour un public, un contexte et une fonction précise.
             </p>
             <table class="diag-table">
-              <thead>
-                <tr>
-                  <th>Domaine</th>
-                  <th>Types de formes</th>
-                </tr>
-              </thead>
+              <thead><tr><th>Domaine</th><th>Types de formes</th></tr></thead>
               <tbody>
                 <tr><td>Éditorial</td><td>Rapports, publications, formats longs, textes de référence, lignes éditoriales</td></tr>
                 <tr><td>Événementiel</td><td>Conférences, formats de rencontre, moments publics, prises de parole incarnées</td></tr>
@@ -1180,10 +1038,8 @@
           <p style="font-size: 1.1875rem; line-height: 1.7; color: var(--white); margin-bottom: 3rem;">
             Forme V n'est pas une agence de communication. Nous intervenons en amont,
             au moment où il faut encore clarifier le récit, son architecture et ses formes de circulation.
-            Nous travaillons souvent avant — et parfois aux côtés — des agences chargées de produire,
-            diffuser ou déployer.
+            Nous travaillons souvent avant — et parfois aux côtés — des agences chargées de produire, diffuser ou déployer.
           </p>
-
           <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #333;">
             <div style="background: var(--ink); padding: 2rem 1.5rem; text-align: left;">
               <p style="font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #666; margin-bottom: 0.75rem;">Nous faisons</p>
@@ -1205,7 +1061,6 @@
 
   <!-- PAGE SITUATIONS -->
   <div id="page-situations" class="page">
-
     <section class="section--hero">
       <div class="container">
         <p class="hero__eyebrow">Situations et missions</p>
@@ -1231,80 +1086,38 @@
           <div class="sit-item">
             <span class="sit-item__tag">01</span>
             <h2 class="sit-item__title">Le récit invisible</h2>
-            <p class="sit-item__body">
-              L'organisation agit. Ce qu'elle fait a du sens, de la portée, parfois même de la valeur publique.
-              Pourtant, rien ne parvient réellement jusqu'aux publics qui comptent.
-              Le problème n'est pas l'absence de réalité, mais l'absence de forme qui permettrait à cette réalité d'être reconnue.
-            </p>
-            <p style="font-size: 0.8125rem; color: var(--blue-ink); margin-top: 1.5rem; letter-spacing: 0.04em;">
-              → Construction d'une plateforme narrative et d'une stratégie de déploiement
-            </p>
+            <p class="sit-item__body">L'organisation agit. Ce qu'elle fait a du sens, de la portée, parfois même de la valeur publique. Pourtant, rien ne parvient réellement jusqu'aux publics qui comptent. Le problème n'est pas l'absence de réalité, mais l'absence de forme qui permettrait à cette réalité d'être reconnue.</p>
+            <p style="font-size: 0.8125rem; color: var(--blue-ink); margin-top: 1.5rem; letter-spacing: 0.04em;">→ Construction d'une plateforme narrative et d'une stratégie de déploiement</p>
           </div>
-
           <div class="sit-item">
             <span class="sit-item__tag">02</span>
             <h2 class="sit-item__title">Le récit technique</h2>
-            <p class="sit-item__body">
-              La parole de l'organisation est juste, précise, documentée. Mais elle reste opaque.
-              Elle parle à ceux qui savent déjà, pas à ceux qui doivent comprendre.
-              La technicité est devenue un filtre au lieu d'être un levier de crédibilité.
-            </p>
-            <p style="font-size: 0.8125rem; color: var(--blue-ink); margin-top: 1.5rem; letter-spacing: 0.04em;">
-              → Reformulation accessible et traduction narrative sans appauvrissement
-            </p>
+            <p class="sit-item__body">La parole de l'organisation est juste, précise, documentée. Mais elle reste opaque. Elle parle à ceux qui savent déjà, pas à ceux qui doivent comprendre. La technicité est devenue un filtre au lieu d'être un levier de crédibilité.</p>
+            <p style="font-size: 0.8125rem; color: var(--blue-ink); margin-top: 1.5rem; letter-spacing: 0.04em;">→ Reformulation accessible et traduction narrative sans appauvrissement</p>
           </div>
-
           <div class="sit-item">
             <span class="sit-item__tag">03</span>
             <h2 class="sit-item__title">Le récit défensif</h2>
-            <p class="sit-item__body">
-              Sous pression médiatique, politique ou sociétale, l'organisation s'est installée dans la réponse.
-              Elle justifie, explique, rectifie, démonte. Elle a perdu l'initiative.
-              Sa parole est désormais en réaction, alors qu'elle devrait redevenir proposition.
-            </p>
-            <p style="font-size: 0.8125rem; color: var(--blue-ink); margin-top: 1.5rem; letter-spacing: 0.04em;">
-              → Reconquête de l'initiative narrative et repositionnement stratégique
-            </p>
+            <p class="sit-item__body">Sous pression médiatique, politique ou sociétale, l'organisation s'est installée dans la réponse. Elle justifie, explique, rectifie, démonte. Elle a perdu l'initiative. Sa parole est désormais en réaction, alors qu'elle devrait redevenir proposition.</p>
+            <p style="font-size: 0.8125rem; color: var(--blue-ink); margin-top: 1.5rem; letter-spacing: 0.04em;">→ Reconquête de l'initiative narrative et repositionnement stratégique</p>
           </div>
-
           <div class="sit-item">
             <span class="sit-item__tag">04</span>
             <h2 class="sit-item__title">Le récit fragmenté</h2>
-            <p class="sit-item__body">
-              Les directions parlent. Les équipes parlent. Les projets ont leur propre langage.
-              Mais l'ensemble ne fait pas récit. Il n'existe ni ligne de force, ni voix identifiable,
-              ni cohérence d'ensemble. L'organisation parle de partout, et n'est véritablement entendue nulle part.
-            </p>
-            <p style="font-size: 0.8125rem; color: var(--blue-ink); margin-top: 1.5rem; letter-spacing: 0.04em;">
-              → Architecture narrative unifiée et gouvernance éditoriale
-            </p>
+            <p class="sit-item__body">Les directions parlent. Les équipes parlent. Les projets ont leur propre langage. Mais l'ensemble ne fait pas récit. Il n'existe ni ligne de force, ni voix identifiable, ni cohérence d'ensemble. L'organisation parle de partout, et n'est véritablement entendue nulle part.</p>
+            <p style="font-size: 0.8125rem; color: var(--blue-ink); margin-top: 1.5rem; letter-spacing: 0.04em;">→ Architecture narrative unifiée et gouvernance éditoriale</p>
           </div>
-
           <div class="sit-item">
             <span class="sit-item__tag">05</span>
             <h2 class="sit-item__title">Le récit épuisé</h2>
-            <p class="sit-item__body">
-              L'organisation a beaucoup parlé. Les mots ont servi, les promesses ont circulé,
-              les formules ont tourné. Mais le récit ne produit plus d'effet :
-              ni attention, ni adhésion, ni désir. Il faut le régénérer sans rompre la continuité.
-            </p>
-            <p style="font-size: 0.8125rem; color: var(--blue-ink); margin-top: 1.5rem; letter-spacing: 0.04em;">
-              → Régénération narrative et renouvellement des formes d'expression
-            </p>
+            <p class="sit-item__body">L'organisation a beaucoup parlé. Les mots ont servi, les promesses ont circulé, les formules ont tourné. Mais le récit ne produit plus d'effet : ni attention, ni adhésion, ni désir. Il faut le régénérer sans rompre la continuité.</p>
+            <p style="font-size: 0.8125rem; color: var(--blue-ink); margin-top: 1.5rem; letter-spacing: 0.04em;">→ Régénération narrative et renouvellement des formes d'expression</p>
           </div>
-
           <div class="sit-item">
             <span class="sit-item__tag">06</span>
             <h2 class="sit-item__title">Le récit capturé</h2>
-            <p class="sit-item__body">
-              D'autres ont pris la main sur la définition de l'organisation :
-              concurrents, détracteurs, médias, acteurs politiques ou commentaires périphériques.
-              Le cadrage ne lui appartient plus. Elle subit une lecture qu'elle n'a pas choisie
-              et contre laquelle elle ne peut plus seulement opposer des éléments de langage.
-            </p>
-            <p style="font-size: 0.8125rem; color: var(--blue-ink); margin-top: 1.5rem; letter-spacing: 0.04em;">
-              → Stratégie de recadrage et reconquête narrative
-            </p>
+            <p class="sit-item__body">D'autres ont pris la main sur la définition de l'organisation : concurrents, détracteurs, médias, acteurs politiques ou commentaires périphériques. Le cadrage ne lui appartient plus. Elle subit une lecture qu'elle n'a pas choisie et contre laquelle elle ne peut plus seulement opposer des éléments de langage.</p>
+            <p style="font-size: 0.8125rem; color: var(--blue-ink); margin-top: 1.5rem; letter-spacing: 0.04em;">→ Stratégie de recadrage et reconquête narrative</p>
           </div>
         </div>
       </div>
@@ -1322,23 +1135,19 @@
               Nous intervenons selon plusieurs modalités, à calibrer selon l'urgence,
               l'ampleur du problème et le degré de transformation recherché.
             </p>
-
             <div>
               <div style="padding: 1.75rem 0; border-bottom: 1px solid var(--gray-rule); display: grid; grid-template-columns: 200px 1fr; gap: 2rem;">
                 <p style="font-size: 1rem; font-weight: 500;">Mission complète</p>
                 <p style="font-size: 0.9375rem; color: var(--gray-mid); line-height: 1.65;">Nous conduisons les trois actes — diagnostic, reformulation, activation — en accompagnement intégral. Durée indicative : 2 à 6 mois.</p>
               </div>
-
               <div style="padding: 1.75rem 0; border-bottom: 1px solid var(--gray-rule); display: grid; grid-template-columns: 200px 1fr; gap: 2rem;">
                 <p style="font-size: 1rem; font-weight: 500;">Diagnostic stratégique</p>
                 <p style="font-size: 0.9375rem; color: var(--gray-mid); line-height: 1.65;">Nous réalisons un audit narratif complet et remettons une analyse avec hypothèses, tensions et recommandations. Durée indicative : 3 à 6 semaines.</p>
               </div>
-
               <div style="padding: 1.75rem 0; border-bottom: 1px solid var(--gray-rule); display: grid; grid-template-columns: 200px 1fr; gap: 2rem;">
                 <p style="font-size: 1rem; font-weight: 500;">Intervention ciblée</p>
                 <p style="font-size: 0.9375rem; color: var(--gray-mid); line-height: 1.65;">Nous intervenons sur un point précis — crise, repositionnement, lancement, séquence sensible — avec une logique de réponse rapide et structurée.</p>
               </div>
-
               <div style="padding: 1.75rem 0; display: grid; grid-template-columns: 200px 1fr; gap: 2rem;">
                 <p style="font-size: 1rem; font-weight: 500;">Partenariat continu</p>
                 <p style="font-size: 0.9375rem; color: var(--gray-mid); line-height: 1.65;">Nous devenons un appui stratégique récurrent, capable de suivre l'évolution du contexte, de nourrir la parole de l'organisation et d'ajuster ses formes de circulation.</p>
@@ -1352,7 +1161,6 @@
 
   <!-- PAGE A PROPOS -->
   <div id="page-apropos" class="page">
-
     <section class="section--hero">
       <div class="container">
         <p class="hero__eyebrow">À propos</p>
@@ -1374,9 +1182,7 @@
     <section>
       <div class="container">
         <div class="grid-asymmetric" style="align-items: start;">
-          <div>
-            <p class="t-label">Origine</p>
-          </div>
+          <div><p class="t-label">Origine</p></div>
           <div>
             <p style="font-size: 1.1875rem; font-weight: 300; line-height: 1.6; letter-spacing: -0.01em; margin-bottom: 2rem; max-width: 620px;">
               Forme V est né d'un constat simple : beaucoup d'organisations sérieuses,
@@ -1403,38 +1209,24 @@
     <section>
       <div class="container">
         <div class="grid-asymmetric" style="align-items: start;">
-          <div>
-            <p class="t-label">Notre singularité</p>
-          </div>
+          <div><p class="t-label">Notre singularité</p></div>
           <div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
               <div>
                 <p style="font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 1rem;">Lecture stratégique</p>
-                <p style="font-size: 0.9375rem; line-height: 1.65; color: var(--gray-mid);">
-                  Nous lisons les contextes, identifions les tensions,
-                  qualifions les espaces de parole et les conditions réelles d'audibilité.
-                </p>
+                <p style="font-size: 0.9375rem; line-height: 1.65; color: var(--gray-mid);">Nous lisons les contextes, identifions les tensions, qualifions les espaces de parole et les conditions réelles d'audibilité.</p>
               </div>
               <div>
                 <p style="font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 1rem;">Architecture narrative</p>
-                <p style="font-size: 0.9375rem; line-height: 1.65; color: var(--gray-mid);">
-                  Nous construisons des récits structurés, cohérents et durables,
-                  capables de tenir dans le temps et dans des contextes adverses.
-                </p>
+                <p style="font-size: 0.9375rem; line-height: 1.65; color: var(--gray-mid);">Nous construisons des récits structurés, cohérents et durables, capables de tenir dans le temps et dans des contextes adverses.</p>
               </div>
               <div>
                 <p style="font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 1rem;">Conception de formes</p>
-                <p style="font-size: 0.9375rem; line-height: 1.65; color: var(--gray-mid);">
-                  Nous pensons les formats, les séquences et les dispositifs
-                  par lesquels un récit devient public et atteint ses destinataires.
-                </p>
+                <p style="font-size: 0.9375rem; line-height: 1.65; color: var(--gray-mid);">Nous pensons les formats, les séquences et les dispositifs par lesquels un récit devient public et atteint ses destinataires.</p>
               </div>
               <div>
                 <p style="font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 1rem;">L'ensemble</p>
-                <p style="font-size: 0.9375rem; line-height: 1.65; color: var(--gray-mid);">
-                  Nous faisons tenir ensemble ces trois registres, sans les séparer,
-                  parce qu'un bon récit mal activé se perd, et qu'un dispositif sans récit sonne creux.
-                </p>
+                <p style="font-size: 0.9375rem; line-height: 1.65; color: var(--gray-mid);">Nous faisons tenir ensemble ces trois registres, sans les séparer, parce qu'un bon récit mal activé se perd, et qu'un dispositif sans récit sonne creux.</p>
               </div>
             </div>
           </div>
@@ -1492,7 +1284,6 @@
 
   <!-- PAGE CONTACT -->
   <div id="page-contact" class="page">
-
     <section class="section--hero">
       <div class="container">
         <p class="hero__eyebrow">Contact</p>
@@ -1514,7 +1305,6 @@
     <section>
       <div class="container">
         <div class="grid-2" style="gap: 6rem; align-items: start;">
-
           <div>
             <p class="t-label mb-md">Forme V</p>
             <p style="font-size: 0.9375rem; line-height: 1.75; color: var(--gray-mid); margin-bottom: 2.5rem;">
@@ -1522,12 +1312,10 @@
               et dans l'espace francophone. Des missions internationales peuvent être envisagées
               selon la nature des enjeux et des contextes.
             </p>
-
             <div style="margin-bottom: 2rem;">
               <p class="t-label mb-sm">Contact direct</p>
               <p style="font-size: 1rem; color: var(--ink);">vivien@formev.fr</p>
             </div>
-
             <div style="margin-bottom: 2.5rem;">
               <p class="t-label mb-sm">Premier échange</p>
               <p style="font-size: 0.9375rem; color: var(--gray-mid);">
@@ -1535,7 +1323,6 @@
                 Si ce n'est pas le cas, nous vous le dirons clairement.
               </p>
             </div>
-
             <div style="padding: 1.5rem; border: 1px solid var(--blue-ink);">
               <p style="font-size: 0.8125rem; line-height: 1.65; color: var(--gray-mid);">
                 <span style="color: var(--blue-ink); font-weight: 500;">Point de départ :</span>
@@ -1545,26 +1332,21 @@
               </p>
             </div>
           </div>
-
           <div>
             <p class="t-label mb-lg">Nous écrire</p>
-
             <form action="https://formspree.io/f/mwvwqzjp" method="POST">
               <div class="form-field">
                 <label class="form-label">Nom et prénom</label>
                 <input type="text" name="name" class="form-input" placeholder="Votre nom">
               </div>
-
               <div class="form-field">
                 <label class="form-label">Organisation</label>
                 <input type="text" name="organisation" class="form-input" placeholder="Votre organisation">
               </div>
-
               <div class="form-field">
                 <label class="form-label">Adresse email</label>
                 <input type="email" name="email" class="form-input" placeholder="votre@email.fr" required>
               </div>
-
               <div class="form-field">
                 <label class="form-label">Type de situation</label>
                 <select name="situation" class="form-select">
@@ -1578,20 +1360,16 @@
                   <option>Je ne sais pas encore</option>
                 </select>
               </div>
-
               <div class="form-field">
                 <label class="form-label">Décrivez votre situation en quelques lignes</label>
                 <textarea name="message" class="form-input form-textarea" placeholder="Qu'est-ce qui ne prend pas ? Qu'est-ce qui reste flou, inaudible ou inefficace ? Dans quel contexte intervenez-vous ?" required></textarea>
               </div>
-
               <input type="hidden" name="_subject" value="Nouveau message – Forme V">
-
               <div style="margin-top: 2.5rem;">
                 <button type="submit" class="btn">Envoyer le message</button>
               </div>
             </form>
           </div>
-
         </div>
       </div>
     </section>
@@ -1604,10 +1382,10 @@
         <p class="footer__tagline">Architecture de récits et dispositifs d'attention</p>
         <p class="footer__copy">© 2026</p>
       </div>
-
       <ul class="footer__links">
         <li><a href="#" onclick="showPage('methode')">Méthode</a></li>
         <li><a href="#" onclick="showPage('situations')">Situations</a></li>
+        <li><a href="/signaux">Signaux</a></li>
         <li><a href="#" onclick="showPage('apropos')">À propos</a></li>
         <li><a href="#" onclick="showPage('contact')">Contact</a></li>
         <li><a href="#">Mentions légales</a></li>
@@ -1670,12 +1448,12 @@
       }
     }
 
-    document.querySelectorAll('.nav__links a, .footer__links a, .mobile-menu__links a').forEach(function(a) {
+    document.querySelectorAll('.nav__links a:not([href="/signaux"]), .footer__links a:not([href="/signaux"]), .mobile-menu__links a:not([href="/signaux"])').forEach(function(a) {
       a.addEventListener('click', function(e) { e.preventDefault(); });
     });
 
     triggerHeroAnimation(document.getElementById('page-accueil'));
-</script>
+  </script>
 
 </body>
 </html>
