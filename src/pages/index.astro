@@ -224,19 +224,22 @@
     }
 
     .mobile-menu {
-      display: none;
-    }
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.65s ease;
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-rule);
+  z-index: 99;
+}
 
     .mobile-menu.active {
-      display: block;
-      position: fixed;
-      top: 56px;
-      left: 0;
-      right: 0;
-      background: var(--white);
-      border-bottom: 1px solid var(--gray-rule);
-      z-index: 99;
-    }
+  opacity: 1;
+  pointer-events: auto;
+}
 
     .mobile-menu__inner {
       padding: 1rem 1.25rem 1.5rem;
