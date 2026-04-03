@@ -44,11 +44,17 @@ const sorted = posts.sort((a, b) => new Date(b.data.date) - new Date(a.data.date
 </head>
 <body>
   <nav class="nav">
-    <div class="nav__inner">
-      <a href="/" class="nav__logo">Forme V</a>
-      <a href="/" class="nav__cta">Nous contacter</a>
-    </div>
-  </nav>
+  <div class="nav__inner">
+    <a href="/" class="nav__logo">Forme V</a>
+    <ul class="nav__links">
+      <li><a href="/#methode">Méthode</a></li>
+      <li><a href="/#situations">Situations</a></li>
+      <li><a href="/signaux">Signaux</a></li>
+      <li><a href="/#apropos">À propos</a></li>
+    </ul>
+    <a href="/#contact" class="nav__cta">Nous contacter</a>
+  </div>
+</nav>
 
   <section class="hero">
     <div class="container">

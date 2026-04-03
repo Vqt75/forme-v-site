@@ -48,11 +48,17 @@ const { Content } = await render(post);
 </head>
 <body>
   <nav class="nav">
-    <div class="nav__inner">
-      <a href="/" class="nav__logo">Forme V</a>
-      <a href="/signaux" class="nav__back">← Signaux</a>
-    </div>
-  </nav>
+  <div class="nav__inner">
+    <a href="/" class="nav__logo">Forme V</a>
+    <ul class="nav__links">
+      <li><a href="/#methode">Méthode</a></li>
+      <li><a href="/#situations">Situations</a></li>
+      <li><a href="/signaux">Signaux</a></li>
+      <li><a href="/#apropos">À propos</a></li>
+    </ul>
+    <a href="/#contact" class="nav__cta">Nous contacter</a>
+  </div>
+</nav>
   <article class="article">
     <p class="article__eyebrow">{new Date(post.data.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
     <h1 class="article__title">{post.data.title}</h1>
