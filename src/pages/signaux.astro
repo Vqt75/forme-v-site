@@ -1,0 +1,87 @@
+---
+import { getCollection } from 'astro:content';
+const posts = await getCollection('signaux');
+const sorted = posts.sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signaux — Forme V</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --white: #FAFAF7; --ink: #1A1A18; --gray-mid: #6B6B68; --gray-rule: #D0D0C8; --blue-ink: #1E3A5F; --ff-sans: 'Inter', 'Helvetica Neue', Arial, sans-serif; }
+    body { background: var(--white); color: var(--ink); font-family: var(--ff-sans); -webkit-font-smoothing: antialiased; }
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--gray-rule); height: 56px; display: flex; align-items: center; }
+    .nav__inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .nav__logo { font-size: 0.9375rem; font-weight: 500; text-decoration: none; color: var(--ink); }
+    .nav__cta { font-size: 0.8125rem; text-decoration: none; color: var(--ink); border: 1px solid var(--ink); padding: 0.375rem 1rem; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .hero { padding: calc(12rem + 56px) 0 8rem; }
+    .t-label { font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-mid); margin-bottom: 2rem; }
+    .t-display { font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 300; letter-spacing: -0.04em; line-height: 1; margin-bottom: 4rem; }
+    .hero__rule { width: 48px; height: 1px; background: var(--ink); margin-bottom: 2rem; }
+    .hero__intro { font-size: 1.1875rem; line-height: 1.65; max-width: 560px; color: #2C2C2A; }
+    hr { border: none; border-top: 1px solid var(--gray-rule); }
+    .signaux-list { padding: 4rem 0; }
+    .signal-item { padding: 2.5rem 0; border-bottom: 1px solid var(--gray-rule); display: grid; grid-template-columns: 160px 1fr; gap: 4rem; align-items: start; }
+    .signal-item:first-child { border-top: 1px solid var(--gray-rule); }
+    .signal-date { font-size: 0.8125rem; color: var(--gray-mid); letter-spacing: 0.04em; }
+    .signal-title { font-size: 1.25rem; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+    .signal-title a { text-decoration: none; color: var(--ink); }
+    .signal-title a:hover { color: var(--blue-ink); }
+    .signal-desc { font-size: 0.9375rem; color: var(--gray-mid); line-height: 1.65; }
+    footer { border-top: 1px solid var(--gray-rule); padding: 3rem 0; }
+    .footer__inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: flex-end; }
+    .footer__brand { font-size: 0.9375rem; font-weight: 500; }
+    .footer__tagline { font-size: 0.8125rem; color: var(--gray-mid); margin-top: 0.25rem; }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Forme V</a>
+      <a href="/" class="nav__cta">Nous contacter</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <p class="t-label">Signaux</p>
+      <h1 class="t-display">Observations, analyses,<br>points de vue.</h1>
+      <div class="hero__rule"></div>
+      <p class="hero__intro">Des textes courts sur les récits publics, les dispositifs d'attention et les conditions de la parole dans l'espace contemporain.</p>
+    </div>
+  </section>
+
+  <div class="container"><hr /></div>
+
+  <section class="signaux-list">
+    <div class="container">
+      {sorted.map((post) => (
+        <div class="signal-item">
+          <p class="signal-date">{new Date(post.data.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+          <div>
+<h2 class="signal-title"><a href={`/signaux/${post.id}`}>{post.data.title}</a></h2>
+            <p class="signal-desc">{post.data.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer__inner">
+      <div>
+        <p class="footer__brand">Forme V</p>
+        <p class="footer__tagline">Architecture de récits et dispositifs d'attention</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
