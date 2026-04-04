@@ -573,6 +573,14 @@
       div[style*="200px 1fr"] {
         grid-template-columns: 1fr !important;
       }
+	  /* Fix bordures grille chiffres À propos */
+div[style*="repeat(4, 1fr)"] > div {
+  border-right: none !important;
+  border-bottom: 1px solid var(--gray-rule);
+}
+div[style*="repeat(4, 1fr)"] > div:last-child {
+  border-bottom: none !important;
+}
     }
     }
   </style>
