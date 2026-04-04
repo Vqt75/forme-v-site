@@ -12,6 +12,14 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+function formatDate(date: string) {
+  return new Date(date).toLocaleDateString('fr-FR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+}
 ---
 
 <!DOCTYPE html>
@@ -42,6 +50,8 @@ const { Content } = await render(post);
       --gray-rule: #D0D0C8;
       --blue-ink: #1E3A5F;
       --ff-sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      --max-w: 1200px;
+      --reading-w: 720px;
     }
 
     html {
@@ -54,6 +64,11 @@ const { Content } = await render(post);
       font-family: var(--ff-sans);
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
     }
 
     /* NAV */
@@ -72,7 +87,7 @@ const { Content } = await render(post);
     }
 
     .nav__inner {
-      max-width: 1200px;
+      max-width: var(--max-w);
       margin: 0 auto;
       padding: 0 2rem;
       display: flex;
@@ -124,9 +139,23 @@ const { Content } = await render(post);
     /* ARTICLE */
 
     .article {
-      max-width: 680px;
+      max-width: calc(var(--reading-w) + 4rem);
       margin: 0 auto;
-      padding: calc(10rem + 56px) 2rem 8rem;
+      padding: calc(9rem + 56px) 2rem 7rem;
+    }
+
+    .article__back {
+      display: inline-block;
+      font-size: 0.8125rem;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      color: var(--gray-mid);
+      margin-bottom: 2.25rem;
+      transition: opacity 0.2s;
+    }
+
+    .article__back:hover {
+      opacity: 0.6;
     }
 
     .article__eyebrow {
@@ -138,11 +167,12 @@ const { Content } = await render(post);
     }
 
     .article__title {
-      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-size: clamp(2.2rem, 4vw, 4rem);
       font-weight: 300;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
+      letter-spacing: -0.04em;
+      line-height: 1.02;
       margin-bottom: 1.5rem;
+      max-width: 900px;
     }
 
     .article__rule {
@@ -154,8 +184,9 @@ const { Content } = await render(post);
 
     .article__desc {
       font-size: 1.1875rem;
-      line-height: 1.65;
+      line-height: 1.75;
       color: #2C2C2A;
+      max-width: 720px;
       margin-bottom: 4rem;
     }
 
@@ -166,8 +197,9 @@ const { Content } = await render(post);
     }
 
     .article__body {
+      max-width: 720px;
       font-size: 1rem;
-      line-height: 1.8;
+      line-height: 1.9;
       color: var(--ink);
     }
 
@@ -179,12 +211,14 @@ const { Content } = await render(post);
       font-size: 1.5rem;
       font-weight: 400;
       letter-spacing: -0.02em;
+      line-height: 1.25;
       margin: 3rem 0 1rem;
     }
 
     .article__body h3 {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 400;
+      line-height: 1.35;
       margin: 2rem 0 0.75rem;
     }
 
@@ -197,16 +231,31 @@ const { Content } = await render(post);
       margin-bottom: 0.5rem;
     }
 
+    .article__body blockquote {
+      border-left: 2px solid var(--ink);
+      padding-left: 1.25rem;
+      margin: 2rem 0;
+      color: var(--gray-mid);
+    }
+
+    .article__body a {
+      color: var(--blue-ink);
+      text-decoration: none;
+    }
+
+    .article__body a:hover {
+      text-decoration: underline;
+    }
+
     /* FOOTER */
 
     footer {
       border-top: 1px solid var(--gray-rule);
       padding: 3rem 0;
-      margin-top: 8rem;
     }
 
     .footer__inner {
-      max-width: 1200px;
+      max-width: var(--max-w);
       margin: 0 auto;
       padding: 0 2rem;
       display: flex;
@@ -252,12 +301,33 @@ const { Content } = await render(post);
         padding: 0.45rem 0.85rem;
       }
 
+      .article,
+      .footer__inner {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+
       .article {
-        padding: calc(7rem + 56px) 1.25rem 5rem;
+        padding-top: calc(7rem + 56px);
+        padding-bottom: 5rem;
+      }
+
+      .article__back {
+        margin-bottom: 1.75rem;
       }
 
       .article__desc {
         font-size: 1.0625rem;
+        margin-bottom: 3rem;
+      }
+
+      hr {
+        margin-bottom: 3rem;
+      }
+
+      .article__body {
+        font-size: 0.98rem;
+        line-height: 1.85;
       }
 
       .footer__inner {
@@ -291,13 +361,9 @@ const { Content } = await render(post);
   </nav>
 
   <article class="article">
-    <p class="article__eyebrow">
-      {new Date(post.data.date).toLocaleDateString('fr-FR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      })}
-    </p>
+    <a href="/signaux" class="article__back">← Tous les signaux</a>
+
+    <p class="article__eyebrow">{formatDate(post.data.date)}</p>
 
     <h1 class="article__title">{post.data.title}</h1>
 

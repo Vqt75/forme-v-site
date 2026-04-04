@@ -6,6 +6,17 @@ const posts = await getCollection('signaux');
 const sorted = posts.sort(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
+
+const featured = sorted[0];
+const archive = sorted.slice(1);
+
+function formatDate(date: string) {
+  return new Date(date).toLocaleDateString('fr-FR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+}
 ---
 
 <!DOCTYPE html>
@@ -36,6 +47,8 @@ const sorted = posts.sort(
       --gray-rule: #D0D0C8;
       --blue-ink: #1E3A5F;
       --ff-sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      --max-w: 1200px;
+      --reading-w: 720px;
     }
 
     html {
@@ -48,6 +61,11 @@ const sorted = posts.sort(
       font-family: var(--ff-sans);
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
     }
 
     /* NAV */
@@ -66,7 +84,7 @@ const sorted = posts.sort(
     }
 
     .nav__inner {
-      max-width: 1200px;
+      max-width: var(--max-w);
       margin: 0 auto;
       padding: 0 2rem;
       display: flex;
@@ -115,16 +133,18 @@ const sorted = posts.sort(
       white-space: nowrap;
     }
 
-    /* LAYOUT */
+    /* GLOBAL */
 
     .container {
-      max-width: 1200px;
+      max-width: var(--max-w);
       margin: 0 auto;
       padding: 0 2rem;
     }
 
-    .hero {
-      padding: calc(12rem + 56px) 0 8rem;
+    .container--reading {
+      max-width: calc(var(--reading-w) + 4rem);
+      margin: 0 auto;
+      padding: 0 2rem;
     }
 
     .t-label {
@@ -132,15 +152,32 @@ const sorted = posts.sort(
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--gray-mid);
-      margin-bottom: 2rem;
     }
 
-    .t-display {
+    .rule {
+      border: none;
+      border-top: 1px solid var(--gray-rule);
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: calc(11rem + 56px) 0 5rem;
+    }
+
+    .hero__grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .hero__title {
       font-size: clamp(3rem, 6vw, 5.5rem);
       font-weight: 300;
       letter-spacing: -0.04em;
-      line-height: 1;
-      margin-bottom: 4rem;
+      line-height: 0.98;
+      margin-bottom: 2.25rem;
     }
 
     .hero__rule {
@@ -151,62 +188,163 @@ const sorted = posts.sort(
     }
 
     .hero__intro {
-      font-size: 1.1875rem;
-      line-height: 1.65;
-      max-width: 560px;
+      font-size: 1.125rem;
+      line-height: 1.75;
       color: #2C2C2A;
+      max-width: 620px;
     }
 
-    hr {
-      border: none;
-      border-top: 1px solid var(--gray-rule);
+    .hero__micro {
+      margin-top: 2rem;
+      font-size: 0.8125rem;
+      letter-spacing: 0.04em;
+      color: var(--gray-mid);
     }
 
-    /* LISTE */
+    /* INTENTION */
 
-    .signaux-list {
-      padding: 4rem 0;
+    .intention {
+      padding: 4rem 0 5rem;
     }
 
-    .signal-item {
-      padding: 2.5rem 0;
-      border-bottom: 1px solid var(--gray-rule);
+    .intention__grid {
       display: grid;
-      grid-template-columns: 160px 1fr;
+      grid-template-columns: 220px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .intention__body {
+      max-width: 760px;
+    }
+
+    .intention__body p {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--ink);
+      margin-bottom: 1.35rem;
+    }
+
+    .intention__body p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* FEATURED */
+
+    .featured {
+      padding: 0 0 5rem;
+    }
+
+    .featured__header {
+      margin-bottom: 1.5rem;
+    }
+
+    .featured__card {
+      border-top: 1px solid var(--gray-rule);
+      border-bottom: 1px solid var(--gray-rule);
+      padding: 2.75rem 0;
+      display: grid;
+      grid-template-columns: 180px 1fr;
       gap: 4rem;
       align-items: start;
     }
 
-    .signal-item:first-child {
-      border-top: 1px solid var(--gray-rule);
-    }
-
-    .signal-date {
+    .featured__meta {
       font-size: 0.8125rem;
-      color: var(--gray-mid);
       letter-spacing: 0.04em;
+      color: var(--gray-mid);
     }
 
-    .signal-title {
-      font-size: 1.25rem;
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
+    .featured__title {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      max-width: 760px;
     }
 
-    .signal-title a {
+    .featured__title a {
       text-decoration: none;
       color: var(--ink);
     }
 
-    .signal-title a:hover {
+    .featured__title a:hover {
       color: var(--blue-ink);
     }
 
-    .signal-desc {
+    .featured__desc {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--gray-mid);
+      max-width: 760px;
+      margin-bottom: 1.25rem;
+    }
+
+    .featured__link {
+      display: inline-block;
+      text-decoration: none;
+      font-size: 0.8125rem;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      transition: opacity 0.2s;
+    }
+
+    .featured__link:hover {
+      opacity: 0.6;
+    }
+
+    /* ARCHIVE */
+
+    .archive {
+      padding: 0 0 5rem;
+    }
+
+    .archive__header {
+      margin-bottom: 1.5rem;
+    }
+
+    .archive__list {
+      border-top: 1px solid var(--gray-rule);
+    }
+
+    .archive__item {
+      padding: 2.2rem 0;
+      border-bottom: 1px solid var(--gray-rule);
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .archive__date {
+      font-size: 0.8125rem;
+      letter-spacing: 0.04em;
+      color: var(--gray-mid);
+    }
+
+    .archive__title {
+      font-size: 1.25rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.65rem;
+      line-height: 1.35;
+    }
+
+    .archive__title a {
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .archive__title a:hover {
+      color: var(--blue-ink);
+    }
+
+    .archive__desc {
       font-size: 0.9375rem;
       color: var(--gray-mid);
-      line-height: 1.65;
+      line-height: 1.7;
+      max-width: 760px;
     }
 
     /* FOOTER */
@@ -217,7 +355,7 @@ const sorted = posts.sort(
     }
 
     .footer__inner {
-      max-width: 1200px;
+      max-width: var(--max-w);
       margin: 0 auto;
       padding: 0 2rem;
       display: flex;
@@ -263,17 +401,52 @@ const sorted = posts.sort(
         padding: 0.45rem 0.85rem;
       }
 
-      .hero {
-        padding: calc(8rem + 56px) 0 4rem;
-      }
-
-      .container {
+      .container,
+      .container--reading,
+      .footer__inner {
         padding: 0 1.25rem;
       }
 
-      .signal-item {
+      .hero {
+        padding: calc(8rem + 56px) 0 3.5rem;
+      }
+
+      .hero__grid,
+      .intention__grid,
+      .featured__card,
+      .archive__item {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 1.25rem;
+      }
+
+      .hero__title {
+        margin-bottom: 1.75rem;
+      }
+
+      .hero__intro {
+        font-size: 1.0625rem;
+      }
+
+      .intention {
+        padding: 3rem 0 4rem;
+      }
+
+      .featured,
+      .archive {
+        padding: 0 0 4rem;
+      }
+
+      .featured__card,
+      .archive__item {
+        padding: 2rem 0;
+      }
+
+      .featured__title {
+        font-size: clamp(1.6rem, 8vw, 2.1rem);
+      }
+
+      .archive__title {
+        font-size: 1.125rem;
       }
 
       .footer__inner {
@@ -308,46 +481,105 @@ const sorted = posts.sort(
 
   <section class="hero">
     <div class="container">
-      <p class="t-label">Signaux</p>
+      <div class="hero__grid">
+        <div>
+          <p class="t-label">Signaux</p>
+        </div>
 
-      <h1 class="t-display">
-        Observations, analyses,<br />points de vue.
-      </h1>
+        <div>
+          <h1 class="hero__title">
+            Observations, analyses<br />
+            et textes courts<br />
+            sur ce qui rend une parole<br />
+            visible, lisible ou inaudible.
+          </h1>
 
-      <div class="hero__rule"></div>
+          <div class="hero__rule"></div>
 
-      <p class="hero__intro">
-        Des textes courts sur les récits publics, les dispositifs d'attention
-        et les conditions de la parole dans l'espace contemporain.
-      </p>
+          <p class="hero__intro">
+            Signaux est la rubrique éditoriale de Forme V.
+          </p>
+
+          <p class="hero__intro" style="margin-top: 1.25rem;">
+            Elle rassemble des textes brefs sur les récits publics, les dispositifs d’attention,
+            les formes de circulation de la parole et les situations où quelque chose devient perceptible... ou cesse de l’être.
+          </p>
+
+          <p class="hero__intro" style="margin-top: 1.25rem;">
+            Il ne s’agit pas de commenter le bruit ambiant, mais d’en décrypter les dynamiques et d'en proposer une lecture.
+          </p>
+
+        </div>
+      </div>
     </div>
   </section>
 
-  <div class="container"><hr /></div>
+  {featured && (
+    <section class="featured">
+      <div class="container">
+        <div class="featured__header">
+          <p class="t-label">Signal récent</p>
+        </div>
 
-  <section class="signaux-list">
-    <div class="container">
-      {sorted.map((post) => (
-        <div class="signal-item">
-          <p class="signal-date">
-            {new Date(post.data.date).toLocaleDateString('fr-FR', {
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric'
-            })}
-          </p>
+        <div class="featured__card">
+          <div class="featured__meta">
+            {formatDate(featured.data.date)}
+          </div>
 
           <div>
-            <h2 class="signal-title">
-              <a href={`/signaux/${post.id}`}>{post.data.title}</a>
+            <h2 class="featured__title">
+              <a href={`/signaux/${featured.id}`}>{featured.data.title}</a>
             </h2>
 
-            <p class="signal-desc">
-              {post.data.description}
+            <p class="featured__desc">
+              {featured.data.description}
             </p>
+
+            <a class="featured__link" href={`/signaux/${featured.id}`}>
+              Lire le signal →
+            </a>
           </div>
         </div>
-      ))}
+      </div>
+    </section>
+  )}
+
+  <section class="archive">
+    <div class="container">
+      <div class="archive__header">
+        <p class="t-label">Tous les signaux</p>
+      </div>
+
+      <div class="archive__list">
+        {archive.length > 0 ? (
+          archive.map((post) => (
+            <div class="archive__item">
+              <div class="archive__date">
+                {formatDate(post.data.date)}
+              </div>
+
+              <div>
+                <h2 class="archive__title">
+                  <a href={`/signaux/${post.id}`}>{post.data.title}</a>
+                </h2>
+
+                <p class="archive__desc">
+                  {post.data.description}
+                </p>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div class="archive__item">
+            <div></div>
+            <div>
+              <p class="archive__desc">
+                Aucun autre signal publié pour le moment.
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   </section>
 
