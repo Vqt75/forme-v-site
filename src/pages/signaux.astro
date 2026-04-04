@@ -22,38 +22,26 @@ function formatDate(date) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Signaux — Forme V</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black: #0A0A08;
       --white: #FAFAF7;
       --ink: #1A1A18;
       --gray-mid: #6B6B68;
-      --gray-light: #E8E8E2;
       --gray-rule: #D0D0C8;
       --blue-ink: #1E3A5F;
       --anthracite: #2C2C2A;
-      --ocre: #8B6914;
-      --ocre-light: #F5EDD6;
       --ff-sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-      --space-xs: 0.5rem;
-      --space-sm: 1rem;
       --space-md: 2rem;
       --space-lg: 4rem;
       --space-xl: 8rem;
       --space-2xl: 12rem;
       --max-w: 1200px;
-      --col-narrow: 600px;
-      --grid-gap: 3rem;
     }
 
     html { font-size: 16px; scroll-behavior: smooth; }
@@ -68,55 +56,16 @@ function formatDate(date) {
       text-rendering: optimizeLegibility;
     }
 
-    h1, h2, h3, h4, h5 {
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-    }
-
-    .t-display {
-      font-size: clamp(3rem, 6vw, 5.5rem);
-      font-weight: 300;
-      letter-spacing: -0.04em;
-      line-height: 1;
-    }
-
-    .t-headline {
-      font-size: clamp(1.8rem, 3vw, 2.8rem);
-      font-weight: 300;
-      letter-spacing: -0.03em;
-    }
-
-    .t-title {
-      font-size: clamp(1.2rem, 2vw, 1.5rem);
-      font-weight: 400;
-      letter-spacing: -0.02em;
-    }
-
-    .t-label {
-      font-size: 0.6875rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-weight: 400;
-      color: var(--gray-mid);
-    }
-
     .container {
       max-width: var(--max-w);
       margin: 0 auto;
       padding: 0 var(--space-md);
     }
 
-    .rule {
-      border: none;
-      border-top: 1px solid var(--gray-rule);
-    }
-
+    /* NAV */
     .nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       z-index: 100;
       background: var(--white);
       border-bottom: 1px solid var(--gray-rule);
@@ -135,7 +84,6 @@ function formatDate(date) {
       width: 100%;
       gap: 1rem;
       min-height: 56px;
-      position: relative;
     }
 
     .nav__logo {
@@ -151,7 +99,6 @@ function formatDate(date) {
       display: flex;
       gap: 2rem;
       list-style: none;
-      flex-wrap: wrap;
     }
 
     .nav__links a,
@@ -164,9 +111,9 @@ function formatDate(date) {
     }
 
     .nav__links a:hover,
-    .footer__links a:hover {
-      color: var(--ink);
-    }
+    .footer__links a:hover { color: var(--ink); }
+
+    .nav__links a.active { color: var(--ink); }
 
     .nav__cta {
       font-size: 0.8125rem;
@@ -178,10 +125,73 @@ function formatDate(date) {
       white-space: nowrap;
     }
 
-    section {
-      padding: var(--space-xl) 0;
+    .nav__mobile-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--gray-rule);
+      background: var(--white);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+      z-index: 102;
     }
 
+    .nav__mobile-toggle span {
+      display: block;
+      width: 18px;
+      height: 1px;
+      background: var(--ink);
+      margin: 3px 0;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .nav__mobile-toggle.is-open span:nth-child(1) { transform: translateY(4px) rotate(45deg); }
+    .nav__mobile-toggle.is-open span:nth-child(2) { opacity: 0; }
+    .nav__mobile-toggle.is-open span:nth-child(3) { transform: translateY(-4px) rotate(-45deg); }
+
+    .mobile-menu {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.65s ease;
+      position: fixed;
+      top: 56px; left: 0; right: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-rule);
+      z-index: 99;
+    }
+
+    .mobile-menu.active { opacity: 1; pointer-events: auto; }
+
+    .mobile-menu__inner { padding: 1rem 1.25rem 1.5rem; }
+
+    .mobile-menu__links {
+      list-style: none;
+      display: grid;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .mobile-menu__links a {
+      display: block;
+      font-size: 0.95rem;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+
+    .mobile-menu__cta {
+      display: inline-block;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      padding: 0.7rem 1rem;
+    }
+
+    /* HERO */
     .section--hero {
       padding: calc(var(--space-2xl) + 56px) 0 var(--space-xl);
     }
@@ -196,7 +206,6 @@ function formatDate(date) {
 
     .hero__title {
       margin-bottom: var(--space-lg);
-      max-width: 980px;
     }
 
     .hero__rule {
@@ -209,10 +218,18 @@ function formatDate(date) {
     .hero__intro {
       font-size: 1.1875rem;
       line-height: 1.65;
-      max-width: 700px;
+      max-width: 640px;
       color: var(--anthracite);
     }
 
+    .t-display {
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 300;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    /* ANIMATION */
     .hero-title-animated {
       display: flex;
       flex-direction: column;
@@ -227,22 +244,14 @@ function formatDate(date) {
       will-change: opacity, transform;
     }
 
-    .hero-title-animated.is-visible .hero-line {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
+    .hero-title-animated.is-visible .hero-line { opacity: 1; transform: translateY(0); }
     .hero-title-animated.is-visible .hero-line:nth-child(1) { transition-delay: 0.05s; }
-    .hero-title-animated.is-visible .hero-line:nth-child(2) { transition-delay: 0.22s; }
-    .hero-title-animated.is-visible .hero-line:nth-child(3) { transition-delay: 0.34s; }
+    .hero-title-animated.is-visible .hero-line:nth-child(2) { transition-delay: 0.28s; }
 
-    .signals {
-      padding-top: 0;
-    }
+    /* LISTE SIGNAUX */
+    .signals { padding: 0 0 var(--space-xl); }
 
-    .signals__list {
-      border-top: 1px solid var(--gray-rule);
-    }
+    .signals__list { border-top: 1px solid var(--gray-rule); }
 
     .signal-item {
       padding: 2.25rem 0;
@@ -267,22 +276,16 @@ function formatDate(date) {
       line-height: 1.35;
     }
 
-    .signal-title a {
-      text-decoration: none;
-      color: var(--ink);
-    }
-
-    .signal-title a:hover {
-      color: var(--blue-ink);
-    }
+    .signal-title a { text-decoration: none; color: var(--ink); }
+    .signal-title a:hover { color: var(--blue-ink); }
 
     .signal-desc {
       font-size: 0.9375rem;
       color: var(--gray-mid);
       line-height: 1.7;
-      max-width: 760px;
     }
 
+    /* FOOTER */
     footer {
       border-top: 1px solid var(--gray-rule);
       padding: 3rem 0;
@@ -298,10 +301,7 @@ function formatDate(date) {
       gap: 2rem;
     }
 
-    .footer__brand {
-      font-size: 0.9375rem;
-      font-weight: 500;
-    }
+    .footer__brand { font-size: 0.9375rem; font-weight: 500; }
 
     .footer__tagline {
       font-size: 0.8125rem;
@@ -323,57 +323,25 @@ function formatDate(date) {
       flex-wrap: wrap;
     }
 
+    /* RESPONSIVE */
     @media (max-width: 900px) {
       html { font-size: 15px; }
 
-      section { padding: 4rem 0; }
-
       .section--hero { padding: calc(7rem + 56px) 0 4rem; }
 
-      .container,
-      .footer__inner { padding: 0 1.25rem; }
+      .container { padding: 0 1.25rem; }
 
-      .hero__title { margin-bottom: 2.5rem; }
+      .t-display { font-size: clamp(2.4rem, 11vw, 4rem); line-height: 1.02; }
 
-      .hero__intro {
-        font-size: 1.0625rem;
-        max-width: 100%;
-      }
+      .nav__links, .nav__cta { display: none; }
 
-      .t-display {
-        font-size: clamp(2.4rem, 11vw, 4rem);
-        line-height: 1.02;
-      }
+      .nav__mobile-toggle { display: inline-flex; }
 
-      .nav__links {
-        gap: 1rem 1.25rem;
-      }
+      .signal-item { grid-template-columns: 1fr; gap: 0.75rem; }
 
-      .nav__cta {
-        font-size: 0.75rem;
-        padding: 0.45rem 0.85rem;
-      }
+      .footer__inner { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
 
-      .signal-item {
-        grid-template-columns: 1fr;
-        gap: 0.9rem;
-      }
-
-      .footer__inner {
-        flex-direction: column;
-        gap: 1.5rem;
-        align-items: flex-start;
-      }
-
-      .footer__links {
-        gap: 1rem 1.25rem;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .nav__links {
-        display: none;
-      }
+      .footer__links { gap: 1rem 1.25rem; }
     }
   </style>
 </head>
@@ -382,32 +350,44 @@ function formatDate(date) {
   <nav class="nav">
     <div class="nav__inner">
       <a href="/" class="nav__logo">Forme V</a>
-
       <ul class="nav__links">
+        <li><a href="/#methode">Méthode</a></li>
+        <li><a href="/#situations">Situations</a></li>
+        <li><a href="/signaux" class="active">Signaux</a></li>
+        <li><a href="/#apropos">À propos</a></li>
+      </ul>
+      <a href="/#contact" class="nav__cta">Nous contacter</a>
+      <button class="nav__mobile-toggle" id="mobileMenuToggle" aria-label="Ouvrir le menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu__inner">
+      <ul class="mobile-menu__links">
+        <li><a href="/">Accueil</a></li>
         <li><a href="/#methode">Méthode</a></li>
         <li><a href="/#situations">Situations</a></li>
         <li><a href="/signaux">Signaux</a></li>
         <li><a href="/#apropos">À propos</a></li>
       </ul>
-
-      <a href="/#contact" class="nav__cta">Nous contacter</a>
+      <a href="/#contact" class="mobile-menu__cta">Nous contacter</a>
     </div>
-  </nav>
+  </div>
 
   <section class="section--hero">
     <div class="container">
       <p class="hero__eyebrow">Signaux</p>
-
       <h1 class="t-display hero__title hero-title-animated" id="signauxTitle">
-        <span class="hero-line">Observations, analyses</span>
-        <span class="hero-line">et textes courts</span>
+        <span class="hero-line">Observations, analyses et textes courts</span>
         <span class="hero-line">sur ce qui rend une parole visible, lisible ou inaudible.</span>
       </h1>
-
       <div class="hero__rule"></div>
-
       <p class="hero__intro">
-        Des textes courts sur les récits publics, les dispositifs d’attention et les conditions de la parole dans l’espace contemporain.
+        Des textes courts sur les récits publics, les dispositifs d'attention et les conditions de la parole dans l'espace contemporain.
       </p>
     </div>
   </section>
@@ -418,12 +398,10 @@ function formatDate(date) {
         {sorted.map((post) => (
           <div class="signal-item">
             <p class="signal-date">{formatDate(post.data.date)}</p>
-
             <div>
               <h2 class="signal-title">
                 <a href={`/signaux/${post.id}`}>{post.data.title}</a>
               </h2>
-
               <p class="signal-desc">{post.data.description}</p>
             </div>
           </div>
@@ -439,7 +417,6 @@ function formatDate(date) {
         <p class="footer__tagline">Architecture de récits et dispositifs d'attention</p>
         <p class="footer__copy">© 2026</p>
       </div>
-
       <ul class="footer__links">
         <li><a href="/#methode">Méthode</a></li>
         <li><a href="/#situations">Situations</a></li>
@@ -452,26 +429,44 @@ function formatDate(date) {
   </footer>
 
   <script>
-    function triggerHeroAnimation() {
-      const title = document.getElementById('signauxTitle');
-      if (!title) return;
+    const mobileToggle = document.getElementById('mobileMenuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
 
-      title.classList.remove('is-visible');
+    function closeMobileMenu() {
+      if (!mobileMenu || !mobileToggle) return;
+      mobileMenu.classList.remove('active');
+      mobileToggle.classList.remove('is-open');
+      mobileToggle.setAttribute('aria-label', 'Ouvrir le menu');
+    }
 
-      requestAnimationFrame(function() {
-        requestAnimationFrame(function() {
-          title.classList.add('is-visible');
-        });
+    if (mobileToggle) {
+      mobileToggle.addEventListener('click', function() {
+        const isOpen = mobileMenu.classList.contains('active');
+        if (isOpen) {
+          closeMobileMenu();
+        } else {
+          mobileMenu.classList.add('active');
+          mobileToggle.classList.add('is-open');
+          mobileToggle.setAttribute('aria-label', 'Fermer le menu');
+        }
       });
     }
 
-    window.addEventListener('load', function() {
-  requestAnimationFrame(function() {
-    requestAnimationFrame(function() {
-      triggerHeroAnimation();
+    document.addEventListener('click', function(e) {
+      if (!mobileMenu || !mobileToggle) return;
+      if (!mobileMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+        if (mobileMenu.classList.contains('active')) closeMobileMenu();
+      }
     });
-  });
-});
+
+    window.addEventListener('load', function() {
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          var title = document.getElementById('signauxTitle');
+          if (title) title.classList.add('is-visible');
+        });
+      });
+    });
   </script>
 </body>
 </html>
