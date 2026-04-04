@@ -726,6 +726,12 @@
       </div>
     </section>
 
+	<div style="text-align: right; margin-top: 1.5rem; padding: 0 var(--space-md); max-width: var(--max-w); margin-left: auto; margin-right: auto;">
+  <a href="#" onclick="showPage('situations'); setTimeout(() => { document.getElementById('missions')?.scrollIntoView({ behavior: 'smooth' }); }, 100); return false;" style="font-size: 0.8125rem; color: var(--gray-mid); letter-spacing: 0.04em; text-decoration: none;">
+    Voir les types de missions →
+  </a>
+</div>
+
     <section class="section--dark">
       <div class="container">
         <div class="who">
@@ -958,7 +964,7 @@
     </section>
 
     <section>
-      <div class="container">
+      <section id="missions" class="types-missions"></section>
         <hr class="rule mb-lg">
         <div class="grid-asymmetric" style="align-items: start;">
           <div><p class="t-label mb-md">Types de missions</p></div>
