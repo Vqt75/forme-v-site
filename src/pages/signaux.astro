@@ -62,7 +62,6 @@ function formatDate(date) {
       padding: 0 var(--space-md);
     }
 
-    /* NAV */
     .nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -126,7 +125,8 @@ function formatDate(date) {
     }
 
     .nav__mobile-toggle {
-      display: none;
+      visibility: hidden;
+      display: flex;
       width: 42px;
       height: 42px;
       border: 1px solid var(--gray-rule);
@@ -191,7 +191,6 @@ function formatDate(date) {
       padding: 0.7rem 1rem;
     }
 
-    /* HERO */
     .section--hero {
       padding: calc(var(--space-2xl) + 56px) 0 var(--space-xl);
     }
@@ -204,9 +203,7 @@ function formatDate(date) {
       margin-bottom: var(--space-md);
     }
 
-    .hero__title {
-      margin-bottom: var(--space-lg);
-    }
+    .hero__title { margin-bottom: var(--space-lg); }
 
     .hero__rule {
       width: 48px;
@@ -229,7 +226,6 @@ function formatDate(date) {
       line-height: 1;
     }
 
-    /* ANIMATION */
     .hero-title-animated {
       display: flex;
       flex-direction: column;
@@ -248,7 +244,6 @@ function formatDate(date) {
     .hero-title-animated.is-visible .hero-line:nth-child(1) { transition-delay: 0.05s; }
     .hero-title-animated.is-visible .hero-line:nth-child(2) { transition-delay: 0.28s; }
 
-    /* LISTE SIGNAUX */
     .signals { padding: 0 0 var(--space-xl); }
 
     .signals__list { border-top: 1px solid var(--gray-rule); }
@@ -285,7 +280,6 @@ function formatDate(date) {
       line-height: 1.7;
     }
 
-    /* FOOTER */
     footer {
       border-top: 1px solid var(--gray-rule);
       padding: 3rem 0;
@@ -323,24 +317,15 @@ function formatDate(date) {
       flex-wrap: wrap;
     }
 
-    /* RESPONSIVE */
     @media (max-width: 900px) {
       html { font-size: 15px; }
-
       .section--hero { padding: calc(7rem + 56px) 0 4rem; }
-
       .container { padding: 0 1.25rem; }
-
       .t-display { font-size: clamp(2.4rem, 11vw, 4rem); line-height: 1.02; }
-
       .nav__links, .nav__cta { display: none; }
-
-      .nav__mobile-toggle { display: inline-flex; }
-
+      .nav__mobile-toggle { display: flex; visibility: visible; }
       .signal-item { grid-template-columns: 1fr; gap: 0.75rem; }
-
       .footer__inner { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
-
       .footer__links { gap: 1rem 1.25rem; }
     }
   </style>
