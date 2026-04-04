@@ -557,6 +557,23 @@
       .who-card { padding: 1.25rem; }
       .who-text { margin-top: 1.5rem; }
       .hero__mini-cta-button { display: block; text-align: center; }
+	  .hero__mini-cta-button { display: block; text-align: center; }
+      
+      /* Grille 3 colonnes Méthode dark */
+      .section--dark .container div[style*="repeat(3, 1fr)"] {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* Grille 4 colonnes À propos */
+      div[style*="repeat(4, 1fr)"] {
+        grid-template-columns: 1fr 1fr !important;
+      }
+
+      /* Missions : colonnes 200px 1fr en mobile */
+      div[style*="200px 1fr"] {
+        grid-template-columns: 1fr !important;
+      }
+    }
     }
   </style>
 </head>
