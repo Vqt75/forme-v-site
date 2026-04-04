@@ -1394,66 +1394,117 @@
   </footer>
 
   <script is:inline>
-    const mobileToggle = document.getElementById('mobileMenuToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
+  const mobileToggle = document.getElementById('mobileMenuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
 
-    function closeMobileMenu() {
-      mobileMenu.classList.remove('active');
-      mobileToggle.classList.remove('is-open');
-      mobileToggle.setAttribute('aria-label', 'Ouvrir le menu');
+  function closeMobileMenu() {
+    if (!mobileMenu || !mobileToggle) return;
+    mobileMenu.classList.remove('active');
+    mobileToggle.classList.remove('is-open');
+    mobileToggle.setAttribute('aria-label', 'Ouvrir le menu');
+  }
+
+  function toggleMobileMenu() {
+    if (!mobileMenu || !mobileToggle) return;
+
+    const isOpen = mobileMenu.classList.contains('active');
+
+    if (isOpen) {
+      closeMobileMenu();
+    } else {
+      mobileMenu.classList.add('active');
+      mobileToggle.classList.add('is-open');
+      mobileToggle.setAttribute('aria-label', 'Fermer le menu');
     }
+  }
 
-    function toggleMobileMenu() {
-      const isOpen = mobileMenu.classList.contains('active');
-      if (isOpen) {
-        closeMobileMenu();
-      } else {
-        mobileMenu.classList.add('active');
-        mobileToggle.classList.add('is-open');
-        mobileToggle.setAttribute('aria-label', 'Fermer le menu');
-      }
-    }
-
+  if (mobileToggle) {
     mobileToggle.addEventListener('click', toggleMobileMenu);
+  }
 
-    document.addEventListener('click', function(e) {
-      if (!mobileMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
-        if (mobileMenu.classList.contains('active')) {
-          closeMobileMenu();
-        }
+  document.addEventListener('click', function (e) {
+    if (!mobileMenu || !mobileToggle) return;
+
+    if (!mobileMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+      if (mobileMenu.classList.contains('active')) {
+        closeMobileMenu();
       }
-    });
+    }
+  });
 
-    function triggerHeroAnimation(pageEl) {
-      pageEl.querySelectorAll('.hero-title-animated').forEach(function(title) {
-        title.classList.remove('is-visible');
+  function triggerHeroAnimation(pageEl) {
+    if (!pageEl) return;
+
+    pageEl.querySelectorAll('.hero-title-animated').forEach(function(title) {
+      title.classList.remove('is-visible');
+
+      requestAnimationFrame(function() {
         requestAnimationFrame(function() {
-          requestAnimationFrame(function() {
-            title.classList.add('is-visible');
-          });
+          title.classList.add('is-visible');
         });
       });
-    }
+    });
+  }
 
-    function showPage(pageId) {
-      document.querySelectorAll('.page').forEach(function(p) {
-        p.classList.remove('active');
-      });
-      var target = document.getElementById('page-' + pageId);
-      if (target) {
-        target.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        triggerHeroAnimation(target);
-        closeMobileMenu();
-      }
-    }
-
-    document.querySelectorAll('.nav__links a:not([href="/signaux"]), .footer__links a:not([href="/signaux"]), .mobile-menu__links a:not([href="/signaux"])').forEach(function(a) {
-      a.addEventListener('click', function(e) { e.preventDefault(); });
+  function showPage(pageId, updateHash = true) {
+    document.querySelectorAll('.page').forEach(function(p) {
+      p.classList.remove('active');
     });
 
-    triggerHeroAnimation(document.getElementById('page-accueil'));
-  </script>
+    const target = document.getElementById('page-' + pageId);
+
+    if (target) {
+      target.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      triggerHeroAnimation(target);
+      closeMobileMenu();
+
+      if (updateHash) {
+        const nextHash = pageId === 'accueil' ? '' : '#' + pageId;
+        history.replaceState(null, '', window.location.pathname + nextHash);
+      }
+    }
+  }
+
+  function getPageFromHash() {
+    const hash = window.location.hash.replace('#', '').trim();
+    const allowedPages = ['accueil', 'methode', 'situations', 'apropos', 'contact'];
+
+    if (allowedPages.includes(hash)) {
+      return hash;
+    }
+
+    return 'accueil';
+  }
+
+  function handleInitialRoute() {
+    const pageFromHash = getPageFromHash();
+    showPage(pageFromHash, false);
+  }
+
+  window.addEventListener('hashchange', function() {
+    const pageFromHash = getPageFromHash();
+    showPage(pageFromHash, false);
+  });
+
+  document.querySelectorAll(
+    '.nav__links a:not([href="/signaux"]), .footer__links a:not([href="/signaux"]), .mobile-menu__links a:not([href="/signaux"])'
+  ).forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      const onclickValue = a.getAttribute('onclick');
+      if (!onclickValue) return;
+
+      const match = onclickValue.match(/showPage\('([^']+)'\)/);
+      if (match && match[1]) {
+        showPage(match[1]);
+      }
+    });
+  });
+
+  window.addEventListener('load', handleInitialRoute);
+</script>
 
 </body>
 </html>

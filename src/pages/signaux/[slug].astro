@@ -2,140 +2,414 @@
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-const posts = await getCollection('signaux');
-return posts.map(post => ({
-params: { slug: post.id },
-props: { post }
-}));
+  const posts = await getCollection('signaux');
+
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
 }
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+function formatDate(date) {
+  return new Date(date).toLocaleDateString('fr-FR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+}
 ---
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{post.data.title}</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{post.data.title} — Forme V</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-body{
-font-family:'Inter',sans-serif;
-background:#FAFAF7;
-color:#1A1A18;
-}
+    :root {
+      --black: #0A0A08;
+      --white: #FAFAF7;
+      --ink: #1A1A18;
+      --gray-mid: #6B6B68;
+      --gray-light: #E8E8E2;
+      --gray-rule: #D0D0C8;
+      --blue-ink: #1E3A5F;
+      --anthracite: #2C2C2A;
+      --ocre: #8B6914;
+      --ocre-light: #F5EDD6;
+      --ff-sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 2rem;
+      --space-lg: 4rem;
+      --space-xl: 8rem;
+      --space-2xl: 12rem;
+      --max-w: 1200px;
+      --col-narrow: 720px;
+      --grid-gap: 3rem;
+    }
 
-/* NAV */
-.nav{
-position:fixed;
-top:0;
-width:100%;
-height:56px;
-background:white;
-border-bottom:1px solid #ddd;
-display:flex;
-align-items:center;
-z-index:10;
-}
+    html { font-size: 16px; scroll-behavior: smooth; }
 
-.nav__inner{
-max-width:1100px;
-margin:auto;
-padding:0 2rem;
-display:flex;
-justify-content:space-between;
-width:100%;
-}
+    body {
+      background: var(--white);
+      color: var(--ink);
+      font-family: var(--ff-sans);
+      font-weight: 400;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
 
-.nav a{
-text-decoration:none;
-color:#666;
-font-size:0.85rem;
-margin-left:1.5rem;
-}
+    h1, h2, h3, h4, h5 {
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
 
-/* BACK BUTTON */
-.back{
-position:fixed;
-top:70px;
-left:2rem;
-font-size:0.85rem;
-color:#666;
-text-decoration:none;
-z-index:9;
-}
+    .t-display {
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 300;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
 
-.back:hover{color:black}
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-rule);
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+    }
 
-/* ARTICLE */
-.article{
-max-width:700px;
-margin:auto;
-padding:calc(8rem + 56px) 2rem 6rem;
-}
+    .nav__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 1rem;
+      min-height: 56px;
+      position: relative;
+    }
 
-.title{
-font-size:clamp(2rem,4vw,3rem);
-font-weight:300;
-margin-bottom:1.5rem;
-}
+    .nav__logo {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      color: var(--ink);
+      white-space: nowrap;
+    }
 
-.desc{
-font-size:1.1rem;
-color:#444;
-margin-bottom:3rem;
-}
+    .nav__links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
 
-.content p{
-margin-bottom:1.5rem;
-line-height:1.7;
-}
+    .nav__links a,
+    .footer__links a {
+      font-size: 0.8125rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      color: var(--gray-mid);
+      transition: color 0.2s;
+    }
 
-/* FOOTER */
-footer{
-border-top:1px solid #ddd;
-padding:2rem;
-max-width:1100px;
-margin:auto;
-}
-</style>
+    .nav__links a:hover,
+    .footer__links a:hover {
+      color: var(--ink);
+    }
+
+    .nav__cta {
+      font-size: 0.8125rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      padding: 0.375rem 1rem;
+      white-space: nowrap;
+    }
+
+    .article {
+      max-width: calc(var(--col-narrow) + 4rem);
+      margin: 0 auto;
+      padding: calc(8rem + 56px) 2rem 7rem;
+    }
+
+    .article__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      color: var(--ink);
+      margin-bottom: 2.4rem;
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+
+    .article__back:hover {
+      opacity: 1;
+    }
+
+    .article__eyebrow {
+      font-size: 0.6875rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      margin-bottom: 2rem;
+    }
+
+    .article__title {
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      font-weight: 300;
+      letter-spacing: -0.04em;
+      line-height: 1.02;
+      margin-bottom: 1.5rem;
+      max-width: 900px;
+    }
+
+    .article__rule {
+      width: 48px;
+      height: 1px;
+      background: var(--ink);
+      margin-bottom: 2rem;
+    }
+
+    .article__desc {
+      font-size: 1.1875rem;
+      line-height: 1.75;
+      color: var(--anthracite);
+      max-width: 720px;
+      margin-bottom: 4rem;
+    }
+
+    .article hr {
+      border: none;
+      border-top: 1px solid var(--gray-rule);
+      margin-bottom: 4rem;
+    }
+
+    .article__body {
+      max-width: 720px;
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--ink);
+    }
+
+    .article__body p {
+      margin-bottom: 1.5rem;
+    }
+
+    .article__body h2 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin: 3rem 0 1rem;
+    }
+
+    .article__body h3 {
+      font-size: 1.2rem;
+      font-weight: 400;
+      line-height: 1.35;
+      margin: 2rem 0 0.75rem;
+    }
+
+    .article__body ul,
+    .article__body ol {
+      margin: 0 0 1.5rem 1.25rem;
+    }
+
+    .article__body li {
+      margin-bottom: 0.5rem;
+    }
+
+    .article__body blockquote {
+      border-left: 2px solid var(--ink);
+      padding-left: 1.25rem;
+      margin: 2rem 0;
+      color: var(--gray-mid);
+    }
+
+    .article__body a {
+      color: var(--blue-ink);
+      text-decoration: none;
+    }
+
+    .article__body a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      border-top: 1px solid var(--gray-rule);
+      padding: 3rem 0;
+    }
+
+    .footer__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 2rem;
+    }
+
+    .footer__brand {
+      font-size: 0.9375rem;
+      font-weight: 500;
+    }
+
+    .footer__tagline {
+      font-size: 0.8125rem;
+      color: var(--gray-mid);
+      margin-top: 0.25rem;
+    }
+
+    .footer__copy {
+      font-size: 0.6875rem;
+      color: var(--gray-mid);
+      margin-top: 0.5rem;
+      letter-spacing: 0.04em;
+    }
+
+    .footer__links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 900px) {
+      html { font-size: 15px; }
+
+      .article,
+      .footer__inner { padding-left: 1.25rem; padding-right: 1.25rem; }
+
+      .article {
+        padding-top: calc(7rem + 56px);
+        padding-bottom: 5rem;
+      }
+
+      .article__back {
+        margin-bottom: 2rem;
+        font-size: 0.8rem;
+      }
+
+      .article__desc {
+        font-size: 1.0625rem;
+        margin-bottom: 3rem;
+      }
+
+      .article hr {
+        margin-bottom: 3rem;
+      }
+
+      .article__body {
+        font-size: 0.98rem;
+        line-height: 1.85;
+      }
+
+      .footer__inner {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: flex-start;
+      }
+
+      .footer__links {
+        gap: 1rem 1.25rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav__links {
+        display: none;
+      }
+
+      .nav__cta {
+        font-size: 0.75rem;
+        padding: 0.45rem 0.85rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Forme V</a>
 
-<nav class="nav">
-<div class="nav__inner">
-<a href="/">Forme V</a>
-<div>
-<a href="/#methode">Méthode</a>
-<a href="/#situations">Situations</a>
-<a href="/signaux">Signaux</a>
-<a href="/#apropos">À propos</a>
-</div>
-</div>
-</nav>
+      <ul class="nav__links">
+        <li><a href="/#methode">Méthode</a></li>
+        <li><a href="/#situations">Situations</a></li>
+        <li><a href="/signaux">Signaux</a></li>
+        <li><a href="/#apropos">À propos</a></li>
+      </ul>
 
-<a href="/signaux" class="back">← Tous les signaux</a>
+      <a href="/#contact" class="nav__cta">Nous contacter</a>
+    </div>
+  </nav>
 
-<article class="article">
-<h1 class="title">{post.data.title}</h1>
-<p class="desc">{post.data.description}</p>
+  <article class="article">
+    <a href="/signaux" class="article__back">← Tous les signaux</a>
 
-<div class="content">
-<Content />
-</div>
-</article>
+    <p class="article__eyebrow">{formatDate(post.data.date)}</p>
 
-<footer>
-<p>Forme V — Architecture de récits et dispositifs d’attention</p>
-</footer>
+    <h1 class="article__title">{post.data.title}</h1>
 
+    <div class="article__rule"></div>
+
+    <p class="article__desc">{post.data.description}</p>
+
+    <hr />
+
+    <div class="article__body">
+      <Content />
+    </div>
+  </article>
+
+  <footer>
+    <div class="footer__inner">
+      <div>
+        <p class="footer__brand">Forme V</p>
+        <p class="footer__tagline">Architecture de récits et dispositifs d'attention</p>
+        <p class="footer__copy">© 2026</p>
+      </div>
+
+      <ul class="footer__links">
+        <li><a href="/#methode">Méthode</a></li>
+        <li><a href="/#situations">Situations</a></li>
+        <li><a href="/signaux">Signaux</a></li>
+        <li><a href="/#apropos">À propos</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li><a href="#">Mentions légales</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>
