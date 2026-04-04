@@ -465,7 +465,13 @@ function formatDate(date) {
       });
     }
 
-    window.addEventListener('DOMContentLoaded', triggerHeroAnimation);
+    window.addEventListener('load', function() {
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      triggerHeroAnimation();
+    });
+  });
+});
   </script>
 </body>
 </html>
