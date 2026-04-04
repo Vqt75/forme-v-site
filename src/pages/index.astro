@@ -1247,6 +1247,10 @@
     }
 
     triggerHeroAnimation(document.getElementById('page-accueil'));
+	var hash = window.location.hash.replace('#', '');
+if (hash && document.getElementById('page-' + hash)) {
+  showPage(hash);
+}
   </script>
 
 </body>
