@@ -1381,6 +1381,7 @@
     if (hash && document.getElementById('page-' + hash)) {
       showPage(hash);
     }
+    history.replaceState(null, '', window.location.pathname);
   </script>
 
   <!-- INTRO ANIMATION -->
