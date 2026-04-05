@@ -1389,14 +1389,14 @@
       var overlay = document.getElementById('intro-overlay');
       if (!overlay) return;
 
-      var hasPlayed = localStorage.getItem('formev_intro_played');
+      var hasPlayed = sessionStorage.getItem('formev_intro_played');
       if (hasPlayed === 'true') {
         overlay.remove();
         return;
       }
 
       overlay.classList.add('is-active');
-      localStorage.setItem('formev_intro_played', 'true');
+      sessionStorage.setItem('formev_intro_played', 'true');
 
       var words = Array.from(document.querySelectorAll('.intro-word'));
       var name = document.querySelector('.intro-name');
