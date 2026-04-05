@@ -103,7 +103,19 @@
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--grid-gap); }
     .grid-asymmetric { display: grid; grid-template-columns: 1fr 2fr; gap: var(--grid-gap); }
 
-    .rule { border: none; border-top: 1px solid var(--gray-rule); }
+    .rule { border: none; border-top: 1px solid rgba(0,0,0,0.12); }
+
+    /* ── SCROLL REVEAL ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     .nav {
       position: fixed;
@@ -750,7 +762,7 @@
 
     <div class="container"><hr class="rule"></div>
 
-    <section class="section--tight">
+    <section class="section--tight fade-in">
       <div class="container">
         <div class="grid-asymmetric" style="gap: 4rem; align-items: start;">
           <div><p class="t-label">Thèse centrale</p></div>
@@ -772,7 +784,7 @@
       </div>
     </section>
 
-    <section style="padding: 0 0 var(--space-xl);">
+    <section style="padding: 0 0 var(--space-xl);" class="fade-in">
       <div class="container">
         <hr class="rule mb-lg">
         <p class="t-label mb-md">Méthode en trois actes</p>
@@ -814,7 +826,7 @@
       </div>
     </section>
 
-    <section style="padding: 0 0 var(--space-xl);">
+    <section style="padding: 0 0 var(--space-xl);" class="fade-in">
       <div class="container">
         <hr class="rule mb-lg">
         <div class="grid-asymmetric what-we-do-block">
@@ -876,7 +888,7 @@
       </div>
     </section>
 
-    <section style="padding: var(--space-xl) 0;">
+    <section style="padding: var(--space-xl) 0;" class="fade-in">
       <div class="container" style="text-align: center;">
         <p class="t-label mb-md">Première conversation</p>
         <h2 class="t-headline" style="max-width: 760px; margin: 0 auto var(--space-md);">
@@ -1428,6 +1440,25 @@
       window.addEventListener('load', function() {
         setTimeout(runIntro, 280);
       });
+    })();
+  </script>
+
+  <!-- SCROLL REVEAL -->
+  <script>
+    (function () {
+      var elements = document.querySelectorAll('.fade-in');
+      if (!elements.length) return;
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      elements.forEach(function(el) { observer.observe(el); });
     })();
   </script>
 
