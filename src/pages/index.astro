@@ -45,7 +45,7 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
-	  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpolyline points='7,3 12,16 17,3' fill='none' stroke='%231E3A5F' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E"), auto;
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpolyline points='7,3 12,16 17,3' fill='none' stroke='%231E3A5F' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E"), auto;
     }
 
     h1, h2, h3, h4, h5 {
@@ -521,6 +521,117 @@
     .hero-title-animated.is-visible .hero-line:nth-child(2) { transition-delay: 0.28s; }
     .hero-title-animated.is-visible .hero-line:nth-child(3) { transition-delay: 0.46s; }
 
+    /* ── INTRO OVERLAY ── */
+    #intro-overlay {
+      position: fixed;
+      inset: 0;
+      background: #050505;
+      color: #FAFAF7;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.7s ease, visibility 0.7s ease;
+    }
+
+    #intro-overlay.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .intro-stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .intro-word,
+    .intro-brand {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    .intro-word {
+      font-family: var(--ff-sans);
+      font-size: clamp(3rem, 9vw, 7rem);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      font-weight: 300;
+      white-space: nowrap;
+      transition:
+        opacity 0.38s ease,
+        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .intro-word.is-visible {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .intro-word.is-exit {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1.03);
+    }
+
+    .intro-brand {
+      display: flex;
+      align-items: baseline;
+      gap: 0.12em;
+      font-family: var(--ff-sans);
+      line-height: 1;
+      transition:
+        opacity 0.4s ease,
+        transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .intro-brand__forme,
+    .intro-brand__v {
+      font-size: clamp(3rem, 9vw, 7rem);
+      letter-spacing: -0.05em;
+      font-weight: 300;
+    }
+
+    .intro-brand__v {
+      display: inline-block;
+      transform-origin: center center;
+      will-change: transform, opacity;
+      transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .intro-brand.is-visible {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .intro-brand.is-reveal {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .intro-brand.is-reveal .intro-brand__v {
+      transform: scale(18);
+    }
+
+    @media (max-width: 900px) {
+      .intro-word,
+      .intro-brand__forme,
+      .intro-brand__v {
+        font-size: clamp(2.4rem, 12vw, 4.5rem);
+      }
+    }
+    /* ── FIN INTRO OVERLAY ── */
+
     @media (max-width: 900px) {
       html { font-size: 15px; }
       section { padding: 4rem 0; }
@@ -558,8 +669,7 @@
       .who-card { padding: 1.25rem; }
       .who-text { margin-top: 1.5rem; }
       .hero__mini-cta-button { display: block; text-align: center; }
-	  .hero__mini-cta-button { display: block; text-align: center; }
-      
+
       /* Grille 3 colonnes Méthode dark */
       .section--dark .container div[style*="repeat(3, 1fr)"] {
         grid-template-columns: 1fr !important;
@@ -574,19 +684,33 @@
       div[style*="200px 1fr"] {
         grid-template-columns: 1fr !important;
       }
-	  /* Fix bordures grille chiffres À propos */
-div[style*="repeat(4, 1fr)"] > div {
-  border-right: none !important;
-  border-bottom: 1px solid var(--gray-rule);
-}
-div[style*="repeat(4, 1fr)"] > div:nth-child(3),
-div[style*="repeat(4, 1fr)"] > div:nth-child(4) {
- border-bottom: none !important;
-}
+
+      /* Fix bordures grille chiffres À propos */
+      div[style*="repeat(4, 1fr)"] > div {
+        border-right: none !important;
+        border-bottom: 1px solid var(--gray-rule);
+      }
+      div[style*="repeat(4, 1fr)"] > div:nth-child(3),
+      div[style*="repeat(4, 1fr)"] > div:nth-child(4) {
+        border-bottom: none !important;
+      }
     }
   </style>
 </head>
 <body>
+
+  <!-- INTRO OVERLAY -->
+  <div id="intro-overlay" aria-hidden="true">
+    <div class="intro-stage">
+      <div class="intro-word" data-step="0">Clarté.</div>
+      <div class="intro-word" data-step="1">Structure.</div>
+      <div class="intro-word" data-step="2">Impact.</div>
+      <div class="intro-brand" data-step="3">
+        <span class="intro-brand__forme">Forme</span>
+        <span class="intro-brand__v">V</span>
+      </div>
+    </div>
+  </div>
 
   <nav class="nav">
     <div class="nav__inner">
@@ -751,14 +875,12 @@ div[style*="repeat(4, 1fr)"] > div:nth-child(4) {
           </div>
         </div>
       </div>
-	  <div style="text-align: right; margin-top: 1.5rem; padding: 0 1.25rem; max-width: var(--max-w); margin-left: auto; margin-right: auto;">
-  <a href="#" onclick="showPage('situations'); setTimeout(() => { document.getElementById('missions')?.scrollIntoView({ behavior: 'smooth' }); }, 100); return false;" style="font-size: 0.8125rem; color: var(--gray-mid); letter-spacing: 0.04em; text-decoration: none;">
-    Voir les types de missions →
-  </a>
-</div>
+      <div style="text-align: right; margin-top: 1.5rem; padding: 0 1.25rem; max-width: var(--max-w); margin-left: auto; margin-right: auto;">
+        <a href="#" onclick="showPage('situations'); setTimeout(() => { document.getElementById('missions')?.scrollIntoView({ behavior: 'smooth' }); }, 100); return false;" style="font-size: 0.8125rem; color: var(--gray-mid); letter-spacing: 0.04em; text-decoration: none;">
+          Voir les types de missions →
+        </a>
+      </div>
     </section>
-
-	
 
     <section class="section--dark">
       <div class="container">
@@ -978,34 +1100,35 @@ div[style*="repeat(4, 1fr)"] > div:nth-child(4) {
     </section>
 
     <section id="missions">
-  <div class="container">
-    <hr class="rule mb-lg">
-    <div class="grid-asymmetric" style="align-items: start;">
-      <p class="t-label mb-md">Types de missions</p>
-      <div>
-        <p style="font-size: 1.1875rem; font-weight: 300; line-height: 1.55; letter-spacing: -0.01em; margin-bottom: 2.5rem;">Nous intervenons selon plusieurs modalités, à calibrer selon l'urgence, l'ampleur du problème et le degré de transformation recherché.</p>
-        <div>
-          <div style="padding: 1.75rem 0; border-bottom: 1px solid var(--gray-rule); display: grid; grid-template-columns: 200px 1fr; gap: 2rem;">
-            <p style="font-size: 1rem; font-weight: 500;">Mission complète</p>
-            <p style="font-size: 0.9375rem; color: var(--gray-mid); line-height: 1.65;">Nous conduisons les trois actes — diagnostic, reformulation, activation — en accompagnement intégral. Durée indicative : 2 à 6 mois.</p>
+      <div class="container">
+        <hr class="rule mb-lg">
+        <div class="grid-asymmetric" style="align-items: start;">
+          <p class="t-label mb-md">Types de missions</p>
+          <div>
+            <p style="font-size: 1.1875rem; font-weight: 300; line-height: 1.55; letter-spacing: -0.01em; margin-bottom: 2.5rem;">Nous intervenons selon plusieurs modalités, à calibrer selon l'urgence, l'ampleur du problème et le degré de transformation recherché.</p>
+            <div>
+              <div style="padding: 1.75rem 0; border-bottom: 1px solid var(--gray-rule); display: grid; grid-template-columns: 200px 1fr; gap: 2rem;">
+                <p style="font-size: 1rem; font-weight: 500;">Mission complète</p>
+                <p style="font-size: 0.9375rem; color: var(--gray-mid); line-height: 1.65;">Nous conduisons les trois actes — diagnostic, reformulation, activation — en accompagnement intégral. Durée indicative : 2 à 6 mois.</p>
+              </div>
+              <div style="padding: 1.75rem 0; border-bottom: 1px solid var(--gray-rule); display: grid; grid-template-columns: 200px 1fr; gap: 2rem;">
+                <p style="font-size: 1rem; font-weight: 500;">Diagnostic stratégique</p>
+                <p style="font-size: 0.9375rem; color: var(--gray-mid); line-height: 1.65;">Nous réalisons un audit narratif complet et remettons une analyse avec hypothèses, tensions et recommandations. Durée indicative : 3 à 6 semaines.</p>
+              </div>
+              <div style="padding: 1.75rem 0; border-bottom: 1px solid var(--gray-rule); display: grid; grid-template-columns: 200px 1fr; gap: 2rem;">
+                <p style="font-size: 1rem; font-weight: 500;">Intervention ciblée</p>
+                <p style="font-size: 0.9375rem; color: var(--gray-mid); line-height: 1.65;">Nous intervenons sur un point précis — crise, repositionnement, lancement, séquence sensible — avec une logique de réponse rapide et structurée.</p>
+              </div>
+              <div style="padding: 1.75rem 0; display: grid; grid-template-columns: 200px 1fr; gap: 2rem;">
+                <p style="font-size: 1rem; font-weight: 500;">Partenariat continu</p>
+                <p style="font-size: 0.9375rem; color: var(--gray-mid); line-height: 1.65;">Nous devenons un appui stratégique récurrent, capable de suivre l'évolution du contexte, de nourrir la parole de l'organisation et d'ajuster ses formes de circulation.</p>
+              </div>
+            </div>
           </div>
-          <div style="padding: 1.75rem 0; border-bottom: 1px solid var(--gray-rule); display: grid; grid-template-columns: 200px 1fr; gap: 2rem;">
-            <p style="font-size: 1rem; font-weight: 500;">Diagnostic stratégique</p>
-            <p style="font-size: 0.9375rem; color: var(--gray-mid); line-height: 1.65;">Nous réalisons un audit narratif complet et remettons une analyse avec hypothèses, tensions et recommandations. Durée indicative : 3 à 6 semaines.</p>
-          </div>
-          <div style="padding: 1.75rem 0; border-bottom: 1px solid var(--gray-rule); display: grid; grid-template-columns: 200px 1fr; gap: 2rem;">
-            <p style="font-size: 1rem; font-weight: 500;">Intervention ciblée</p>
-            <p style="font-size: 0.9375rem; color: var(--gray-mid); line-height: 1.65;">Nous intervenons sur un point précis — crise, repositionnement, lancement, séquence sensible — avec une logique de réponse rapide et structurée.</p>
-          </div>
-          <div style="padding: 1.75rem 0; display: grid; grid-template-columns: 200px 1fr; gap: 2rem;">
-            <p style="font-size: 1rem; font-weight: 500;">Partenariat continu</p>
-            <p style="font-size: 0.9375rem; color: var(--gray-mid); line-height: 1.65;">Nous devenons un appui stratégique récurrent, capable de suivre l'évolution du contexte, de nourrir la parole de l'organisation et d'ajuster ses formes de circulation.</p>
-          </div>
+        </div>
       </div>
-    </div>
+    </section>
   </div>
-</section>
-</div>
 
   <!-- PAGE A PROPOS -->
   <div id="page-apropos" class="page">
@@ -1066,40 +1189,40 @@ div[style*="repeat(4, 1fr)"] > div:nth-child(4) {
       </div>
     </section>
 
-	<div class="container"><hr class="rule"></div>
+    <div class="container"><hr class="rule"></div>
 
-<section>
-  <div class="container">
-    <div class="grid-asymmetric" style="align-items: start;">
-      <div><p class="t-label">Fondateur</p></div>
-      <div>
-        <p style="font-size: 1.1875rem; font-weight: 300; line-height: 1.6; letter-spacing: -0.01em; margin-bottom: 2rem; max-width: 620px;">Le studio est fondé et dirigé par Vivien Cocquet-Huard.</p>
-        <p style="font-size: 0.9375rem; line-height: 1.75; color: var(--gray-mid); margin-bottom: 1.5rem;">Je travaille à l'interface du planning stratégique, du conseil et de la recherche. Mon parcours s'est construit entre des missions en agence — notamment en communication et influence — et des accompagnements de transformation des organisations, ainsi qu'un travail académique en tant qu'enseignant associé à l'Université Paris 1 Panthéon-Sorbonne.</p>
-        <p style="font-size: 0.9375rem; line-height: 1.75; color: var(--gray-mid); margin-bottom: 2rem;">Ce parcours me permet de tenir ensemble trois dimensions souvent dissociées : la compréhension des logiques de communication réelles, l'analyse des contextes organisationnels, et l'exigence de structuration des idées. C'est cette articulation qui fonde l'approche de Forme V.</p>
-        <a href="https://www.linkedin.com/in/vivien-cocquet-huard-3376887a" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: var(--blue-ink); letter-spacing: 0.04em; text-decoration: none;">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--blue-ink)" xmlns="http://www.w3.org/2000/svg">
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-  </svg>
-  Voir le profil LinkedIn
-</a>
+    <section>
+      <div class="container">
+        <div class="grid-asymmetric" style="align-items: start;">
+          <div><p class="t-label">Fondateur</p></div>
+          <div>
+            <p style="font-size: 1.1875rem; font-weight: 300; line-height: 1.6; letter-spacing: -0.01em; margin-bottom: 2rem; max-width: 620px;">Le studio est fondé et dirigé par Vivien Cocquet-Huard.</p>
+            <p style="font-size: 0.9375rem; line-height: 1.75; color: var(--gray-mid); margin-bottom: 1.5rem;">Je travaille à l'interface du planning stratégique, du conseil et de la recherche. Mon parcours s'est construit entre des missions en agence — notamment en communication et influence — et des accompagnements de transformation des organisations, ainsi qu'un travail académique en tant qu'enseignant associé à l'Université Paris 1 Panthéon-Sorbonne.</p>
+            <p style="font-size: 0.9375rem; line-height: 1.75; color: var(--gray-mid); margin-bottom: 2rem;">Ce parcours me permet de tenir ensemble trois dimensions souvent dissociées : la compréhension des logiques de communication réelles, l'analyse des contextes organisationnels, et l'exigence de structuration des idées. C'est cette articulation qui fonde l'approche de Forme V.</p>
+            <a href="https://www.linkedin.com/in/vivien-cocquet-huard-3376887a" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: var(--blue-ink); letter-spacing: 0.04em; text-decoration: none;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--blue-ink)" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+              Voir le profil LinkedIn
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
     <div class="container"><hr class="rule"></div>
 
-   <section>
-  <div class="container">
-    <div style="max-width: 700px; margin: 0 auto;">
-      <p class="t-label mb-md">Notre engagement</p>
-      <div class="frame" style="margin-top: 1rem;">
-        <p style="font-size: 1.1875rem; font-weight: 300; line-height: 1.6; letter-spacing: -0.01em; margin-bottom: 1.5rem;">Nous n'acceptons que les missions pour lesquelles nous pensons pouvoir produire une transformation réelle du récit et de ses conditions de circulation.</p>
-        <p style="font-size: 0.9375rem; line-height: 1.7; color: var(--gray-mid);">Cela signifie que nous refusons les commandes qui ne correspondent pas à notre méthode, les situations où l'intervention resterait cosmétique, ou les cas où un autre type d'accompagnement serait plus juste. Travailler peu et avec exigence nous paraît plus honnête que multiplier les interventions sans effet.</p>
+    <section>
+      <div class="container">
+        <div style="max-width: 700px; margin: 0 auto;">
+          <p class="t-label mb-md">Notre engagement</p>
+          <div class="frame" style="margin-top: 1rem;">
+            <p style="font-size: 1.1875rem; font-weight: 300; line-height: 1.6; letter-spacing: -0.01em; margin-bottom: 1.5rem;">Nous n'acceptons que les missions pour lesquelles nous pensons pouvoir produire une transformation réelle du récit et de ses conditions de circulation.</p>
+            <p style="font-size: 0.9375rem; line-height: 1.7; color: var(--gray-mid);">Cela signifie que nous refusons les commandes qui ne correspondent pas à notre méthode, les situations où l'intervention resterait cosmétique, ou les cas où un autre type d'accompagnement serait plus juste. Travailler peu et avec exigence nous paraît plus honnête que multiplier les interventions sans effet.</p>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
     <div class="container"><hr class="rule"></div>
 
@@ -1281,10 +1404,58 @@ div[style*="repeat(4, 1fr)"] > div:nth-child(4) {
     }
 
     triggerHeroAnimation(document.getElementById('page-accueil'));
-	var hash = window.location.hash.replace('#', '');
-if (hash && document.getElementById('page-' + hash)) {
-  showPage(hash);
-}
+    var hash = window.location.hash.replace('#', '');
+    if (hash && document.getElementById('page-' + hash)) {
+      showPage(hash);
+    }
+  </script>
+
+  <!-- INTRO ANIMATION -->
+  <script>
+    (function () {
+      var overlay = document.getElementById('intro-overlay');
+      if (!overlay) return;
+
+      var hasPlayed = sessionStorage.getItem('formev_intro_played');
+      if (hasPlayed === 'true') {
+        overlay.remove();
+        return;
+      }
+
+      sessionStorage.setItem('formev_intro_played', 'true');
+
+      var words = Array.from(document.querySelectorAll('.intro-word'));
+      var brand = document.querySelector('.intro-brand');
+
+      var wait = function(ms) {
+        return new Promise(function(resolve) { setTimeout(resolve, ms); });
+      };
+
+      async function runIntro() {
+        for (var i = 0; i < words.length; i++) {
+          var word = words[i];
+          word.classList.add('is-visible');
+          await wait(420);
+          word.classList.add('is-exit');
+          await wait(220);
+          word.classList.remove('is-visible');
+        }
+
+        brand.classList.add('is-visible');
+        await wait(430);
+
+        brand.classList.add('is-reveal');
+        await wait(520);
+
+        overlay.classList.add('is-hidden');
+        await wait(700);
+        overlay.remove();
+      }
+
+      window.addEventListener('load', function() {
+        runIntro();
+      });
+    })();
   </script>
 
 </body>
