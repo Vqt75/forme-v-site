@@ -584,45 +584,8 @@
       transform: translate(-50%, -50%) scale(1.03);
     }
 
-    .intro-brand {
-      display: flex;
-      align-items: baseline;
-      gap: 0.12em;
-      font-family: var(--ff-sans);
-      line-height: 1;
-      transition:
-        opacity 0.4s ease,
-        transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .intro-brand__forme,
-    .intro-brand__v {
-      font-size: clamp(3rem, 9vw, 7rem);
-      letter-spacing: -0.05em;
-      font-weight: 300;
-    }
-
-    .intro-brand__v {
-      display: inline-block;
-      transform-origin: center center;
-      will-change: transform, opacity;
-      transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .intro-brand.is-visible {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    .intro-brand.is-reveal {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-
     @media (max-width: 900px) {
-      .intro-word,
-      .intro-brand__forme,
-      .intro-brand__v {
+      .intro-word {
         font-size: clamp(2.4rem, 12vw, 4.5rem);
       }
     }
@@ -701,10 +664,6 @@
       <div class="intro-word" data-step="0">Clarté.</div>
       <div class="intro-word" data-step="1">Structure.</div>
       <div class="intro-word" data-step="2">Impact.</div>
-      <div class="intro-brand" data-step="3">
-        <span class="intro-brand__forme">Forme</span>
-        <span class="intro-brand__v">V</span>
-      </div>
     </div>
   </div>
 
@@ -1421,7 +1380,6 @@
       sessionStorage.setItem('formev_intro_played', 'true');
 
       var words = Array.from(document.querySelectorAll('.intro-word'));
-      var brand = document.querySelector('.intro-brand');
 
       var wait = function(ms) {
         return new Promise(function(resolve) { setTimeout(resolve, ms); });
@@ -1437,8 +1395,7 @@
           word.classList.remove('is-visible');
         }
 
-        brand.classList.add('is-visible');
-        await wait(430);
-
-        brand.classList.add('is-reveal');
-        await wait(520)
+        overlay.classList.add('is-hidden');
+        await wait(700);
+        overlay.remove();
+      }
