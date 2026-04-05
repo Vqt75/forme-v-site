@@ -619,10 +619,6 @@
       transform: translate(-50%, -50%) scale(1);
     }
 
-    .intro-brand.is-reveal .intro-brand__v {
-      transform: scale(18);
-    }
-
     @media (max-width: 900px) {
       .intro-word,
       .intro-brand__forme,
@@ -1274,7 +1270,7 @@
             <p style="font-size: 0.9375rem; line-height: 1.75; color: var(--gray-mid); margin-bottom: 2.5rem;">Basé à Paris, le studio intervient principalement en France et dans l'espace francophone. Des missions internationales peuvent être envisagées selon la nature des enjeux et des contextes.</p>
             <div style="margin-bottom: 2rem;">
               <p class="t-label mb-sm">Contact direct</p>
-              <p style="font-size: 1rem; color: var(--ink);">vivien@formev.fr</p>
+              <p style="font-size: 1rem; color: var(--ink);"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="35435c435c505b75535a475850431b5347">[email&#160;protected]</a></p>
             </div>
             <div style="margin-bottom: 2.5rem;">
               <p class="t-label mb-sm">Premier échange</p>
@@ -1347,7 +1343,7 @@
     </div>
   </footer>
 
-  <script is:inline>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script is:inline>
     var mobileToggle = document.getElementById('mobileMenuToggle');
     var mobileMenu = document.getElementById('mobileMenu');
 
@@ -1445,18 +1441,4 @@
         await wait(430);
 
         brand.classList.add('is-reveal');
-        await wait(520);
-
-        overlay.classList.add('is-hidden');
-        await wait(700);
-        overlay.remove();
-      }
-
-      window.addEventListener('load', function() {
-        runIntro();
-      });
-    })();
-  </script>
-
-</body>
-</html>
+        await wait(520)
