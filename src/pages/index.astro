@@ -1453,12 +1453,15 @@
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
+          } else {
+            entry.target.classList.remove('visible');
           }
         });
-      }, { threshold: 0.1 });
+      }, { threshold: 0, rootMargin: '0px 0px -60px 0px' });
 
-      elements.forEach(function(el) { observer.observe(el); });
+      setTimeout(function() {
+        elements.forEach(function(el) { observer.observe(el); });
+      }, 100);
     })();
   </script>
 
