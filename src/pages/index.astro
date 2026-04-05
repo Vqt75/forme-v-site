@@ -1385,15 +1385,20 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
         triggerHeroAnimation(target);
         closeMobileMenu();
+        if (pageId === 'accueil') {
+          history.replaceState(null, '', window.location.pathname);
+        } else {
+          history.replaceState(null, '', '#' + pageId);
+        }
       }
     }
 
-    triggerHeroAnimation(document.getElementById('page-accueil'));
     var hash = window.location.hash.replace('#', '');
     if (hash && document.getElementById('page-' + hash)) {
       showPage(hash);
+    } else {
+      triggerHeroAnimation(document.getElementById('page-accueil'));
     }
-    history.replaceState(null, '', window.location.pathname);
   </script>
 
   <!-- INTRO ANIMATION -->
