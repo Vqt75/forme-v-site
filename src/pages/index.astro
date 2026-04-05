@@ -105,7 +105,26 @@
 
     .rule { border: none; border-top: 1px solid rgba(0,0,0,0.12); }
 
-    /* ── SCROLL REVEAL ── */
+    /* ── POST-INTRO REVEAL ── */
+    body.intro-active .hero__eyebrow,
+    body.intro-active .hero__title,
+    body.intro-active .hero__rule,
+    body.intro-active .hero__intro,
+    body.intro-active .hero__recognition {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    body.intro-active .hero__eyebrow.hero-revealed,
+    body.intro-active .hero__title.hero-revealed,
+    body.intro-active .hero__rule.hero-revealed,
+    body.intro-active .hero__intro.hero-revealed,
+    body.intro-active .hero__recognition.hero-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* ── FIN POST-INTRO REVEAL ── */
     .fade-in {
       opacity: 0;
       transform: translateY(12px);
@@ -1413,6 +1432,7 @@
       }
 
       overlay.classList.add('is-active');
+      document.body.classList.add('intro-active');
       sessionStorage.setItem('formev_intro_played', 'true');
 
       var words = Array.from(document.querySelectorAll('.intro-word'));
@@ -1440,6 +1460,21 @@
         overlay.classList.add('is-wipe');
         await wait(900);
         overlay.remove();
+
+        // Reveal hero en cascade
+        var heroEls = [
+          document.querySelector('#page-accueil .hero__eyebrow'),
+          document.querySelector('#page-accueil .hero__title'),
+          document.querySelector('#page-accueil .hero__rule'),
+          document.querySelector('#page-accueil .hero__intro'),
+          document.querySelector('#page-accueil .hero__recognition')
+        ];
+        heroEls.forEach(function(el, i) {
+          if (!el) return;
+          setTimeout(function() {
+            el.classList.add('hero-revealed');
+          }, i * 120);
+        });
       }
       window.addEventListener('load', function() {
         setTimeout(runIntro, 280);
