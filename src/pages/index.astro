@@ -534,6 +534,11 @@
       overflow: hidden;
       clip-path: inset(0 0 0 0);
       transition: clip-path 0.85s cubic-bezier(0.76, 0, 0.24, 1);
+      visibility: hidden;
+    }
+
+    #intro-overlay.is-active {
+      visibility: visible;
     }
 
     #intro-overlay.is-wipe {
@@ -1390,6 +1395,7 @@
         return;
       }
 
+      overlay.classList.add('is-active');
       localStorage.setItem('formev_intro_played', 'true');
 
       var words = Array.from(document.querySelectorAll('.intro-word'));
