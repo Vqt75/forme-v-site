@@ -106,21 +106,21 @@
     .rule { border: none; border-top: 1px solid rgba(0,0,0,0.12); }
 
     /* ── POST-INTRO REVEAL ── */
-    body.intro-active .hero__eyebrow,
-    body.intro-active .hero__title,
-    body.intro-active .hero__rule,
-    body.intro-active .hero__intro,
-    body.intro-active .hero__recognition {
+    body.intro-active #page-accueil .hero__eyebrow,
+    body.intro-active #page-accueil .hero__title,
+    body.intro-active #page-accueil .hero__rule,
+    body.intro-active #page-accueil .hero__intro,
+    body.intro-active #page-accueil .hero__recognition {
       opacity: 0;
       transform: translateY(8px);
       transition: opacity 0.65s ease, transform 0.65s ease;
     }
 
-    body.intro-active .hero__eyebrow.hero-revealed,
-    body.intro-active .hero__title.hero-revealed,
-    body.intro-active .hero__rule.hero-revealed,
-    body.intro-active .hero__intro.hero-revealed,
-    body.intro-active .hero__recognition.hero-revealed {
+    body.intro-active #page-accueil .hero__eyebrow.hero-revealed,
+    body.intro-active #page-accueil .hero__title.hero-revealed,
+    body.intro-active #page-accueil .hero__rule.hero-revealed,
+    body.intro-active #page-accueil .hero__intro.hero-revealed,
+    body.intro-active #page-accueil .hero__recognition.hero-revealed {
       opacity: 1;
       transform: translateY(0);
     }
