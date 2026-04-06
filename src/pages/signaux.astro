@@ -72,10 +72,10 @@ function formatDate(date) {
       color: #FAFAF7;
       z-index: 9999;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
       justify-content: center;
-      gap: 0.5em;
+      gap: 0.2em;
       overflow: hidden;
       clip-path: inset(0 0 0 0);
       transition: clip-path 0.85s cubic-bezier(0.76, 0, 0.24, 1);
@@ -86,6 +86,7 @@ function formatDate(date) {
     #signaux-intro.is-wipe { clip-path: inset(0 0 100% 0); }
 
     .signaux-intro__studio,
+    .signaux-intro__sep,
     .signaux-intro__name {
       font-family: var(--ff-sans);
       font-size: clamp(3rem, 9vw, 7rem);
@@ -97,22 +98,20 @@ function formatDate(date) {
       transition: opacity 0.55s ease;
     }
 
-    .signaux-intro__studio.is-visible,
-    .signaux-intro__name.is-visible { opacity: 1; }
-
     .signaux-intro__sep {
-      width: 1px;
-      height: 0;
-      background: rgba(250,250,247,0.3);
-      transition: height 0.4s ease;
+      color: rgba(250,250,247,0.35);
+      font-weight: 300;
     }
 
-    .signaux-intro__sep.is-visible { height: 3rem; }
+    .signaux-intro__studio.is-visible,
+    .signaux-intro__sep.is-visible,
+    .signaux-intro__name.is-visible { opacity: 1; }
 
     @media (max-width: 900px) {
       .signaux-intro__studio,
+      .signaux-intro__sep,
       .signaux-intro__name {
-        font-size: clamp(2.4rem, 12vw, 4.5rem);
+        font-size: clamp(2rem, 10vw, 4rem);
       }
     }
     /* ── FIN INTRO SIGNAUX ── */
@@ -457,7 +456,7 @@ function formatDate(date) {
   <!-- INTRO SIGNAUX -->
   <div id="signaux-intro" aria-hidden="true">
     <span class="signaux-intro__studio">Forme V</span>
-    <div class="signaux-intro__sep"></div>
+    <span class="signaux-intro__sep">/</span>
     <span class="signaux-intro__name">Signaux.</span>
   </div>
 
