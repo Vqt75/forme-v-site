@@ -34,9 +34,9 @@ Ces symptômes ne sont pas des fautes de communication. Ils sont le plus souvent
 
 Cette campagne publique part d'une bonne intention. Elle veut prévenir, montrer, faire comprendre. Mais elle traduit aussi, de manière presque exemplaire, deux symptômes que l'on retrouve dans de nombreux récits contemporains.
 
-D'une part, ce que l'on peut appeler un [récit technique](/situations). Tout est pensé pour être compris : la situation est claire, le message explicite, le danger identifié. Mais l'ensemble reste au niveau de l'explication. Il parle à la compréhension, sans parvenir à engager une expérience. On sait ce qu'il faut retenir, sans que cela produise réellement d'effet.
+D'une part, ce que l'on peut appeler un [récit technique](/#situations). Tout est pensé pour être compris : la situation est claire, le message explicite, le danger identifié. Mais l'ensemble reste au niveau de l'explication. Il parle à la compréhension, sans parvenir à engager une expérience. On sait ce qu'il faut retenir, sans que cela produise réellement d'effet.
 
-D'autre part, un récit déplacé. Le sujet traité est profondément réel : le risque, le corps, l'accident. Mais il est mis en scène à travers une représentation artificialisée. Le corps devient un mannequin, la chute une démonstration, la violence une simulation. Le bon sujet est traité au mauvais niveau, ce qui crée une forme de distance.
+D'autre part, un [récit épuisé](/#situations). Le sujet traité est profondément réel : le risque, le corps, l'accident. Mais il est mis en scène à travers une représentation artificialisée. Le corps devient un mannequin, la chute une démonstration, la violence une simulation. Le bon sujet est traité au mauvais niveau, ce qui crée une forme de distance.
 
 Dans les deux cas, le problème n'est ni l'intention, ni même la qualité apparente d'exécution. C'est l'écart entre ce qui est montré et la manière dont cela peut être vécu.
 
