@@ -65,6 +65,58 @@ function formatDate(date) {
       cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' shape-rendering='geometricPrecision'%3E%3Cpolyline points='7,3 12,16 17,3' fill='none' stroke='%231E3A5F' stroke-width='1.2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E"), auto;
     }
 
+    /* ── INTRO ARTICLE ── */
+    #signaux-intro {
+      position: fixed;
+      inset: 0;
+      background: #0A0A08;
+      color: #FAFAF7;
+      z-index: 9999;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 0.2em;
+      overflow: hidden;
+      clip-path: inset(0 0 0 0);
+      transition: clip-path 0.85s cubic-bezier(0.76, 0, 0.24, 1);
+      visibility: hidden;
+    }
+
+    #signaux-intro.is-active { visibility: visible; }
+    #signaux-intro.is-wipe { clip-path: inset(0 0 100% 0); }
+
+    .signaux-intro__studio,
+    .signaux-intro__sep,
+    .signaux-intro__name {
+      font-family: var(--ff-sans);
+      font-size: clamp(3rem, 9vw, 7rem);
+      font-weight: 300;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.55s ease;
+    }
+
+    .signaux-intro__sep {
+      color: rgba(250,250,247,0.35);
+      font-weight: 300;
+    }
+
+    .signaux-intro__studio.is-visible,
+    .signaux-intro__sep.is-visible,
+    .signaux-intro__name.is-visible { opacity: 1; }
+
+    @media (max-width: 900px) {
+      .signaux-intro__studio,
+      .signaux-intro__sep,
+      .signaux-intro__name {
+        font-size: clamp(2rem, 10vw, 4rem);
+      }
+    }
+    /* ── FIN INTRO ARTICLE ── */
+
     /* ── BARRE DE PROGRESSION ── */
     .progress-bar {
       position: fixed;
@@ -363,6 +415,13 @@ function formatDate(date) {
 
 <body>
 
+  <!-- INTRO SIGNAUX -->
+  <div id="signaux-intro" aria-hidden="true">
+    <span class="signaux-intro__studio">Forme V</span>
+    <span class="signaux-intro__sep">/</span>
+    <span class="signaux-intro__name">Signaux.</span>
+  </div>
+
   <!-- Barre de progression -->
   <div class="progress-bar" id="progressBar"></div>
 
@@ -430,6 +489,47 @@ function formatDate(date) {
   </footer>
 
   <script is:inline>
+    /* ── INTRO SIGNAUX ── */
+    (function() {
+      var overlay = document.getElementById('signaux-intro');
+      if (!overlay) return;
+
+      var hasPlayed = sessionStorage.getItem('formev_signaux_intro_played');
+      var comingFromSite = document.referrer.includes('formev.fr');
+      if (hasPlayed === 'true' || comingFromSite) {
+        overlay.remove();
+        return;
+      }
+
+      overlay.classList.add('is-active');
+      sessionStorage.setItem('formev_signaux_intro_played', 'true');
+
+      var studio = overlay.querySelector('.signaux-intro__studio');
+      var sep = overlay.querySelector('.signaux-intro__sep');
+      var name = overlay.querySelector('.signaux-intro__name');
+
+      var wait = function(ms) {
+        return new Promise(function(resolve) { setTimeout(resolve, ms); });
+      };
+
+      async function runIntro() {
+        await wait(350);
+        studio.classList.add('is-visible');
+        await wait(500);
+        sep.classList.add('is-visible');
+        await wait(350);
+        name.classList.add('is-visible');
+        await wait(1200);
+        overlay.classList.add('is-wipe');
+        await wait(900);
+        overlay.remove();
+      }
+
+      window.addEventListener('load', function() {
+        setTimeout(runIntro, 150);
+      });
+    })();
+
     /* ── BARRE DE PROGRESSION ── */
     var bar = document.getElementById('progressBar');
     window.addEventListener('scroll', function() {
