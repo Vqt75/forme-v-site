@@ -3,7 +3,6 @@ import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   const posts = await getCollection('signaux');
-
   return posts.map((post) => ({
     params: { slug: post.id },
     props: { post },
@@ -28,39 +27,29 @@ function formatDate(date) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{post.data.title} — Forme V</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black: #0A0A08;
       --white: #FAFAF7;
       --ink: #1A1A18;
       --gray-mid: #6B6B68;
-      --gray-light: #E8E8E2;
-      --gray-rule: #D0D0C8;
+      --gray-rule: rgba(0,0,0,0.12);
       --blue-ink: #1E3A5F;
       --anthracite: #2C2C2A;
       --ocre: #8B6914;
-      --ocre-light: #F5EDD6;
       --ff-sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-      --space-xs: 0.5rem;
-      --space-sm: 1rem;
       --space-md: 2rem;
       --space-lg: 4rem;
       --space-xl: 8rem;
       --space-2xl: 12rem;
       --max-w: 1200px;
       --col-narrow: 720px;
-      --grid-gap: 3rem;
     }
 
     html { font-size: 16px; scroll-behavior: smooth; }
@@ -73,27 +62,25 @@ function formatDate(date) {
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
-      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpolyline points='7,3 12,16 17,3' fill='none' stroke='%231E3A5F' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E"), auto;
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' shape-rendering='geometricPrecision'%3E%3Cpolyline points='7,3 12,16 17,3' fill='none' stroke='%231E3A5F' stroke-width='1.2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E"), auto;
     }
 
-    h1, h2, h3, h4, h5 {
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
+    /* ── BARRE DE PROGRESSION ── */
+    .progress-bar {
+      position: fixed;
+      top: 56px;
+      left: 0;
+      height: 1px;
+      background: var(--ink);
+      width: 0%;
+      z-index: 99;
+      transition: width 0.1s linear;
     }
 
-    .t-display {
-      font-size: clamp(3rem, 6vw, 5.5rem);
-      font-weight: 300;
-      letter-spacing: -0.04em;
-      line-height: 1;
-    }
-
+    /* ── NAV ── */
     .nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       z-index: 100;
       background: var(--white);
       border-bottom: 1px solid var(--gray-rule);
@@ -112,7 +99,6 @@ function formatDate(date) {
       width: 100%;
       gap: 1rem;
       min-height: 56px;
-      position: relative;
     }
 
     .nav__logo {
@@ -121,14 +107,12 @@ function formatDate(date) {
       letter-spacing: -0.01em;
       text-decoration: none;
       color: var(--ink);
-      white-space: nowrap;
     }
 
     .nav__links {
       display: flex;
       gap: 2rem;
       list-style: none;
-      flex-wrap: wrap;
     }
 
     .nav__links a,
@@ -141,9 +125,7 @@ function formatDate(date) {
     }
 
     .nav__links a:hover,
-    .footer__links a:hover {
-      color: var(--ink);
-    }
+    .footer__links a:hover { color: var(--ink); }
 
     .nav__cta {
       font-size: 0.8125rem;
@@ -155,107 +137,121 @@ function formatDate(date) {
       white-space: nowrap;
     }
 
-    .article {
+    /* ── ARTICLE ── */
+    .article-wrap {
       max-width: calc(var(--col-narrow) + 4rem);
       margin: 0 auto;
-      padding: calc(8rem + 56px) 2rem 7rem;
+      padding: calc(7rem + 56px) 2rem 7rem;
+    }
+
+    /* Header */
+    .article__header {
+      margin-bottom: 4rem;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.65s ease 0.1s forwards;
     }
 
     .article__back {
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      font-size: 0.85rem;
-      letter-spacing: 0.06em;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       text-decoration: none;
-      color: var(--ink);
-      margin-bottom: 2.4rem;
-      opacity: 0.75;
-      transition: opacity 0.2s;
+      color: var(--gray-mid);
+      margin-bottom: 3rem;
+      transition: color 0.2s;
     }
 
-    .article__back:hover {
-      opacity: 1;
-    }
+    .article__back:hover { color: var(--ink); }
 
     .article__eyebrow {
       font-size: 0.6875rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--gray-mid);
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .article__title {
-      font-size: clamp(2.2rem, 4vw, 4rem);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
       font-weight: 300;
       letter-spacing: -0.04em;
-      line-height: 1.02;
-      margin-bottom: 1.5rem;
-      max-width: 900px;
+      line-height: 1.05;
+      margin-bottom: 1.75rem;
+      max-width: 680px;
     }
 
     .article__rule {
       width: 48px;
       height: 1px;
       background: var(--ink);
-      margin-bottom: 2rem;
+      margin-bottom: 1.75rem;
     }
 
     .article__desc {
       font-size: 1.1875rem;
       line-height: 1.75;
       color: var(--anthracite);
-      max-width: 720px;
-      margin-bottom: 4rem;
+      max-width: 620px;
     }
 
-    .article hr {
+    /* Séparateur */
+    .article__sep {
       border: none;
       border-top: 1px solid var(--gray-rule);
-      margin-bottom: 4rem;
+      margin: 3.5rem 0;
     }
 
+    /* Corps */
     .article__body {
-      max-width: 720px;
-      font-size: 1rem;
-      line-height: 1.9;
+      max-width: 640px;
+      font-size: 1.0625rem;
+      line-height: 1.85;
       color: var(--ink);
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.65s ease 0.3s forwards;
     }
 
-    .article__body p {
-      margin-bottom: 1.5rem;
-    }
+    .article__body p { margin-bottom: 1.65rem; }
+
+    .article__body p:last-child { margin-bottom: 0; }
 
     .article__body h2 {
       font-size: 1.5rem;
       font-weight: 400;
       letter-spacing: -0.02em;
       line-height: 1.25;
-      margin: 3rem 0 1rem;
+      margin: 3.5rem 0 1.25rem;
+      color: var(--ink);
     }
 
     .article__body h3 {
-      font-size: 1.2rem;
+      font-size: 1.1875rem;
       font-weight: 400;
       line-height: 1.35;
-      margin: 2rem 0 0.75rem;
+      margin: 2.5rem 0 0.875rem;
     }
 
     .article__body ul,
     .article__body ol {
-      margin: 0 0 1.5rem 1.25rem;
+      margin: 0 0 1.65rem 1.5rem;
     }
 
-    .article__body li {
-      margin-bottom: 0.5rem;
-    }
+    .article__body li { margin-bottom: 0.6rem; }
 
     .article__body blockquote {
       border-left: 2px solid var(--ink);
-      padding-left: 1.25rem;
-      margin: 2rem 0;
-      color: var(--gray-mid);
+      padding-left: 1.5rem;
+      margin: 2.5rem 0;
+      font-size: 1.25rem;
+      font-weight: 300;
+      line-height: 1.5;
+      letter-spacing: -0.02em;
+      color: var(--anthracite);
     }
 
     .article__body a {
@@ -263,14 +259,76 @@ function formatDate(date) {
       text-decoration: none;
     }
 
-    .article__body a:hover {
-      text-decoration: underline;
+    .article__body a:hover { text-decoration: underline; }
+
+    /* Chiffres clés */
+    .article__body .stat {
+      display: block;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      letter-spacing: -0.04em;
+      color: var(--blue-ink);
+      line-height: 1;
+      margin: 2.5rem 0 0.5rem;
     }
 
-    footer {
+    /* Navigation bas de page */
+    .article__footer {
+      margin-top: 5rem;
+      padding-top: 2rem;
       border-top: 1px solid var(--gray-rule);
-      padding: 3rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+
+    .article__footer-back {
+      font-size: 0.8125rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      color: var(--gray-mid);
+      transition: color 0.2s;
+    }
+
+    .article__footer-back:hover { color: var(--ink); }
+
+    .article__footer-brand {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--gray-mid);
+      letter-spacing: -0.01em;
+    }
+
+    /* Bouton retour en haut */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--gray-rule);
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s;
+      z-index: 50;
+    }
+
+    .back-to-top.visible { opacity: 1; transform: translateY(0); }
+    .back-to-top:hover { background: var(--ink); }
+    .back-to-top:hover svg polyline { stroke: var(--white); }
+
+    /* Animation */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--gray-rule); padding: 3rem 0; }
 
     .footer__inner {
       max-width: var(--max-w);
@@ -282,118 +340,76 @@ function formatDate(date) {
       gap: 2rem;
     }
 
-    .footer__brand {
-      font-size: 0.9375rem;
-      font-weight: 500;
-    }
+    .footer__brand { font-size: 0.9375rem; font-weight: 500; }
+    .footer__tagline { font-size: 0.8125rem; color: var(--gray-mid); margin-top: 0.25rem; }
+    .footer__copy { font-size: 0.6875rem; color: var(--gray-mid); margin-top: 0.5rem; letter-spacing: 0.04em; }
+    .footer__links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
 
-    .footer__tagline {
-      font-size: 0.8125rem;
-      color: var(--gray-mid);
-      margin-top: 0.25rem;
-    }
-
-    .footer__copy {
-      font-size: 0.6875rem;
-      color: var(--gray-mid);
-      margin-top: 0.5rem;
-      letter-spacing: 0.04em;
-    }
-
-    .footer__links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-      flex-wrap: wrap;
-    }
-
+    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       html { font-size: 15px; }
-
-      .article,
-      .footer__inner { padding-left: 1.25rem; padding-right: 1.25rem; }
-
-      .article {
-        padding-top: calc(7rem + 56px);
-        padding-bottom: 5rem;
-      }
-
-      .article__back {
-        margin-bottom: 2rem;
-        font-size: 0.8rem;
-      }
-
-      .article__desc {
-        font-size: 1.0625rem;
-        margin-bottom: 3rem;
-      }
-
-      .article hr {
-        margin-bottom: 3rem;
-      }
-
-      .article__body {
-        font-size: 0.98rem;
-        line-height: 1.85;
-      }
-
-      .footer__inner {
-        flex-direction: column;
-        gap: 1.5rem;
-        align-items: flex-start;
-      }
-
-      .footer__links {
-        gap: 1rem 1.25rem;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .nav__links {
-        display: none;
-      }
-
-      .nav__cta {
-        font-size: 0.75rem;
-        padding: 0.45rem 0.85rem;
-      }
+      .article-wrap { padding: calc(5rem + 56px) 1.25rem 5rem; }
+      .nav__links, .nav__cta { display: none; }
+      .article__title { font-size: clamp(1.8rem, 8vw, 2.5rem); }
+      .article__desc { font-size: 1.0625rem; }
+      .article__body { font-size: 1rem; line-height: 1.8; }
+      .article__footer { flex-direction: column; gap: 1rem; align-items: flex-start; }
+      .footer__inner { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+      .footer__links { gap: 1rem 1.25rem; }
+      .back-to-top { bottom: 1.25rem; right: 1.25rem; }
     }
   </style>
 </head>
 
 <body>
+
+  <!-- Barre de progression -->
+  <div class="progress-bar" id="progressBar"></div>
+
   <nav class="nav">
     <div class="nav__inner">
       <a href="/" class="nav__logo">Forme V</a>
-
       <ul class="nav__links">
         <li><a href="/#methode">Méthode</a></li>
         <li><a href="/#situations">Situations</a></li>
         <li><a href="/signaux">Signaux</a></li>
         <li><a href="/#apropos">À propos</a></li>
       </ul>
-
       <a href="/#contact" class="nav__cta">Nous contacter</a>
     </div>
   </nav>
 
-  <article class="article">
-    <a href="/signaux" class="article__back">← Tous les signaux</a>
+  <div class="article-wrap">
+    <article>
 
-    <p class="article__eyebrow">{formatDate(post.data.date)}</p>
+      <header class="article__header">
+        <a href="/signaux" class="article__back">← Signaux</a>
+        <p class="article__eyebrow">{formatDate(post.data.date)}</p>
+        <h1 class="article__title">{post.data.title}</h1>
+        <div class="article__rule"></div>
+        <p class="article__desc">{post.data.description}</p>
+      </header>
 
-    <h1 class="article__title">{post.data.title}</h1>
+      <hr class="article__sep" />
 
-    <div class="article__rule"></div>
+      <div class="article__body">
+        <Content />
+      </div>
 
-    <p class="article__desc">{post.data.description}</p>
+      <div class="article__footer">
+        <a href="/signaux" class="article__footer-back">← Tous les signaux</a>
+        <span class="article__footer-brand">Forme V</span>
+      </div>
 
-    <hr />
+    </article>
+  </div>
 
-    <div class="article__body">
-      <Content />
-    </div>
-  </article>
+  <!-- Bouton retour en haut -->
+  <button class="back-to-top" id="backToTop" aria-label="Retour en haut">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polyline points="2,9 7,4 12,9" stroke="#1A1A18" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
 
   <footer>
     <div class="footer__inner">
@@ -402,7 +418,6 @@ function formatDate(date) {
         <p class="footer__tagline">Architecture de récits et dispositifs d'attention</p>
         <p class="footer__copy">© 2026</p>
       </div>
-
       <ul class="footer__links">
         <li><a href="/#methode">Méthode</a></li>
         <li><a href="/#situations">Situations</a></li>
@@ -413,5 +428,31 @@ function formatDate(date) {
       </ul>
     </div>
   </footer>
+
+  <script is:inline>
+    /* ── BARRE DE PROGRESSION ── */
+    var bar = document.getElementById('progressBar');
+    window.addEventListener('scroll', function() {
+      var doc = document.documentElement;
+      var scrollTop = doc.scrollTop || document.body.scrollTop;
+      var scrollHeight = doc.scrollHeight - doc.clientHeight;
+      var pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      bar.style.width = pct + '%';
+    });
+
+    /* ── BACK TO TOP ── */
+    var backBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 400) {
+        backBtn.classList.add('visible');
+      } else {
+        backBtn.classList.remove('visible');
+      }
+    });
+    backBtn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
 </body>
 </html>

@@ -34,7 +34,7 @@ function formatDate(date) {
       --white: #FAFAF7;
       --ink: #1A1A18;
       --gray-mid: #6B6B68;
-      --gray-rule: #D0D0C8;
+      --gray-rule: rgba(0,0,0,0.12);
       --blue-ink: #1E3A5F;
       --anthracite: #2C2C2A;
       --ff-sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
@@ -55,7 +55,7 @@ function formatDate(date) {
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
-      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpolyline points='7,3 12,16 17,3' fill='none' stroke='%231E3A5F' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E"), auto;
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' shape-rendering='geometricPrecision'%3E%3Cpolyline points='7,3 12,16 17,3' fill='none' stroke='%231E3A5F' stroke-width='1.2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E"), auto;
     }
 
     .container {
@@ -86,7 +86,6 @@ function formatDate(date) {
       width: 100%;
       gap: 1rem;
       min-height: 56px;
-      position: relative;
     }
 
     .nav__logo {
@@ -96,7 +95,6 @@ function formatDate(date) {
       text-decoration: none;
       color: var(--ink);
       white-space: nowrap;
-      z-index: 102;
     }
 
     .nav__links {
@@ -117,7 +115,6 @@ function formatDate(date) {
 
     .nav__links a:hover,
     .footer__links a:hover { color: var(--ink); }
-
     .nav__links a.active { color: var(--ink); font-weight: 500; }
 
     .nav__cta {
@@ -130,7 +127,6 @@ function formatDate(date) {
       white-space: nowrap;
     }
 
-    /* hamburger — invisible par défaut, visible seulement en mobile via media query */
     .nav__mobile-toggle {
       display: none;
       width: 42px;
@@ -157,7 +153,6 @@ function formatDate(date) {
     .nav__mobile-toggle.is-open span:nth-child(2) { opacity: 0; }
     .nav__mobile-toggle.is-open span:nth-child(3) { transform: translateY(-4px) rotate(-45deg); }
 
-    /* ── MENU MOBILE ── */
     .mobile-menu {
       opacity: 0;
       pointer-events: none;
@@ -170,7 +165,6 @@ function formatDate(date) {
     }
 
     .mobile-menu.active { opacity: 1; pointer-events: auto; }
-
     .mobile-menu__inner { padding: 1rem 1.25rem 1.5rem; }
 
     .mobile-menu__links {
@@ -237,7 +231,6 @@ function formatDate(date) {
       line-height: 1;
     }
 
-    /* ── ANIMATION TITRE ── */
     .hero-title-animated {
       display: flex;
       flex-direction: column;
@@ -256,7 +249,23 @@ function formatDate(date) {
     .hero-title-animated.is-visible .hero-line:nth-child(1) { transition-delay: 0.05s; }
     .hero-title-animated.is-visible .hero-line:nth-child(2) { transition-delay: 0.28s; }
 
-    /* ── LISTE SIGNAUX ── */
+    /* ── COMPTEUR ── */
+    .signals__meta {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 0;
+      padding-bottom: 1.5rem;
+    }
+
+    .signals__count {
+      font-size: 0.6875rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+    }
+
+    /* ── LISTE ── */
     .signals { padding: 0 0 var(--space-xl); }
 
     .signals__list { border-top: 1px solid var(--gray-rule); }
@@ -268,36 +277,95 @@ function formatDate(date) {
       grid-template-columns: 160px 1fr;
       gap: 3rem;
       align-items: start;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .signal-item.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .signal-date {
       font-size: 0.8125rem;
       color: var(--gray-mid);
       letter-spacing: 0.04em;
+      padding-top: 0.2rem;
     }
+
+    .signal-content { display: flex; flex-direction: column; gap: 0.6rem; }
 
     .signal-title {
       font-size: 1.25rem;
       font-weight: 400;
       letter-spacing: -0.02em;
-      margin-bottom: 0.6rem;
       line-height: 1.35;
     }
 
-    .signal-title a { text-decoration: none; color: var(--ink); }
+    .signal-title a {
+      text-decoration: none;
+      color: var(--ink);
+      transition: color 0.2s;
+    }
+
     .signal-title a:hover { color: var(--blue-ink); }
 
     .signal-desc {
       font-size: 0.9375rem;
       color: var(--gray-mid);
       line-height: 1.7;
+      max-width: 620px;
     }
 
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--gray-rule);
-      padding: 3rem 0;
+    .signal-read {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.8125rem;
+      color: var(--blue-ink);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      margin-top: 0.5rem;
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity 0.2s, transform 0.2s;
     }
+
+    .signal-item:hover .signal-read {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ── BACK TO TOP ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--gray-rule);
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 50;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .back-to-top:hover { background: var(--ink); }
+    .back-to-top:hover svg polyline { stroke: var(--white); }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--gray-rule); padding: 3rem 0; }
 
     .footer__inner {
       max-width: var(--max-w);
@@ -310,26 +378,9 @@ function formatDate(date) {
     }
 
     .footer__brand { font-size: 0.9375rem; font-weight: 500; }
-
-    .footer__tagline {
-      font-size: 0.8125rem;
-      color: var(--gray-mid);
-      margin-top: 0.25rem;
-    }
-
-    .footer__copy {
-      font-size: 0.6875rem;
-      color: var(--gray-mid);
-      margin-top: 0.5rem;
-      letter-spacing: 0.04em;
-    }
-
-    .footer__links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-      flex-wrap: wrap;
-    }
+    .footer__tagline { font-size: 0.8125rem; color: var(--gray-mid); margin-top: 0.25rem; }
+    .footer__copy { font-size: 0.6875rem; color: var(--gray-mid); margin-top: 0.5rem; letter-spacing: 0.04em; }
+    .footer__links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
@@ -340,8 +391,10 @@ function formatDate(date) {
       .nav__links, .nav__cta { display: none; }
       .nav__mobile-toggle { display: inline-flex; }
       .signal-item { grid-template-columns: 1fr; gap: 0.75rem; }
+      .signal-read { opacity: 1; transform: translateX(0); }
       .footer__inner { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
       .footer__links { gap: 1rem 1.25rem; }
+      .back-to-top { bottom: 1.25rem; right: 1.25rem; }
     }
   </style>
 </head>
@@ -358,9 +411,7 @@ function formatDate(date) {
       </ul>
       <a href="/#contact" class="nav__cta">Nous contacter</a>
       <button class="nav__mobile-toggle" id="mobileMenuToggle" aria-label="Ouvrir le menu">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
@@ -382,8 +433,8 @@ function formatDate(date) {
     <div class="container">
       <p class="hero__eyebrow">Signaux</p>
       <h1 class="t-display hero__title hero-title-animated" id="signauxTitle">
-        <span class="hero-line">Observations, analyses et textes courts</span>
-        <span class="hero-line">sur ce qui rend une parole visible, lisible ou inaudible.</span>
+        <span class="hero-line">Observations, analyses</span>
+        <span class="hero-line">et prises de position.</span>
       </h1>
       <div class="hero__rule"></div>
       <p class="hero__intro">
@@ -394,21 +445,32 @@ function formatDate(date) {
 
   <section class="signals">
     <div class="container">
+      <div class="signals__meta">
+        <span class="signals__count">{sorted.length} signal{sorted.length > 1 ? 's' : ''}</span>
+      </div>
       <div class="signals__list">
         {sorted.map((post) => (
           <div class="signal-item">
             <p class="signal-date">{formatDate(post.data.date)}</p>
-            <div>
+            <div class="signal-content">
               <h2 class="signal-title">
                 <a href={`/signaux/${post.id}`}>{post.data.title}</a>
               </h2>
               <p class="signal-desc">{post.data.description}</p>
+              <a href={`/signaux/${post.id}`} class="signal-read">Lire →</a>
             </div>
           </div>
         ))}
       </div>
     </div>
   </section>
+
+  <!-- Bouton retour en haut -->
+  <button class="back-to-top" id="backToTop" aria-label="Retour en haut">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polyline points="2,9 7,4 12,9" stroke="#1A1A18" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
 
   <footer>
     <div class="footer__inner">
@@ -443,9 +505,8 @@ function formatDate(date) {
     if (mobileToggle) {
       mobileToggle.addEventListener('click', function() {
         var isOpen = mobileMenu.classList.contains('active');
-        if (isOpen) {
-          closeMobileMenu();
-        } else {
+        if (isOpen) { closeMobileMenu(); }
+        else {
           mobileMenu.classList.add('active');
           mobileToggle.classList.add('is-open');
           mobileToggle.setAttribute('aria-label', 'Fermer le menu');
@@ -466,6 +527,35 @@ function formatDate(date) {
         var title = document.getElementById('signauxTitle');
         if (title) title.classList.add('is-visible');
       });
+    });
+
+    /* ── SCROLL REVEAL ARTICLES ── */
+    var items = document.querySelectorAll('.signal-item');
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        } else {
+          entry.target.classList.remove('visible');
+        }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+
+    setTimeout(function() {
+      items.forEach(function(el) { observer.observe(el); });
+    }, 100);
+
+    /* ── BACK TO TOP ── */
+    var backBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 400) {
+        backBtn.classList.add('visible');
+      } else {
+        backBtn.classList.remove('visible');
+      }
+    });
+    backBtn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>
 </body>
