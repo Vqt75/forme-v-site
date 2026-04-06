@@ -18,9 +18,7 @@ Autrement dit : l'image explique, mais elle ne fait pas expérience.
 
 Ce décalage pose une question. Est-il volontaire ? S'agit-il d'un choix pour éviter de choquer, pour neutraliser la violence, pour rendre la campagne acceptable dans l'espace public ? Ou est-ce la conséquence d'un mode de production ?
 
-Ces images semblent avoir été générées, ou fortement assistées, par des outils d'intelligence artificielle. Et c'est peut-être là que se joue quelque chose de plus profond.
-
-L'intelligence artificielle permet aujourd'hui de produire très rapidement des scènes cohérentes, lisibles, techniquement irréprochables. Mais ce qu'elle produit ici, ce ne sont pas seulement des images. Elle produit une forme de distance.
+Ces visuels ont été produits avec le concours d'outils génératifs — ce qui n'est pas sans effet sur ce qu'ils donnent à voir. L'intelligence artificielle permet aujourd'hui de produire très rapidement des scènes cohérentes, lisibles, techniquement irréprochables. Mais ce qu'elle produit ici, ce ne sont pas seulement des images. Elle produit une forme de distance.
 
 Entre la situation et celui qui la regarde. Entre le risque et sa perception.
 
@@ -30,13 +28,25 @@ Ce qui est donné à voir est juste. Mais ne parvient pas à adhérer.
 
 ## Deux symptômes des récits contemporains
 
-Ces symptômes ne sont pas des fautes de communication. Ils sont le plus souvent la conséquence d'un récit qui n'a pas été construit avant que la communication commence.
+Ces symptômes ne sont pas des fautes de communication. Ils sont la conséquence d'un récit qui n'a pas été construit avant que la communication commence.
 
-Cette campagne publique part d'une bonne intention. Elle veut prévenir, montrer, faire comprendre. Mais elle traduit aussi, de manière presque exemplaire, deux symptômes que l'on retrouve dans de nombreux récits contemporains.
+Cette campagne publique part d'une bonne intention. Elle veut prévenir, montrer, faire comprendre. Mais elle traduit aussi deux symptômes que l'on retrouve dans de nombreux récits contemporains.
 
 D'une part, ce que l'on peut appeler un [récit technique](/#situations). Tout est pensé pour être compris : la situation est claire, le message explicite, le danger identifié. Mais l'ensemble reste au niveau de l'explication. Il parle à la compréhension, sans parvenir à engager une expérience. On sait ce qu'il faut retenir, sans que cela produise réellement d'effet.
 
-D'autre part, un [récit épuisé](/#situations). Le sujet traité est profondément réel : le risque, le corps, l'accident. Mais il est mis en scène à travers une représentation artificialisée. Le corps devient un mannequin, la chute une démonstration, la violence une simulation. Le bon sujet est traité au mauvais niveau, ce qui crée une forme de distance.
+D'autre part, un [récit épuisé](/#situations). Les formes utilisées sont immédiatement reconnaissables, mais elles ne produisent plus d'impact. Elles ont déjà été vues, déjà intégrées, déjà neutralisées. Ce qui devrait alerter ou marquer laisse place à une forme d'indifférence.
+
+Ce point est d'autant plus intéressant que la forme mobilisée ici — le mannequin, la simulation, la démonstration — est loin d'être nouvelle.
+
+On peut faire l'hypothèse que l'usage de l'intelligence artificielle répond à une tentative de renouvellement. Reprendre un code connu, mais en le modernisant, en le rendant plus contemporain, plus "actuel".
+
+Autrement dit, redonner de la force à un récit déjà épuisé en changeant son mode de production.
+
+Mais ce déplacement ne suffit pas.
+
+L'outil transforme l'image, pas la structure du récit. Il en renouvelle l'apparence, sans en modifier les conditions d'effet.
+
+Ce qui était déjà vu le reste. Ce qui n'adhérait plus n'adhère pas davantage.
 
 Dans les deux cas, le problème n'est ni l'intention, ni même la qualité apparente d'exécution. C'est l'écart entre ce qui est montré et la manière dont cela peut être vécu.
 
