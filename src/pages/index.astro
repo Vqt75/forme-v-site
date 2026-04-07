@@ -45,7 +45,7 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
-      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' shape-rendering='geometricPrecision'%3E%3Cpolyline points='7,3 12,16 17,3' fill='none' stroke='%231E3A5F' stroke-width='1.2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E"), auto;
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpolyline points='7,3 12,16 17,3' fill='none' stroke='%231E3A5F' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E"), auto;
     }
 
     h1, h2, h3, h4, h5 {
@@ -103,38 +103,7 @@
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--grid-gap); }
     .grid-asymmetric { display: grid; grid-template-columns: 1fr 2fr; gap: var(--grid-gap); }
 
-    .rule { border: none; border-top: 1px solid rgba(0,0,0,0.12); }
-
-    /* ── POST-INTRO REVEAL ── */
-    body.intro-active #page-accueil .hero__eyebrow,
-    body.intro-active #page-accueil .hero__title,
-    body.intro-active #page-accueil .hero__rule,
-    body.intro-active #page-accueil .hero__intro,
-    body.intro-active #page-accueil .hero__recognition {
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.45s ease, transform 0.45s ease;
-    }
-
-    body.intro-active #page-accueil .hero__eyebrow.hero-revealed,
-    body.intro-active #page-accueil .hero__title.hero-revealed,
-    body.intro-active #page-accueil .hero__rule.hero-revealed,
-    body.intro-active #page-accueil .hero__intro.hero-revealed,
-    body.intro-active #page-accueil .hero__recognition.hero-revealed {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    /* ── FIN POST-INTRO REVEAL ── */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .rule { border: none; border-top: 1px solid var(--gray-rule); }
 
     .nav {
       position: fixed;
@@ -159,8 +128,6 @@
       min-height: 56px;
       position: relative;
     }
-
-    .nav__logo:focus-visible { outline: none; }
 
     .nav__logo {
       font-size: 0.9375rem;
@@ -447,6 +414,7 @@
       position: relative;
       padding: 2.5rem;
       border: 1px solid var(--ink);
+      clip-path: polygon(0% 1.5%, 1% 0%, 98.5% 0.5%, 100% 1%, 99.5% 98.5%, 100% 100%, 1.5% 99%, 0% 100%);
     }
 
     footer { border-top: 1px solid var(--gray-rule); padding: 3rem 0; }
@@ -566,11 +534,6 @@
       overflow: hidden;
       clip-path: inset(0 0 0 0);
       transition: clip-path 0.85s cubic-bezier(0.76, 0, 0.24, 1);
-      visibility: hidden;
-    }
-
-    #intro-overlay.is-active {
-      visibility: visible;
     }
 
     #intro-overlay.is-wipe {
@@ -782,7 +745,7 @@
 
     <div class="container"><hr class="rule"></div>
 
-    <section class="section--tight fade-in">
+    <section class="section--tight">
       <div class="container">
         <div class="grid-asymmetric" style="gap: 4rem; align-items: start;">
           <div><p class="t-label">Thèse centrale</p></div>
@@ -804,7 +767,7 @@
       </div>
     </section>
 
-    <section style="padding: 0 0 var(--space-xl);" class="fade-in">
+    <section style="padding: 0 0 var(--space-xl);">
       <div class="container">
         <hr class="rule mb-lg">
         <p class="t-label mb-md">Méthode en trois actes</p>
@@ -846,7 +809,7 @@
       </div>
     </section>
 
-    <section style="padding: 0 0 var(--space-xl);" class="fade-in">
+    <section style="padding: 0 0 var(--space-xl);">
       <div class="container">
         <hr class="rule mb-lg">
         <div class="grid-asymmetric what-we-do-block">
@@ -908,7 +871,7 @@
       </div>
     </section>
 
-    <section style="padding: var(--space-xl) 0;" class="fade-in">
+    <section style="padding: var(--space-xl) 0;">
       <div class="container" style="text-align: center;">
         <p class="t-label mb-md">Première conversation</p>
         <h2 class="t-headline" style="max-width: 760px; margin: 0 auto var(--space-md);">
@@ -1235,7 +1198,7 @@
       <div class="container">
         <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--gray-rule);">
           <div style="padding: 2.5rem 2rem; border-right: 1px solid var(--gray-rule);">
-            <p class="t-number" style="color: var(--gray-mid);">3</p>
+            <p class="t-number">3</p>
             <p style="font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-mid); margin-top: 0.5rem;">Actes d'intervention</p>
           </div>
           <div style="padding: 2.5rem 2rem; border-right: 1px solid var(--gray-rule);">
@@ -1405,19 +1368,13 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
         triggerHeroAnimation(target);
         closeMobileMenu();
-        if (pageId === 'accueil') {
-          history.replaceState(null, '', window.location.pathname);
-        } else {
-          history.replaceState(null, '', '#' + pageId);
-        }
       }
     }
 
+    triggerHeroAnimation(document.getElementById('page-accueil'));
     var hash = window.location.hash.replace('#', '');
     if (hash && document.getElementById('page-' + hash)) {
       showPage(hash);
-    } else {
-      triggerHeroAnimation(document.getElementById('page-accueil'));
     }
   </script>
 
@@ -1427,15 +1384,13 @@
       var overlay = document.getElementById('intro-overlay');
       if (!overlay) return;
 
-      var hasPlayed = sessionStorage.getItem('formev_intro_played');
+      var hasPlayed = localStorage.getItem('formev_intro_played');
       if (hasPlayed === 'true') {
         overlay.remove();
         return;
       }
 
-      overlay.classList.add('is-active');
-      document.body.classList.add('intro-active');
-      sessionStorage.setItem('formev_intro_played', 'true');
+      localStorage.setItem('formev_intro_played', 'true');
 
       var words = Array.from(document.querySelectorAll('.intro-word'));
       var name = document.querySelector('.intro-name');
@@ -1454,7 +1409,6 @@
           word.classList.remove('is-visible', 'is-exit');
         }
 
-        await wait(150);
         name.classList.add('is-visible');
         await wait(900);
         name.classList.remove('is-visible');
@@ -1463,47 +1417,10 @@
         overlay.classList.add('is-wipe');
         await wait(900);
         overlay.remove();
-
-        // Reveal hero en cascade
-        var heroEls = [
-          document.querySelector('#page-accueil .hero__eyebrow'),
-          document.querySelector('#page-accueil .hero__title'),
-          document.querySelector('#page-accueil .hero__rule'),
-          document.querySelector('#page-accueil .hero__intro'),
-          document.querySelector('#page-accueil .hero__recognition')
-        ];
-        heroEls.forEach(function(el, i) {
-          if (!el) return;
-          setTimeout(function() {
-            el.classList.add('hero-revealed');
-          }, i * 120);
-        });
       }
       window.addEventListener('load', function() {
-        setTimeout(runIntro, 450);
+        setTimeout(runIntro, 120);
       });
-    })();
-  </script>
-
-  <!-- SCROLL REVEAL -->
-  <script>
-    (function () {
-      var elements = document.querySelectorAll('.fade-in');
-      if (!elements.length) return;
-
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          } else {
-            entry.target.classList.remove('visible');
-          }
-        });
-      }, { threshold: 0, rootMargin: '0px 0px -60px 0px' });
-
-      setTimeout(function() {
-        elements.forEach(function(el) { observer.observe(el); });
-      }, 100);
     })();
   </script>
 
