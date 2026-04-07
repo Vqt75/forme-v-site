@@ -541,10 +541,10 @@ function formatDate(date) {
 
       <hr class="article__sep" />
 
-      {post.data.image && (
+      {post.id === 'quand-liamage-fait-filtre' && (
         <figure class="article__image">
-          <img src={post.data.image} alt={post.data.imageAlt || post.data.title} />
-          {post.data.imageCaption && <figcaption>{post.data.imageCaption}</figcaption>}
+          <img src="/images/ratp-campagne.jpg" alt={post.data.title} />
+          <figcaption>Campagne RATP, 2025.</figcaption>
         </figure>
       )}
 
