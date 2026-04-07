@@ -2,6 +2,8 @@
 title: Quand l'I(A)mage fait filtre
 date: 2026-04-06
 description: Une campagne de sécurité dans le métro parisien. Des mannequins à la place des corps. Des scènes lisibles, un message clair. Et pourtant, quelque chose ne prend pas. Ce que cette campagne révèle sur ce qui se passe quand la forme produit de la distance plutôt que de l'expérience.
+image: /images/ratp-campagne.jpg
+imageCaption: Campagne RATP, 2025.
 ---
 
 Dans le métro parisien, la RATP a déployé récemment une campagne de sensibilisation sur les comportements à risque.

@@ -189,6 +189,71 @@ function formatDate(date) {
       white-space: nowrap;
     }
 
+    .nav__mobile-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--gray-rule);
+      background: var(--white);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+      z-index: 102;
+    }
+
+    .nav__mobile-toggle span {
+      display: block;
+      width: 18px;
+      height: 1px;
+      background: var(--ink);
+      margin: 3px 0;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .nav__mobile-toggle.is-open span:nth-child(1) { transform: translateY(4px) rotate(45deg); }
+    .nav__mobile-toggle.is-open span:nth-child(2) { opacity: 0; }
+    .nav__mobile-toggle.is-open span:nth-child(3) { transform: translateY(-4px) rotate(-45deg); }
+
+    .mobile-menu {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.65s ease;
+      position: fixed;
+      top: 56px; left: 0; right: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-rule);
+      z-index: 99;
+    }
+
+    .mobile-menu.active { opacity: 1; pointer-events: auto; }
+    .mobile-menu__inner { padding: 1rem 1.25rem 1.5rem; }
+
+    .mobile-menu__links {
+      list-style: none;
+      display: grid;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .mobile-menu__links a {
+      display: block;
+      font-size: 0.95rem;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+
+    .mobile-menu__cta {
+      display: inline-block;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      padding: 0.7rem 1rem;
+    }
+
     /* ── ARTICLE ── */
     .article-wrap {
       max-width: calc(var(--col-narrow) + 4rem);
@@ -196,7 +261,6 @@ function formatDate(date) {
       padding: calc(7rem + 56px) 2rem 7rem;
     }
 
-    /* Header */
     .article__header {
       margin-bottom: 4rem;
       opacity: 0;
@@ -250,14 +314,36 @@ function formatDate(date) {
       max-width: 620px;
     }
 
-    /* Séparateur */
     .article__sep {
       border: none;
       border-top: 1px solid var(--gray-rule);
       margin: 3.5rem 0;
     }
 
-    /* Corps */
+    /* ── IMAGE ARTICLE ── */
+    .article__image {
+      width: 100%;
+      margin: 0 0 3.5rem;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.65s ease 0.2s forwards;
+    }
+
+    .article__image img {
+      width: 100%;
+      display: block;
+      filter: grayscale(20%) contrast(1.05) brightness(0.97);
+    }
+
+    .article__image figcaption {
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      color: var(--gray-mid);
+      margin-top: 0.75rem;
+      line-height: 1.5;
+    }
+    /* ── FIN IMAGE ARTICLE ── */
+
     .article__body {
       max-width: 640px;
       font-size: 1.0625rem;
@@ -269,7 +355,6 @@ function formatDate(date) {
     }
 
     .article__body p { margin-bottom: 1.65rem; }
-
     .article__body p:last-child { margin-bottom: 0; }
 
     .article__body h2 {
@@ -289,9 +374,7 @@ function formatDate(date) {
     }
 
     .article__body ul,
-    .article__body ol {
-      margin: 0 0 1.65rem 1.5rem;
-    }
+    .article__body ol { margin: 0 0 1.65rem 1.5rem; }
 
     .article__body li { margin-bottom: 0.6rem; }
 
@@ -306,14 +389,9 @@ function formatDate(date) {
       color: var(--anthracite);
     }
 
-    .article__body a {
-      color: var(--blue-ink);
-      text-decoration: none;
-    }
-
+    .article__body a { color: var(--blue-ink); text-decoration: none; }
     .article__body a:hover { text-decoration: underline; }
 
-    /* Chiffres clés */
     .article__body .stat {
       display: block;
       font-size: clamp(2.5rem, 5vw, 4rem);
@@ -324,7 +402,6 @@ function formatDate(date) {
       margin: 2.5rem 0 0.5rem;
     }
 
-    /* Navigation bas de page */
     .article__footer {
       margin-top: 5rem;
       padding-top: 2rem;
@@ -351,7 +428,6 @@ function formatDate(date) {
       letter-spacing: -0.01em;
     }
 
-    /* Bouton retour en haut */
     .back-to-top {
       position: fixed;
       bottom: 2rem;
@@ -374,12 +450,10 @@ function formatDate(date) {
     .back-to-top:hover { background: var(--ink); }
     .back-to-top:hover svg polyline { stroke: var(--white); }
 
-    /* Animation */
     @keyframes fadeUp {
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── FOOTER ── */
     footer { border-top: 1px solid var(--gray-rule); padding: 3rem 0; }
 
     .footer__inner {
@@ -397,11 +471,11 @@ function formatDate(date) {
     .footer__copy { font-size: 0.6875rem; color: var(--gray-mid); margin-top: 0.5rem; letter-spacing: 0.04em; }
     .footer__links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       html { font-size: 15px; }
       .article-wrap { padding: calc(5rem + 56px) 1.25rem 5rem; }
       .nav__links, .nav__cta { display: none; }
+      .nav__mobile-toggle { display: inline-flex; }
       .article__title { font-size: clamp(1.8rem, 8vw, 2.5rem); }
       .article__desc { font-size: 1.0625rem; }
       .article__body { font-size: 1rem; line-height: 1.8; }
@@ -435,8 +509,24 @@ function formatDate(date) {
         <li><a href="/#apropos">À propos</a></li>
       </ul>
       <a href="/#contact" class="nav__cta">Nous contacter</a>
+      <button class="nav__mobile-toggle" id="mobileMenuToggle" aria-label="Ouvrir le menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu__inner">
+      <ul class="mobile-menu__links">
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/#methode">Méthode</a></li>
+        <li><a href="/#situations">Situations</a></li>
+        <li><a href="/signaux">Signaux</a></li>
+        <li><a href="/#apropos">À propos</a></li>
+      </ul>
+      <a href="/#contact" class="mobile-menu__cta">Nous contacter</a>
+    </div>
+  </div>
 
   <div class="article-wrap">
     <article>
@@ -451,6 +541,13 @@ function formatDate(date) {
 
       <hr class="article__sep" />
 
+      {post.data.image && (
+        <figure class="article__image">
+          <img src={post.data.image} alt={post.data.imageAlt || post.data.title} />
+          {post.data.imageCaption && <figcaption>{post.data.imageCaption}</figcaption>}
+        </figure>
+      )}
+
       <div class="article__body">
         <Content />
       </div>
@@ -463,7 +560,6 @@ function formatDate(date) {
     </article>
   </div>
 
-  <!-- Bouton retour en haut -->
   <button class="back-to-top" id="backToTop" aria-label="Retour en haut">
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
       <polyline points="2,9 7,4 12,9" stroke="#1A1A18" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -489,6 +585,36 @@ function formatDate(date) {
   </footer>
 
   <script is:inline>
+    /* ── MENU MOBILE ── */
+    var mobileToggle = document.getElementById('mobileMenuToggle');
+    var mobileMenu = document.getElementById('mobileMenu');
+
+    function closeMobileMenu() {
+      if (!mobileMenu || !mobileToggle) return;
+      mobileMenu.classList.remove('active');
+      mobileToggle.classList.remove('is-open');
+      mobileToggle.setAttribute('aria-label', 'Ouvrir le menu');
+    }
+
+    if (mobileToggle) {
+      mobileToggle.addEventListener('click', function() {
+        var isOpen = mobileMenu.classList.contains('active');
+        if (isOpen) { closeMobileMenu(); }
+        else {
+          mobileMenu.classList.add('active');
+          mobileToggle.classList.add('is-open');
+          mobileToggle.setAttribute('aria-label', 'Fermer le menu');
+        }
+      });
+    }
+
+    document.addEventListener('click', function(e) {
+      if (!mobileMenu || !mobileToggle) return;
+      if (!mobileMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+        if (mobileMenu.classList.contains('active')) closeMobileMenu();
+      }
+    });
+
     /* ── INTRO SIGNAUX ── */
     (function() {
       var overlay = document.getElementById('signaux-intro');
