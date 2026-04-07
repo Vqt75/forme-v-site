@@ -661,7 +661,7 @@ function formatDate(date) {
     var bar = document.getElementById('progressBar');
     window.addEventListener('scroll', function() {
       var doc = document.documentElement;
-      var scrollTop = doc.scrollTop || document.body.scrollTop;
+      var scrollTop = window.pageYOffset || doc.scrollTop || document.body.scrollTop;
       var scrollHeight = doc.scrollHeight - doc.clientHeight;
       var pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
       bar.style.width = pct + '%';
